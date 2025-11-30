@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房貸額度全方位評估表 - 宏國地政｜易丞地政</title>
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --accent-color: #d4a017;
+            --line-color: #06c755;
+            --bg-color: #f4f4f4;
+            --card-bg: #ffffff;
+            
+            /* 顏色變數 */
+            --safe-green: #2ecc71;
+            --limit-red: #e74c3c;
+            --general-bg: #e3f2fd;
+            --public-bg: #2c3e50;
+        }
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px 20px 80px 20px; /* 底部留白給懸浮按鈕 */
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* --- Logo 區塊 --- */
+        .logo-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo-img {
+            max-width: 100%;
+            height: auto;
+            max-height: 80px; 
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 10px;
+        }
+        
+        /* 影片與新聞連結區塊 */
+        .news-alert {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        .news-alert a {
+            color: #d9534f;
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .intro-text {
+            background-color: #eef7fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        /* 表單通用樣式 */
+        .form-section {
+            margin-bottom: 25px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .form-section h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        .form-section h3::before { content: '📋 '; margin-right: 5px; }
+        
+        label { display: block; margin-bottom: 5px; font-weight: bold; margin-top: 15px; }
+        input, select, textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 16px;
+        }
+        textarea { height: 80px; }
+        
+        /* 提示框 */
+        .tip-box {
+            display: none; 
+            margin-top: 10px; 
+            background-color: #fff8e1; 
+            border: 1px solid #ffe0b2; 
+            padding: 10px; 
+            border-radius: 4px; 
+            font-size: 0.9em; 
+            color: #8d6e63;
+            line-height: 1.5;
+        }
+        .tip-box strong { color: #e65100; }
+        
+        /* 負債備註區塊 */
+        .debt-note {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--limit-red);
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .debt-note ul { margin: 5px 0 10px 0; padding-left: 20px; }
+        .debt-note li { margin-bottom: 3px; }
+
+        /* --- 試算結果區塊 --- */
+        .result-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .calc-box-general {
+            background: var(--general-bg);
+            border: 2px solid #2196f3;
+            padding: 20px;
+            border-radius: 10px;
+            color: #0d47a1;
+        }
+        .general-split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        @media (max-width: 600px) {
+            .general-split-grid { grid-template-columns: 1fr; }
+        }
+
+        .sub-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .sub-card.safe { border-top: 4px solid var(--safe-green); }
+        .sub-card.limit { border-top: 4px solid var(--limit-red); }
+        
+        .res-title { font-size: 0.9em; font-weight: bold; margin-bottom: 5px; display: block; }
+        .res-value { font-size: 1.6em; font-weight: bold; }
+        .safe .res-value { color: var(--safe-green); }
+        .limit .res-value { color: var(--limit-red); }
+
+        .calc-box-public {
+            background: var(--public-bg);
+            border: 2px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .ref-image { 
+            width: 100%; 
+            height: auto; 
+            border-radius: 8px; 
+            border: 2px solid #fff; 
+            margin-bottom: 15px; 
+        }
+        .dependent-highlight {
+            background-color: rgba(255, 193, 7, 0.2);
+            border: 1px solid #ffc107;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* --- QA 折疊區塊 --- */
+        .qa-toggle-btn {
+            background-color: #f0f0f0;
+            color: #555;
+            border: 1px solid #ccc;
+            padding: 12px;
+            width: 100%;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .qa-toggle-btn::after {
+            content: '▼';
+            font-size: 0.8em;
+        }
+        
+        #qa-container {
+            display: none; 
+            margin-top: 15px;
+            border-top: 2px solid var(--accent-color);
+            padding-top: 15px;
+        }
+
+        details {
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            background: #fff;
+        }
+        summary {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #f9f9f9;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none; 
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5em; color: #999; line-height: 0.8; }
+        details[open] summary { background-color: #eef7fa; color: var(--primary-color); }
+        details[open] summary::after { content: '-'; color: var(--primary-color); }
+        .qa-content { padding: 20px; line-height: 1.6; color: #555; background-color: #fff; border-top: 1px solid #eee; }
+        .qa-tag-danger { background: var(--limit-red); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; margin-right: 5px; }
+
+        /* --- 懸浮按鈕 (Sticky Bottom) --- */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 999;
+        }
+        .sticky-btn {
+            background-color: var(--line-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(6, 199, 85, 0.4);
+            width: 90%;
+            max-width: 600px;
+            animation: pulse 2s infinite;
+        }
+        .sticky-btn:hover { background-color: #05a546; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; font-size: 0.9em; }
+        .youtube-link { color: #ff0000 !important; font-weight: bold; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="logo-header">
+        <img src="宏國地政封面.jpg" alt="宏國地政 Logo" class="logo-img">
+        <img src="易丞logo-01.jpg" alt="易丞地政 Logo" class="logo-img">
+    </div>
+
+    <h1>📝 房貸額度全方位評估表</h1>
+    
+    <div class="news-alert">
+        <strong>🔥 繼承房產必看影片‼️ 這樣做最省稅：</strong>
+        <a href="https://youtube.com/shorts/3tcLcY8YpHA?si=1k3DkxfRMNCpXGjG" target="_blank">📺 點擊觀看：繼承後房產的影片</a>
+        <a href="https://ec.ltn.com.tw/article/breakingnews/5175188" target="_blank">📰 新聞快訊：台銀收支比變更為180%</a>
+    </div>
+
+    <div class="intro-text">
+        <p>本表單提供<strong>「宏國安全建議」、「市場極限值」</strong>與<strong>「公股銀行 (嚴格)」</strong>三種估價邏輯，協助您快速判斷<strong>最高貸款額度</strong>。</p>
+    </div>
+
+    <form id="loanForm">
+        <div class="form-section">
+            <h3>客戶背景資料</h3>
+            <label>Q1：客戶職業別是什麼❓</label>
+            <select id="occupation" onchange="showOccupationTip()">
+                <option value="">-- 請選擇 --</option>
+                <option value="自營商">自營商/企業主 (含攤販)</option>
+                <option value="業務性質">高獎金/業務性質 (房仲/保險/車業)</option>
+                <option value="受薪階級">一般受薪階級 (科技/傳產/行政)</option>
+                <option value="公教人員">公務人員/國營企業/百大</option>
+                <option value="自由業">自由工作者/領現族</option>
+            </select>
+            
+            <div id="tip-business" class="tip-box">💡 <strong>自營商：</strong>看401/403表或淨利。無報表需備長期存摺。</div>
+            <div id="tip-sales" class="tip-box">💡 <strong>業務：</strong>看年度扣繳憑單。</div>
+            <div id="tip-salary" class="tip-box">💡 <strong>受薪/公教：</strong>需提供近 <strong style="color:#d32f2f; text-decoration:underline;">6個月</strong> 薪資轉帳證明。</div>
+            <div id="tip-freelance" class="tip-box">
+                💡 <strong>自由業/領現：</strong>銀行主要審查存款基數。<br>
+                👉 建議收到款項後<strong>「全額存入」</strong>存摺，再提領繳費，建立完整金流，避免銀行無法認定實際月收。
+            </div>
+            
+            <label>Q2：扶養親屬 / 小孩人數 (人)❓ <span style="font-size:0.8em; color:#d4a017;">(影響公股銀行額度)</span></label>
+            <select id="dependents" onchange="calculateAll()">
+                <option value="0">0 人 (單身無扶養)</option>
+                <option value="1">1 人</option>
+                <option value="2">2 人</option>
+                <option value="3">3 人</option>
+                <option value="4">4 人以上</option>
+            </select>
+
+            <label>Q3：名下房屋狀況 (央行管制)❓</label>
+            <select id="houseCount" onchange="checkBankRules()">
+                <option value="0">無房屋 (首購)</option>
+                <option value="1">持有1戶 (欲買第2戶)</option>
+                <option value="2">持有2戶以上</option>
+            </select>
+            <div id="tip-house-rule" class="tip-box" style="background-color: #ffebee; border-color: #ffcdd2; color: #b71c1c;"></div>
+            
+            <label>Q4：客戶年齡❓</label>
+            <input type="text" id="age" placeholder="例如：35歲">
+        </div>
+
+        <div class="form-section">
+            <h3>財務與負債狀況</h3>
+            <label>Q5：每月收入大約多少 (元)❓</label>
+            <input type="number" id="monthlyIncome" placeholder="例如：55000" oninput="calculateAll()">
+            
+            <label>Q6：每月負債支出總共多少 (元)❓</label>
+            <input type="number" id="monthlyDebt" placeholder="請輸入每月需償還的總金額" oninput="calculateAll()">
+            
+            <div class="debt-note">
+                <strong>📋 請務必「加總」以下項目之月付金：</strong>
+                <ul>
+                    <li>🔹 <strong>信用貸款 (信貸)</strong></li>
+                    <li>🔹 <strong>就學貸款 (學貸)</strong></li>
+                    <li>🔹 <strong>汽車貸款 (車貸)</strong></li>
+                    <li>🔹 <strong>企業/創業貸款</strong></li>
+                    <li>🔹 <strong>名下原有房貸</strong></li>
+                </ul>
+                <p style="font-size:0.85em; color:#d9534f; border-top:1px solid #ddd; padding-top:8px; margin-top:5px; margin-bottom:0;">
+                    💡 <strong>提早清償提醒：</strong><br>
+                    若計畫在本次房貸申請前「完全清償」某筆貸款，該筆金額可填 0 (不計入)。
+                </p>
+            </div>
+
+            <label>其他補充 (報稅/資產)：</label>
+            <textarea id="assets" placeholder="例如：全額報稅，股票現值約200萬..."></textarea>
+        </div>
+
+        <h2 style="text-align:center; margin-top:40px; color:#333;">📊 最高額度試算分析</h2>
+        
+        <div class="result-container">
+            
+            <div class="calc-box-general">
+                <h3>🏦 一般銀行 / 市場行情</h3>
+                <p style="font-size:0.9em; margin-bottom:10px;">說明：一般銀行多以<strong>「負債比 (DTI)」</strong>計算。</p>
+                
+                <div class="general-split-grid">
+                    <div class="sub-card safe">
+                        <span class="res-title">✅ 宏國建議 (安全值)</span>
+                        <div style="font-size:0.8em; color:#666; margin-bottom:5px;">負債比 55%</div>
+                        <span id="res_loan_safe" class="res-value">0</span>
+                        <span style="font-size:1em; font-weight:bold;">萬</span>
+                        <div style="font-size:0.75em; color:#999; margin-top:5px;">最穩健，輕鬆繳款</div>
+                    </div>
+
+                    <div class="sub-card limit">
+                        <span class="res-title">🔥 市場極限 (緊繃值)</span>
+                        <div style="font-size:0.8em; color:#666; margin-bottom:5px;">負債比 70%</div>
+                        <span id="res_loan_limit" class="res-value">0</span>
+                        <span style="font-size:1em; font-weight:bold;">萬</span>
+                        <div style="font-size:0.75em; color:#999; margin-top:5px;">需信用評分極佳</div>
+                    </div>
+                </div>
+                <p style="font-size:0.8em; color:#666; text-align:right; margin-top:10px;">(計算基準：每百萬月付金約 $4,000)</p>
+            </div>
+
+            <div class="calc-box-public">
+                <h3>🏛️ 公股銀行 / 台銀模式 (嚴格)</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <p style="color: #ccc; font-size: 0.9em;">▼ 114年每月生活所必需(必要生活費用)數額一覽表</p>
+                    <img src="1764426349365.jpg" alt="114年每月最低生活費一覽表" class="ref-image">
+                </div>
+
+                <div id="highlight-dependents" class="dependent-highlight">
+                    <span style="color:#d4a017; font-weight:bold;">⚠️ 扶養扣除標註：</span>
+                    扶養 <span id="show-dep-count" style="font-weight:bold; color:white;">0</span> 人，
+                    每月生活費需扣除：<br>
+                    <span style="font-size:1.5em; color:#fff; font-weight:bold;">$ <span id="show-living-total">15,515</span></span>
+                </div>
+
+                <p style="font-size:0.9em; margin-top:10px; opacity:0.9;">公式：月收 ÷ (月負債 + 生活費 + 房貸) ≧ <strong>180%</strong></p>
+
+                <div class="calc-result" style="background:rgba(255,255,255,0.1); padding:15px; border-radius:8px;">
+                    <p>若要符合 <strong>180%</strong> 門檻：</p>
+                    <p>👉 最高可貸金額約： <span id="res_loan_public" style="font-size:1.6em; color:var(--accent-color); font-weight:bold;">0</span> 萬</p>
+                </div>
+            </div>
+
+        </div>
+
+        <button type="button" class="qa-toggle-btn" onclick="toggleQA()">
+            📚 點此展開「購屋貸款常見 QA」
+        </button>
+
+        <div id="qa-container">
+            <details>
+                <summary>💰 1. 現金收入/攤販/司機 怎麼認定？</summary>
+                <div class="qa-content">
+                    銀行最看重「穩定性」。建議固定時間將收入存入存摺。若無報稅，需提供「長期存摺出入帳」或「營業場所照片」佐證。
+                </div>
+            </details>
+
+            <details>
+                <summary>📉 2. 如果有信貸、車貸，會影響房貸嗎？</summary>
+                <div class="qa-content">
+                    會吃掉您的收支比額度。若負債比過高，建議在房貸送件前「提前一個月」清償完畢，並取得清償證明。
+                </div>
+            </details>
+
+            <details>
+                <summary>🏠 3. 夫妻買房，先生當保人，算第二屋嗎？</summary>
+                <div class="qa-content">
+                    <span class="qa-tag">重要</span>若先生僅是「一般保證人」，則不算名下負債；但若先生也是「借款人」之一，未來他自己再買房時，就會受央行第二戶限貸管制。
+                </div>
+            </details>
+
+            <details>
+                <summary>👬 4. 朋友/情侶聯名買房可以嗎？</summary>
+                <div class="qa-content">
+                    各家銀行認定不同。部分銀行會視為投資客，成數可能降至 6 成。建議由一人主借，另一人當保人較為單純。
+                </div>
+            </details>
+
+            <details>
+                <summary>🔄 5. 換屋族 (先買後賣) 有寬限期嗎？</summary>
+                <div class="qa-content">
+                    央行規定第二戶無寬限期。但若與銀行切結「一年內賣出舊屋」，部分銀行可給予彈性或解除限制。
+                </div>
+            </details>
+
+            <details>
+                <summary>👴 6. 年齡很大還能貸款嗎？(高齡房貸)</summary>
+                <div class="qa-content">
+                    通常銀行公式為「年齡 + 貸款年限 ≦ 75」。例如 55 歲買房，可能只能貸 20 年。若有年輕子女當保人，有機會拉長年限。
+                </div>
+            </details>
+
+            <details>
+                <summary>💳 7. 信用卡只繳最低 (動用循環) 有關係嗎？</summary>
+                <div class="qa-content">
+                    <span class="qa-tag-danger">危險</span>這對信用評分扣分非常重！銀行會認為理財出狀況。建議房貸申請前半年內，務必全額繳清。
+                </div>
+            </details>
+
+            <details>
+                <summary>🏗️ 8. 預售屋什麼時候要開始找房貸？</summary>
+                <div class="qa-content">
+                    通常在交屋前 2~3 個月開始對保。建商通常有配合的銀行（整批分戶房貸），成數與利率通常較優惠，可優先考慮。
+                </div>
+            </details>
+
+            <details>
+                <summary>🔨 9. 房貸可以多貸一點出來裝潢嗎？</summary>
+                <div class="qa-content">
+                    房貸最高通常就是房價 8 成。若需裝潢金，通常是搭配「信貸」或「裝潢貸款」，但利率會比房貸高。
+                </div>
+            </details>
+
+            <details>
+                <summary>📝 10. 401/403 報表是什麼？(自營商必看)</summary>
+                <div class="qa-content">
+                    這是公司報稅證明。銀行通常認定營業額的 10%~20% 作為負責人收入。若書面收入不足，需靠存摺金流補充。
+                </div>
+            </details>
+        </div>
+
+    </form>
+
+    <div class="footer">
+        <p>💡 服務專線：06-2582589｜📮 台南市北區文賢路1080巷11號<br>🥇 <strong>宏國地政｜易丞地政</strong></p>
+        <p>
+            收支比如何計算❓買房前，先算清楚自己能負擔多少‼️<br>
+            <a href="https://youtu.be/MIlC3nmtmrc?si=NLy0bQSnyGKxxhSB" target="_blank" class="youtube-link">
+                📺 點此觀看教學影片
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="sticky-footer">
+    <button type="button" class="sticky-btn" onclick="sendToLine()">
+        🚀 評估完成！傳送 LINE 給 宏國地政
+    </button>
+</div>
+
+<script>
+    function toggleQA() {
+        var qaDiv = document.getElementById('qa-container');
+        if (qaDiv.style.display === 'none' || qaDiv.style.display === '') {
+            qaDiv.style.display = 'block';
+        } else {
+            qaDiv.style.display = 'none';
+        }
+    }
+
+    function showOccupationTip() {
+        document.querySelectorAll('.tip-box').forEach(box => { if(box.id !== 'tip-house-rule') box.style.display = 'none'; });
+        var occ = document.getElementById('occupation').value;
+        if (occ === '自營商') document.getElementById('tip-business').style.display = 'block';
+        else if (occ === '業務性質') document.getElementById('tip-sales').style.display = 'block';
+        else if (occ === '受薪階級' || occ === '公教人員') document.getElementById('tip-salary').style.display = 'block';
+        else if (occ === '自由業') document.getElementById('tip-freelance').style.display = 'block';
+    }
+
+    function checkBankRules() {
+        var count = document.getElementById('houseCount').value;
+        var tip = document.getElementById('tip-house-rule');
+        if (count >= 1) {
+            tip.style.display = 'block';
+            tip.innerHTML = count == 1 ? "⚠️ <strong>第2戶管制：</strong>上限 5 成，無寬限期。" : "⛔ <strong>第3戶管制：</strong>上限 3 成。";
+        } else { tip.style.display = 'none'; }
+    }
+
+    function calculateAll() {
+        let income = parseFloat(document.getElementById('monthlyIncome').value) || 0;
+        let debt = parseFloat(document.getElementById('monthlyDebt').value) || 0;
+        let dependents = parseInt(document.getElementById('dependents').value) || 0;
+
+        let monthlyPayPerMillion = 4000;
+
+        let maxPaySafe = (income * 0.55) - debt;
+        let maxLoanSafe = 0;
+        if (maxPaySafe > 0) maxLoanSafe = Math.floor((maxPaySafe / monthlyPayPerMillion) * 100);
+        document.getElementById('res_loan_safe').innerText = maxLoanSafe.toLocaleString();
+
+        let maxPayLimit = (income * 0.70) - debt;
+        let maxLoanLimit = 0;
+        if (maxPayLimit > 0) maxLoanLimit = Math.floor((maxPayLimit / monthlyPayPerMillion) * 100);
+        document.getElementById('res_loan_limit').innerText = maxLoanLimit.toLocaleString();
+
+        let basicLivingCost = 15515; 
+        let totalLivingCost = basicLivingCost * (1 + dependents); 
+        let thresholdRatio = 1.8;
+
+        let highlight = document.getElementById('highlight-dependents');
+        if(dependents > 0) {
+            highlight.style.display = 'block';
+            document.getElementById('show-dep-count').innerText = dependents;
+            document.getElementById('show-living-total').innerText = totalLivingCost.toLocaleString();
+        } else {
+            highlight.style.display = 'none';
+        }
+
+        let maxPayPublic = (income / thresholdRatio) - debt - totalLivingCost;
+        let maxLoanPublic = 0;
+        if (maxPayPublic > 0) {
+            maxLoanPublic = Math.floor((maxPayPublic / monthlyPayPerMillion) * 100);
+        }
+        document.getElementById('res_loan_public').innerText = maxLoanPublic.toLocaleString();
+    }
+
+    function sendToLine() {
+        var v = function(id) { return document.getElementById(id).value || "無"; };
+        var houseStatus = document.getElementById('houseCount').options[document.getElementById('houseCount').selectedIndex].text;
+        var dependents = document.getElementById('dependents').value;
+
+        var text = `【房貸額度全方位評估】\n`;
+        text += `(宏國地政/易丞地政)\n\n`;
+        text += `Q1職業：${v('occupation')}\n`;
+        text += `Q2扶養：${dependents}人\n`;
+        text += `Q3房產：${houseStatus}\n`;
+        text += `Q4年齡：${v('age')}\n`;
+        text += `Q5月收：${v('monthlyIncome')}\n`;
+        text += `Q6月負債：${v('monthlyDebt')}\n`;
+        text += `資產備註：${v('assets')}\n\n`;
+        
+        let safeLoan = document.getElementById('res_loan_safe').innerText;
+        let limitLoan = document.getElementById('res_loan_limit').innerText;
+        let pubLoan = document.getElementById('res_loan_public').innerText;
+        
+        text += `📊【最高額度試算】\n`;
+        text += `✅宏國建議(55%)：${safeLoan}萬\n`;
+        text += `🔥市場極限(70%)：${limitLoan}萬\n`;
+        text += `🏛️公股台銀(嚴格)：${pubLoan}萬\n`;
+
+        var lineID = "@604gpqef";
+        window.location.href = `https://line.me/R/oaMessage/${lineID}/?text=${encodeURIComponent(text)}`;
+    }
+</script>
+
+</body>
+</html>
