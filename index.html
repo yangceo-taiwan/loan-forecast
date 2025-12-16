@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v5.0</title>
+    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v5.1</title>
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -323,18 +323,18 @@
                     <label class="input-label text-red-900">想貸金額 (萬)</label>
                     <input v-model.number="targetLoan" type="number" class="nexus-input border-red-300 bg-white" placeholder="例如: 1000">
                 </div>
-                <div class="input-group mb-0">
-                    <label class="input-label text-red-900">保人現有負債</label>
-                    <input v-model.number="guarantorDebt" type="number" class="nexus-input border-red-300 bg-white" placeholder="保人月繳">
-                    <span class="absolute right-2 bottom-2 text-[10px] text-gray-400">(萬元/月)</span>
+                <div class="input-group mb-0 relative">
+                    <label class="input-label text-red-900">保人現有負債 (萬元)</label>
+                    <input v-model.number="guarantorDebt" type="number" class="nexus-input border-red-300 bg-white" placeholder="例如: 1.5">
+                    <span class="absolute right-2 bottom-2 text-[10px] text-gray-400">萬/月</span>
                 </div>
             </div>
             
             <div v-if="targetLoan > 0" class="bg-white p-4 rounded-xl border border-red-200 shadow-sm">
                 <div v-if="needsGuarantor">
                     <div class="text-sm font-bold text-gray-600 mb-2 text-center flex flex-col items-center">
-                        <span><i class="fas fa-exclamation-triangle text-red-500"></i> 收支比偏高 ( > 55% )</span>
-                        <span class="text-xs text-gray-400 font-normal mt-1">建議徵提保人以強化案件安全度</span>
+                        <span><i class="fas fa-exclamation-triangle text-red-500"></i> 收支比偏高 / 資料不足</span>
+                        <span class="text-xs text-gray-400 font-normal mt-1">請補足收入資料或徵提保人</span>
                     </div>
                     
                     <div class="g-split">
@@ -436,56 +436,46 @@
             });
 
             // 3. Public (180%)
-            // Formula: Income / (Debt + Living + Loan) >= 1.8
-            // => Income / 1.8 >= Debt + Living + Loan
-            // => Loan <= (Income/1.8) - Debt - Living
             const publicLoan = computed(() => {
                 if (!monthlyIncome.value) return 0;
-                // Important: Living cost includes borrower + dependents
                 let totalLiving = basicLivingCost * (1 + dependents.value);
                 let val = (monthlyIncome.value / 1.8) - (monthlyDebt.value || 0) - totalLiving;
                 return val > 0 ? Math.floor((val / monthlyPayPerMillion) * 100) : 0;
             });
 
             // 4. Guarantor Logic
-            // Logic: (TargetLoanMonthlyPay + MonthlyDebt) / Income > 0.55
             const needsGuarantor = computed(() => {
-                if (!targetLoan.value || !monthlyIncome.value) return false;
+                // 如果沒有輸入想貸金額，就不顯示保人區塊 (False)
+                if (!targetLoan.value) return false;
                 
-                // Convert Wan to Yuan for calculation
-                const loanWan = targetLoan.value;
-                const estPay = loanWan * monthlyPayPerMillion / 10000; // e.g. 1000 * 4000 / 10000 = 400 (Wait! 4000 is Yen)
-                // Correct: 1000 Wan = 10 Million. 10 * 4000 = 40000.
+                // 修正重點：如果輸入了想貸金額，但「沒有輸入收入」，則視為需要保人/資料不足 (True)
+                // 這樣可以強迫顯示計算結果(或錯誤提示)，而不是顯示「綠色安全勾勾」
+                if (!monthlyIncome.value) return true;
                 
-                // Let's use Wan units consistently
-                const estPayWan = (loanWan * monthlyPayPerMillion) / 10000; // 1000 * 4000 = 4000000 / 10000 = 400? No.
-                // monthlyPayPerMillion is 4000 Yuan.
-                // 1000 Wan Loan = 10 Million Loan.
-                // Payment = 10 * 4000 = 40000 Yuan = 4 Wan.
-                
+                // 計算邏輯
                 const payWan = (targetLoan.value / 100) * (monthlyPayPerMillion / 10000); 
-                // e.g. 1000/100 = 10 units. 4000/10000 = 0.4 Wan. 10 * 0.4 = 4 Wan. Correct.
-                
                 const debtWan = (monthlyDebt.value || 0) / 10000;
                 const incomeWan = (monthlyIncome.value || 0) / 10000;
                 
                 const totalObligation = payWan + debtWan;
                 
-                // Trigger if Total Debt > Income * 0.55 (Safety Line)
+                // 超過 55% 就要保人
                 return totalObligation > (incomeWan * 0.55);
             });
 
             const calculateGuarantorNeed = (ratio) => {
-                if (!targetLoan.value || !monthlyIncome.value) return 0;
+                if (!targetLoan.value) return 0;
                 
+                // 這裡如果 income 為空，視為 0
+                const incomeWan = (monthlyIncome.value || 0) / 10000;
+
                 const payWan = (targetLoan.value / 100) * (monthlyPayPerMillion / 10000);
                 const debtWan = (monthlyDebt.value || 0) / 10000;
-                const gDebtWan = guarantorDebt.value || 0; // Input is Wan
+                const gDebtWan = guarantorDebt.value || 0; // 輸入單位已經是萬
                 
                 const totalDebtWan = payWan + debtWan + gDebtWan;
-                const incomeWan = (monthlyIncome.value || 0) / 10000;
                 
-                // Formula: (TotalDebt / Ratio) - BorrowerIncome
+                // 公式: (總負債 / 收支比率) - 借款人收入
                 const incomeNeededWan = (totalDebtWan / ratio) - incomeWan;
                 
                 return incomeNeededWan > 0 ? (incomeNeededWan).toFixed(1) : 0;
@@ -511,6 +501,7 @@
                 if (targetLoan.value) {
                     text += `\n🛡️【保人需求試算】\n`;
                     text += `想貸金額：${targetLoan.value}萬\n`;
+                    text += `保人已有負債：${guarantorDebt.value || 0}萬/月\n`;
                     if (needsGuarantor.value) {
                         text += `👉 建議保人月收(50%水準)：${guarantorIncomeSafe.value}萬\n`;
                         text += `👉 最低門檻(60%極限)：${guarantorIncomeLimit.value}萬\n`;
