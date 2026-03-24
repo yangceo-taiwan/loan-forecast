@@ -3,212 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v6.0 (全新視覺版)</title>
+    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v5.2</title>
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
 
     <script>
-        // 禁止右鍵與快捷鍵保護
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = e => {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73,74,67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false;
+        // 禁止右鍵
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // 禁止常見開發者快捷鍵
+        document.onkeydown = function(e) {
+            // F12
+            if(e.keyCode == 123) { return false; }
+            // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+            if(e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) { return false; }
+            // Ctrl+U (檢視原始碼)
+            if(e.ctrlKey && e.keyCode == 85) { return false; }
         };
-        document.ondragstart = () => false;
+
+        // 禁止拖曳圖片
+        document.ondragstart = function() { return false; };
     </script>
     <style>
-        /* 基礎設定 */
+        /* 禁止文字選取 */
         body {
-            -webkit-user-select: none; user-select: none;
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #F0F2F5; /* 更柔和的背景灰 */
-            color: #1F2937;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
         }
-        input, textarea, select { -webkit-user-select: auto; user-select: auto; }
-
+        /* 允許輸入框可以選取與輸入 */
+        input, textarea {
+            -webkit-user-select: auto;
+            user-select: auto;
+        }
+    </style>
+    <style>
         :root {
             --nexus-navy: #0F2E46;
             --nexus-gold: #C5A065;
-            --nexus-blue-light: #E0F2FE;
-            --nexus-red-light: #FEF2F2;
             --line-green: #06C755;
         }
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background-color: #f8fafc; 
+            color: #333;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        /* 1. 品牌頭部 (保持不變) */
+        /* 1. 品牌頭部 */
         .brand-header {
             background: linear-gradient(180deg, var(--nexus-navy) 0%, #162a3b 100%);
             color: white;
-            padding-bottom: 3rem; /* 增加底部空間 */
+            padding-bottom: 2.5rem;
             border-bottom: 4px solid var(--nexus-gold);
-            box-shadow: 0 10px 25px -5px rgba(15, 46, 70, 0.3); /* 更深邃的陰影 */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
+
+        /* 2. 按鈕優化 */
         .btn-link {
             display: flex; align-items: center; justify-content: center;
-            padding: 0.8rem; border-radius: 0.8rem; font-weight: bold; text-decoration: none;
+            padding: 0.8rem; border-radius: 0.8rem;
+            font-weight: bold; text-decoration: none;
             transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .btn-link:active { transform: scale(0.97); }
-        .btn-line { background-color: var(--line-green); color: white; animation: pulse-green 2s infinite; }
-        .btn-fb { background-color: #1877F2; color: white; }
-        .btn-map { background-color: #EA4335; color: white; }
-        .btn-vip { background: linear-gradient(90deg, #333 0%, #000 100%); color: #FFD700; border: 1px solid #FFD700; }
+        .btn-link:active { transform: scale(0.98); }
+        
+        .btn-line { 
+            background-color: var(--line-green); color: white; 
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3);
+            animation: pulse-green 2s infinite;
+        }
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(6, 199, 85, 0.4); }
             70% { box-shadow: 0 0 0 10px rgba(6, 199, 85, 0); }
             100% { box-shadow: 0 0 0 0 rgba(6, 199, 85, 0); }
         }
 
-        /* 2. 新版區塊設計 (Modern Section) */
-        .modern-section {
-            background: white;
-            border-radius: 1.5rem; /* 更圓潤 */
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02); /* 雙重柔和陰影 */
-            border: 1px solid rgba(255, 255, 255, 0.5); /* 微妙的邊框 */
+        .btn-fb { background-color: #1877F2; color: white; }
+        .btn-map { background-color: #EA4335; color: white; }
+        .btn-vip { 
+            background: linear-gradient(90deg, #333 0%, #000 100%); 
+            color: #FFD700; border: 1px solid #FFD700;
         }
-        
-        .section-title {
-            font-size: 1.25rem; font-weight: 700; color: var(--nexus-navy);
-            margin-bottom: 1.25rem; display: flex; align-items: center;
-            position: relative; padding-left: 1rem;
-        }
-        /* 標題左側裝飾線 */
-        .section-title::before {
-            content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-            width: 4px; height: 1.2em; background: var(--nexus-gold); border-radius: 2px;
-        }
-        .section-title i { margin-right: 0.75rem; color: var(--nexus-navy); opacity: 0.8; }
 
-        /* 3. 輸入框優化 */
-        .input-group { margin-bottom: 1.2rem; }
-        .input-label { 
-            display: flex; align-items: center;
-            font-size: 0.95rem; color: #374151; margin-bottom: 0.5rem; font-weight: 600; 
+        /* 3. 卡片與輸入框 */
+        .pro-card {
+            background: white; border-radius: 1rem; padding: 1.5rem;
+            margin-bottom: 1.5rem; border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
-        .input-label i { color: var(--nexus-gold); margin-right: 0.5rem; width: 1.2rem; text-align: center;}
-        
+        .card-header {
+            font-size: 1.1rem; font-weight: 700; color: var(--nexus-navy);
+            margin-bottom: 1rem; padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f1f5f9; display: flex; align-items: center;
+        }
+        .card-header i { color: var(--nexus-gold); margin-right: 0.5rem; }
+
+        .input-group { margin-bottom: 1rem; }
+        .input-label { display: block; font-size: 0.9rem; color: #475569; margin-bottom: 0.4rem; font-weight: 600; }
         .nexus-input, .nexus-select {
-            width: 100%; padding: 0.8rem 1rem; border-radius: 0.8rem;
-            border: 1px solid #E5E7EB; background: #F9FAFB;
-            font-size: 1rem; color: #1F2937; transition: all 0.3s ease;
+            width: 100%; padding: 0.7rem; border-radius: 0.6rem;
+            border: 1px solid #cbd5e1; background: #fff;
+            font-size: 1rem; color: #1e293b; transition: all 0.2s;
         }
         .nexus-input:focus, .nexus-select:focus {
-            outline: none; border-color: var(--nexus-navy); background: white;
-            box-shadow: 0 0 0 3px rgba(15, 46, 70, 0.08);
+            outline: none; border-color: var(--nexus-navy);
+            box-shadow: 0 0 0 3px rgba(15, 46, 70, 0.1);
         }
+        .unit { position: absolute; right: 1rem; top: 2rem; color: #94a3b8; font-size: 0.9rem; pointer-events: none; }
+
+        /* 4. 結果顯示 */
+        .res-box { text-align: center; padding: 1rem; border-radius: 0.8rem; height: 100%; }
+        .res-box.safe { background: #ecfdf5; border: 1px solid #6ee7b7; color: #047857; }
+        .res-box.limit { background: #fff1f2; border: 1px solid #fda4af; color: #be123c; }
+        .res-val { font-size: 1.8rem; font-weight: 800; font-family: 'Roboto', sans-serif; }
+        .res-unit { font-size: 0.9rem; font-weight: 600; }
+
+        /* 圖片收合 */
+        details.img-toggle { margin-top: 1rem; border: 1px dashed #cbd5e1; border-radius: 0.5rem; overflow: hidden; }
+        details.img-toggle summary { 
+            padding: 0.8rem; background: #f8fafc; cursor: pointer; font-size: 0.9rem; font-weight: 600; color: #64748b;
+            display: flex; justify-content: space-between; align-items: center; transition: background 0.2s;
+        }
+        details.img-toggle summary:hover { background: #f1f5f9; }
+        details.img-toggle img { width: 100%; display: block; border-top: 1px solid #e2e8f0; }
+
+        /* QA 折疊 */
+        details.qa-item > summary { list-style: none; cursor: pointer; background: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+        details.qa-item[open] > summary { background: #e0f2fe; color: var(--nexus-navy); }
+        .qa-content { padding: 1rem; background: #fff; border: 1px solid #f1f5f9; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6; color: #4b5563; }
         
-        /* 4. 儀表板化結果顯示 */
-        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1rem; }
-        .dash-card { 
-            background: white; border-radius: 1rem; padding: 1rem 0.5rem; text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #F3F4F6;
-            position: relative; overflow: hidden;
-        }
-        /* 頂部裝飾條 */
-        .dash-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
-        .dash-card.safe::after { background: #10B981; } /* Green */
-        .dash-card.limit::after { background: #F59E0B; } /* Orange */
-        .dash-card.public::after { background: #3B82F6; } /* Blue */
-
-        .dash-title { font-size: 0.85rem; font-weight: 700; color: #4B5563; margin-bottom: 0.5rem; }
-        .dash-val { font-family: 'Roboto', sans-serif; font-size: 1.6rem; font-weight: 700; line-height: 1; }
-        .dash-unit { font-size: 0.8rem; font-weight: 500; }
-        .dash-card.safe .dash-val { color: #059669; }
-        .dash-card.limit .dash-val { color: #D97706; }
-        .dash-card.public .dash-val { color: #2563EB; }
-
-        /* 5. 圖片與QA收合優化 */
-        details.img-toggle summary, details.qa-item summary {
-            padding: 1rem; background: white; border: 1px solid #E5E7EB;
-            border-radius: 0.8rem; cursor: pointer; font-weight: 600; color: #4B5563;
-            display: flex; justify-content: space-between; align-items: center; transition: all 0.2s;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        details[open] summary { background: var(--nexus-blue-light); color: var(--nexus-navy); border-color: transparent; }
-        details.img-toggle img { border-radius: 0 0 0.8rem 0.8rem; border: 1px solid #E5E7EB; border-top: none; }
-        .qa-content { padding: 1rem; background: #F9FAFB; border-radius: 0 0 0.8rem 0.8rem; color: #4B5563; }
-
-        /* 底部按鈕 */
         .sticky-footer {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
-            padding: 1rem; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); z-index: 50;
+            background: white; padding: 1rem;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05); z-index: 50;
         }
-        
-        /* 特別強調區塊 */
-        .highlight-box { background: #FFFBEB; border: 1px solid #FCD34D; border-radius: 1rem; padding: 1rem; }
+
+        /* 負債註記區塊 */
+        .debt-notes {
+            background-color: #fef2f2; border-left: 4px solid #ef4444;
+            padding: 12px; margin-top: 8px; border-radius: 4px;
+            font-size: 0.85rem; color: #7f1d1d;
+        }
+        .debt-notes ul { margin: 5px 0 0 15px; list-style-type: disc; }
+        .debt-notes li { margin-bottom: 2px; }
+
+        /* 保人計算 */
+        .g-split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .g-card { padding: 12px; border-radius: 8px; text-align: center; border-width: 1px; }
+        .g-card.perfect { background: #f0fdf4; border-color: #bbf7d0; }
+        .g-card.extreme { background: #fff7ed; border-color: #fed7aa; }
+        .g-title { font-size: 0.8rem; font-weight: bold; margin-bottom: 4px; display: block; }
+        .g-val { font-size: 1.5rem; font-weight: 800; }
     </style>
 </head>
 <body>
 
-<div id="app" class="max-w-md mx-auto min-h-screen pb-28 relative font-sans">
+<div id="app" class="max-w-md mx-auto min-h-screen pb-24 relative">
 
-    <div class="brand-header px-6 pt-12 pb-24 rounded-b-[3rem]">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold tracking-widest text-[#C5A065] mb-2 drop-shadow-sm">宏國地政 | 易丞地政</h1>
-            <p class="text-sm text-blue-100 opacity-80 tracking-[0.3em] uppercase">Professional Real Estate Evaluation</p>
+    <div class="brand-header px-6 pt-10 pb-20 rounded-b-[2.5rem]">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold tracking-widest text-[#C5A065] mb-1">宏國地政 | 易丞地政</h1>
+            <p class="text-xs text-blue-100 opacity-70 tracking-[0.2em] uppercase">Professional Real Estate Evaluation</p>
         </div>
         
         <div class="grid grid-cols-4 gap-3">
             <a href="https://line.me/R/ti/p/@604gpqef" target="_blank" class="col-span-4 btn-link btn-line text-lg py-3">
                 <i class="fab fa-line text-2xl mr-2"></i> 加入官方好友 (諮詢)
             </a>
-            <a href="https://www.facebook.com/062582589a/" target="_blank" class="col-span-2 btn-link btn-fb text-xs py-2.5">
+            <a href="https://www.facebook.com/062582589a/" target="_blank" class="col-span-2 btn-link btn-fb text-xs">
                 <i class="fab fa-facebook mr-1"></i> FB 粉絲專頁
             </a>
-            <a href="https://maps.app.goo.gl/qyKhdrKsG5QBo2BW8" target="_blank" class="col-span-2 btn-link btn-map text-xs py-2.5">
+            <a href="https://maps.app.goo.gl/qyKhdrKsG5QBo2BW8" target="_blank" class="col-span-2 btn-link btn-map text-xs">
                 <i class="fas fa-map-marker-alt mr-1"></i> 地圖導航
             </a>
-            <a href="https://line.me/ti/g2/aVklWxyLP1RtfstQsslGQOlP4KViuFI7PPucdQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="col-span-4 btn-link btn-vip text-xs py-2.5">
+            <a href="https://line.me/ti/g2/aVklWxyLP1RtfstQsslGQOlP4KViuFI7PPucdQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="col-span-4 btn-link btn-vip text-xs py-2">
                 <i class="fas fa-crown mr-2"></i> 加入宏國地政研究院 (VIP)
             </a>
         </div>
     </div>
 
-    <div class="px-4 -mt-12 relative z-10 space-y-6">
+    <div class="px-4 -mt-10 relative z-10">
         
-        <div class="grid grid-cols-2 gap-3">
-            <a href="https://youtube.com/shorts/55izyPJEq4g?si=_wjeOIN628Jj2yBU" target="_blank" class="bg-white rounded-2xl p-4 shadow-sm border border-blue-100 flex flex-col items-center text-center group hover:shadow-md transition-all">
-                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-xl mb-2 group-hover:scale-110 transition-transform">🎬</div>
-                <h3 class="font-bold text-blue-900 text-sm mb-1">系統操作教學</h3>
-                <span class="text-blue-600 text-xs font-medium flex items-center">
-                    <i class="fab fa-youtube mr-1"></i> 立即觀看
-                </span>
-            </a>
-            <a href="https://youtube.com/shorts/3tcLcY8YpHA?si=1k3DkxfRMNCpXGjG" target="_blank" class="bg-white rounded-2xl p-4 shadow-sm border border-yellow-100 flex flex-col items-center text-center group hover:shadow-md transition-all">
-                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-xl mb-2 group-hover:scale-110 transition-transform">🔥</div>
-                <h3 class="font-bold text-yellow-900 text-sm mb-1">繼承房產省稅</h3>
-                <span class="text-yellow-600 text-xs font-medium flex items-center">
-                    <i class="fab fa-youtube mr-1"></i> 點擊觀看
-                </span>
-            </a>
+        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6 shadow-sm">
+            <div class="flex items-start gap-3">
+                <div class="text-2xl">🔥</div>
+                <div>
+                    <h3 class="font-bold text-yellow-800 text-sm mb-1">繼承房產必看！這樣做最省稅</h3>
+                    <a href="https://youtube.com/shorts/3tcLcY8YpHA?si=1k3DkxfRMNCpXGjG" target="_blank" class="text-red-600 text-xs font-bold underline flex items-center">
+                        <i class="fab fa-youtube mr-1"></i> 點擊觀看教學影片
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <div class="modern-section">
-            <h2 class="section-title"><i class="fas fa-user-circle"></i> 客戶背景資料</h2>
-            <div class="space-y-4">
-                
+        <div class="pro-card">
+            <div class="card-header"><i class="fas fa-user-circle"></i> 1. 客戶背景資料</div>
+            <div class="space-y-3">
                 <div class="input-group">
-                    <label class="input-label"><i class="fas fa-map-marked-alt"></i> Q1：所在縣市 <span class="text-[10px] text-blue-500 ml-1 bg-blue-50 px-2 py-0.5 rounded-full">(自動帶入公股標準)</span></label>
-                    <select v-model="region" class="nexus-select bg-blue-50/50 border-blue-200 text-blue-900 font-medium">
-                        <option value="臺北市">臺北市 ($20,744)</option>
-                        <option value="新北市">新北市 ($17,750)</option>
-                        <option value="桃園市">桃園市 ($17,186)</option>
-                        <option value="臺中市">臺中市 ($16,431)</option>
-                        <option value="臺南市">臺南市 ($15,515)</option>
-                        <option value="高雄市">高雄市 ($16,970)</option>
-                        <option value="臺灣省">臺灣省/其他縣市 ($15,515)</option>
-                        <option value="福建省">福建省-金門/連江 ($15,173)</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label class="input-label"><i class="fas fa-briefcase"></i> Q2：客戶職業別</label>
+                    <label class="input-label">Q1：客戶職業別</label>
                     <select v-model="occupation" class="nexus-select">
                         <option value="">-- 請選擇 --</option>
                         <option value="自營商">自營商/企業主 (含攤販)</option>
@@ -217,21 +215,16 @@
                         <option value="公教人員">公務人員/國營/百大</option>
                         <option value="自由業">自由工作者/領現族</option>
                     </select>
-                    <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0">
-                        <div v-if="occupation" class="mt-2 text-xs p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-600 flex items-start">
-                            <i class="fas fa-info-circle text-nexus-gold mt-0.5 mr-2"></i>
-                            <div>
-                                <span v-if="occupation==='自營商'">看401/403表或淨利。無報表需備長期存摺。</span>
-                                <span v-if="occupation==='業務性質'">以年度扣繳憑單為主。</span>
-                                <span v-if="occupation==='受薪階級'||occupation==='公教人員'">需提供近 <b class="text-red-500">6個月</b> 薪轉證明。</span>
-                                <span v-if="occupation==='自由業'">建議收到款項後「全額存入」存摺再提領，建立金流。</span>
-                            </div>
-                        </div>
-                    </transition>
+                    <div v-if="occupation" class="mt-2 text-xs p-2 bg-gray-50 rounded border border-gray-200 text-gray-600">
+                        <span v-if="occupation==='自營商'">💡 看401/403表或淨利。無報表需備長期存摺。</span>
+                        <span v-if="occupation==='業務性質'">💡 以年度扣繳憑單為主。</span>
+                        <span v-if="occupation==='受薪階級'||occupation==='公教人員'">💡 需提供近 <b class="text-red-500">6個月</b> 薪轉證明。</span>
+                        <span v-if="occupation==='自由業'">💡 建議收到款項後「全額存入」存摺再提領，建立金流。</span>
+                    </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="input-group">
-                        <label class="input-label"><i class="fas fa-users"></i> Q3：扶養人數</label>
+                        <label class="input-label">Q2：扶養人數</label>
                         <select v-model.number="dependents" class="nexus-select">
                             <option value="0">0人</option>
                             <option value="1">1人</option>
@@ -241,7 +234,7 @@
                         </select>
                     </div>
                     <div class="input-group">
-                        <label class="input-label"><i class="fas fa-home"></i> Q4：名下房產</label>
+                        <label class="input-label">Q3：名下房產</label>
                         <select v-model.number="houseCount" class="nexus-select">
                             <option value="0">首購 (0戶)</option>
                             <option value="1">1戶 (買第2戶)</option>
@@ -249,222 +242,218 @@
                         </select>
                     </div>
                 </div>
-                <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100">
-                    <div v-if="houseCount >= 1" class="text-xs text-red-700 bg-red-50 p-3 rounded-xl border border-red-100 flex items-center">
-                        <i class="fas fa-exclamation-circle text-red-500 mr-2 text-base"></i> 
-                        <b>央行管制提醒：</b>{{ houseCount === 1 ? '第2戶上限5成，無寬限期。' : '第3戶以上上限3成。' }}
-                    </div>
-                </transition>
+                <div v-if="houseCount >= 1" class="text-xs text-red-600 bg-red-50 p-2 rounded mb-2 font-bold shadow-sm border border-red-100">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    {{ houseCount === 1 ? '央行管制更新：第2戶上限6成，無寬限期。' : '央行管制更新：第3戶上限3成。' }}
+                </div>
                 <div class="input-group">
-                    <label class="input-label"><i class="fas fa-birthday-cake"></i> Q5：客戶年齡</label>
+                    <label class="input-label">Q4：客戶年齡</label>
                     <input v-model="age" type="text" class="nexus-input" placeholder="例如：35歲">
                 </div>
             </div>
         </div>
 
-        <div class="modern-section">
-            <h2 class="section-title"><i class="fas fa-coins"></i> 財務與負債狀況</h2>
-            <div class="space-y-4">
-                <div class="input-group">
-                    <label class="input-label"><i class="fas fa-money-bill-wave"></i> Q6：每月收入 (元)</label>
-                    <div class="relative">
-                         <input v-model.number="monthlyIncome" type="number" class="nexus-input pl-12 font-bold text-blue-900" placeholder="例如：55000">
-                         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
-                    </div>
+        <div class="pro-card">
+            <div class="card-header"><i class="fas fa-coins"></i> 2. 財務與負債</div>
+            <div class="space-y-3">
+                <div class="input-group relative">
+                    <label class="input-label">Q5：每月收入 (元)</label>
+                    <input v-model.number="monthlyIncome" type="number" class="nexus-input border-l-4 border-l-blue-500" placeholder="例如：55000">
                 </div>
-                <div class="input-group">
-                    <label class="input-label"><i class="fas fa-hand-holding-usd"></i> Q7：每月負債支出 (元)</label>
-                    <div class="relative">
-                        <input v-model.number="monthlyDebt" type="number" class="nexus-input pl-12 font-bold text-red-900" placeholder="信貸/車貸/學貸總和">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
-                    </div>
+                <div class="input-group relative">
+                    <label class="input-label">Q6：每月負債支出 (元)</label>
+                    <input v-model.number="monthlyDebt" type="number" class="nexus-input border-l-4 border-l-red-500" placeholder="信貸/車貸/學貸總和">
                 </div>
 
-                <div class="bg-red-50/80 border-l-4 border-red-500 p-4 rounded-r-xl text-sm text-red-800">
-                    <div class="flex items-center font-bold mb-2">
-                        <i class="fas fa-clipboard-list mr-2"></i> 請務必「加總」以下月付金：
-                    </div>
-                    <ul class="list-disc list-inside pl-2 space-y-1 opacity-90">
+                <div class="debt-notes">
+                    <strong>📋 請務必「加總」以下月付金：</strong>
+                    <ul>
                         <li>信貸、車貸、學貸</li>
                         <li>企業/創業貸款、名下原有房貸</li>
                     </ul>
-                    <div class="mt-3 pt-3 border-t border-red-200 text-xs flex items-start">
-                        <i class="far fa-lightbulb text-red-500 mr-2 mt-0.5"></i>
-                        <span>若計畫在本次房貸前「完全清償」某筆貸款，該筆金額可填 0。</span>
+                    <div class="mt-2 pt-2 border-t border-red-200 text-xs font-bold">
+                        💡 提早清償提醒：<br>
+                        若計畫在本次房貸前「完全清償」某筆貸款，該筆金額可填 0 (不計入)。
                     </div>
                 </div>
 
-                <div class="input-group pt-2">
-                    <label class="input-label"><i class="fas fa-comment-dollar"></i> 補充備註 (資產/股票)</label>
-                    <textarea v-model="assets" class="nexus-input h-24 resize-none" placeholder="例如：股票現值約200萬，定存50萬..."></textarea>
+                <div class="input-group mt-3">
+                    <label class="input-label">補充備註 (資產/股票)</label>
+                    <textarea v-model="assets" class="nexus-input h-20" placeholder="例如：股票現值約200萬..."></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="modern-section" style="background: linear-gradient(to bottom, #ffffff, #fcfcfd);">
-            <h2 class="section-title text-nexus-gold"><i class="fas fa-chart-pie"></i> 最高額度試算分析</h2>
+        <div class="pro-card border-t-4 border-t-[#C5A065]">
+            <div class="card-header justify-center text-lg">📊 最高額度試算分析</div>
 
-            <div class="dashboard-grid">
-                <div class="dash-card safe">
-                    <div class="dash-title">✅ 宏國建議 (55%)</div>
-                    <div class="dash-val">{{ safeLoan }}<span class="dash-unit">萬</span></div>
-                    <div class="text-[10px] text-gray-400 mt-1">穩健繳款</div>
+            <div class="mb-6">
+                <h4 class="text-sm font-bold text-gray-500 mb-3 uppercase tracking-wider">🏦 一般銀行 / 市場行情</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="res-box safe">
+                        <div class="text-xs font-bold mb-1">✅ 宏國建議 (55%)</div>
+                        <div class="res-val">{{ safeLoan }}<span class="res-unit">萬</span></div>
+                        <div class="text-[10px] opacity-70 mt-1">穩健繳款</div>
+                    </div>
+                    <div class="res-box limit">
+                        <div class="text-xs font-bold mb-1">🔥 市場極限 (70%)</div>
+                        <div class="res-val">{{ limitLoan }}<span class="res-unit">萬</span></div>
+                        <div class="text-[10px] opacity-70 mt-1">需信用極佳</div>
+                    </div>
                 </div>
-                <div class="dash-card limit">
-                    <div class="dash-title">🔥 市場極限 (70%)</div>
-                    <div class="dash-val">{{ limitLoan }}<span class="dash-unit">萬</span></div>
-                    <div class="text-[10px] text-gray-400 mt-1">需信用極佳</div>
+                
+                <div class="mt-3 bg-blue-50 border border-blue-100 p-2 rounded-lg text-xs text-blue-800 flex items-start gap-2">
+                    <i class="fas fa-info-circle mt-0.5"></i>
+                    <div>
+                        <strong>進階指標估算 ($4,100/百萬)</strong><br>
+                        若以較高利率環境估算，宏國建議可貸約 <b>{{safeLoan4100}}</b> 萬，市場極限約 <b>{{limitLoan4100}}</b> 萬。
+                    </div>
                 </div>
-                <div class="dash-card public bg-blue-50/30 border-blue-100">
-                    <div class="dash-title text-blue-800">🏛️ 公股銀行 (嚴格)</div>
-                    <div class="dash-val">{{ publicLoan }}<span class="dash-unit">萬</span></div>
-                    <div class="text-[10px] text-blue-400 mt-1">依地區生活費</div>
+                
+                <div class="text-right text-[10px] text-gray-400 mt-2">
+                    *主計算基準：每百萬元月付約 $4,000 (30年期/2.5%)
                 </div>
+
+                <details class="img-toggle">
+                    <summary>📊 查看「房貸利率月付金對照表」</summary>
+                    <img src="貸款.jpg" alt="房貸利率月付金對照表">
+                </details>
             </div>
-             <div class="text-right text-[10px] text-gray-400 mb-4 px-1">
-                *基準：每百萬月付約 $4,000 (30年/2.5%)
-            </div>
 
-            <details class="img-toggle mb-6">
-                <summary>📊 查看「房貸利率月付金對照表」 <i class="fas fa-chevron-down text-gray-300"></i></summary>
-                <img src="貸款.jpg" alt="房貸利率月付金對照表">
-            </details>
-
-            <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm relative overflow-hidden" :class="{'ring-2 ring-yellow-400 ring-offset-2': dependents > 0}">
-                <div class="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
-                <h4 class="text-sm font-bold text-gray-700 mb-4 flex items-center justify-between">
-                    <span><i class="fas fa-calculator text-blue-500 mr-2"></i>公股銀行審核標準 (收支比 < 180%)</span>
-                    <transition name="fade">
-                        <span v-if="dependents > 0" class="text-[10px] text-yellow-700 bg-yellow-100 px-2 py-1 rounded-full flex items-center">
-                            <i class="fas fa-exclamation-triangle mr-1"></i> 扶養扣除中
-                        </span>
-                    </transition>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200" :class="{'ring-2 ring-yellow-400': dependents > 0}">
+                <h4 class="text-sm font-bold text-gray-500 mb-3 uppercase tracking-wider flex items-center justify-between">
+                    <span>🏛️ 公股銀行 (嚴格180%)</span>
+                    <span v-if="dependents > 0" class="text-xs text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full animate-pulse">
+                        ⚠️ 扶養扣除中
+                    </span>
                 </h4>
                 
-                <transition name="fade">
-                    <div v-if="dependents > 0" class="mb-4 bg-yellow-50/80 p-4 rounded-xl border border-yellow-200/50">
-                        <div class="text-sm text-yellow-800 font-bold mb-2 flex items-center">
-                            <i class="fas fa-user-minus mr-2"></i> 扶養親屬生活費扣除：
-                        </div>
-                        <div class="flex justify-between items-end px-2">
-                            <div class="text-xs text-gray-600 flex flex-col">
-                                <span>基準：${{ basicLivingCost.toLocaleString() }} ({{ region }})</span>
-                                <span>人數：{{ dependents + 1 }} 人 (含本人)</span>
-                            </div>
-                            <span class="text-xl font-black text-yellow-700 font-roboto">-${{ (basicLivingCost * (dependents + 1)).toLocaleString() }}</span>
-                        </div>
+                <div v-if="dependents > 0" class="mb-4 bg-yellow-50 p-3 rounded border border-yellow-200">
+                    <div class="text-xs text-yellow-800 font-bold mb-1">
+                        <i class="fas fa-users"></i> 扶養親屬生活費扣除：
                     </div>
-                </transition>
-
-                <div class="flex justify-between items-center bg-blue-50/50 p-3 rounded-xl">
-                    <div class="text-xs text-blue-800 font-medium">
-                        <i class="fas fa-info-circle mr-1"></i> 計算公式：月收 ÷ 1.8 - 負債 - 生活費
+                    <div class="flex justify-between items-end">
+                        <span class="text-xs text-gray-600">($15,515 × {{ dependents + 1 }} 人)</span>
+                        <span class="text-lg font-bold text-yellow-700">-${{ ((dependents + 1) * 15515).toLocaleString() }}</span>
                     </div>
                 </div>
-                
-                <details class="img-toggle mt-4" style="border-style: solid; background: #f8fafc;">
-                    <summary class="bg-white">💰 「115年每月生活所必需數額一覽表」 <i class="fas fa-chevron-down text-gray-300"></i></summary>
-                    <img src="messageImage_1771730977979.jpg" alt="115年每月生活所必需數額一覽表">
+
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-xs text-gray-500">
+                        月收 ÷ (負債+生活費+房貸) ≧ 180%
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs font-bold text-blue-600">最高可貸</div>
+                        <div class="res-val text-blue-700">{{ publicLoan }}<span class="res-unit">萬</span></div>
+                    </div>
+                </div>
+                <details class="img-toggle" style="background: white;">
+                    <summary>💰 查看「114年每月最低生活費」</summary>
+                    <img src="1764426349365.jpg" alt="114年每月最低生活費一覽表">
                 </details>
             </div>
         </div>
 
-        <div class="modern-section" style="border-top: 4px solid #EF4444; background: #FEF2F2;">
-            <h2 class="section-title text-red-800" style="margin-bottom: 0.5rem;">
-                <i class="fas fa-user-shield text-red-600"></i> 4. 保人需求試算
-            </h2>
-            <p class="text-xs text-red-600/80 mb-6 pl-7">當您想貸的金額超過自身收支比時，需徵提保人。</p>
+        <div class="pro-card border-t-4 border-t-red-500 bg-red-50">
+            <div class="card-header text-red-900 border-red-100 flex justify-between items-center">
+                <span><i class="fas fa-calculator text-red-600"></i> 4. 詳細房貸與保人試算</span>
+            </div>
             
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="input-group mb-0">
-                    <label class="input-label text-red-900"><i class="fas fa-hand-holding-heart mr-1"></i> 想貸金額 (萬)</label>
-                    <input v-model.number="targetLoan" type="number" class="nexus-input border-red-200 bg-white focus:border-red-500 text-red-900 font-bold" placeholder="例如: 1000">
+            <div class="bg-white p-3 rounded-lg border border-red-100 shadow-inner mb-4">
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div class="input-group mb-0">
+                        <label class="input-label text-red-900">想貸金額 (萬元)</label>
+                        <input v-model.number="targetLoan" type="number" class="nexus-input border-red-300" placeholder="例如: 1000">
+                    </div>
+                    <div class="input-group mb-0">
+                        <label class="input-label text-red-900">貸款年限 (年)</label>
+                        <select v-model.number="customTerm" class="nexus-select border-red-300">
+                            <option value="20">20年</option>
+                            <option value="30">30年</option>
+                            <option value="40">40年</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="input-group mb-0 relative">
-                    <label class="input-label text-red-900"><i class="fas fa-file-invoice-dollar mr-1"></i> 保人負債 (萬/月)</label>
-                    <input v-model.number="guarantorDebt" type="number" class="nexus-input border-red-200 bg-white focus:border-red-500 text-red-900 font-bold pl-12" placeholder="例如: 1.5">
-                    <span class="absolute left-4 top-[2.6rem] text-red-300">$</span>
+                <div class="grid grid-cols-2 gap-3 items-center">
+                    <div class="input-group mb-0 relative">
+                        <label class="input-label text-red-900">房貸利率 (%)</label>
+                        <input v-model.number="customRate" type="number" step="0.01" class="nexus-input border-red-300" placeholder="2.5">
+                    </div>
+                    <div class="text-right bg-red-50 p-2 rounded border border-red-100">
+                        <div class="text-[10px] text-red-700 font-bold mb-1">估算每月應付本息</div>
+                        <div class="text-xl font-bold text-red-800">${{ exactMonthlyPay.toLocaleString() }}</div>
+                    </div>
                 </div>
             </div>
             
-            <transition name="fade">
-                <div v-if="targetLoan > 0" class="bg-white p-5 rounded-2xl border border-red-100 shadow-sm">
-                    <div v-if="needsGuarantor">
-                        <div class="text-center mb-4">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full bg-red-100 text-red-700 text-sm font-bold">
-                                <i class="fas fa-exclamation-circle mr-2"></i> 需要保人 / 資料不足
-                            </span>
-                             <p class="text-xs text-gray-500 mt-2">您的收支比偏高，建議徵提保人以提高過件率。</p>
-                        </div>
-                        
-                        <div class="grid grid-cols-2 gap-3 mt-4">
-                            <div class="bg-green-50 border border-green-200 rounded-xl p-4 text-center relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-full h-1 bg-green-500"></div>
-                                <span class="block text-sm font-bold text-green-700 mb-1">🟢 50% 輕鬆過件</span>
-                                <div class="font-roboto text-2xl font-black text-green-700">{{ guarantorIncomeSafe }}<span class="text-sm">萬</span></div>
-                                <div class="text-[10px] text-green-600 opacity-80">保人建議月收</div>
-                            </div>
-                             <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 text-center relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-full h-1 bg-orange-500"></div>
-                                <span class="block text-sm font-bold text-orange-700 mb-1">🟠 60% 極限操作</span>
-                                <div class="font-roboto text-2xl font-black text-orange-700">{{ guarantorIncomeLimit }}<span class="text-sm">萬</span></div>
-                                <div class="text-[10px] text-orange-600 opacity-80">保人最低門檻</div>
-                            </div>
-                        </div>
-
-                        <details class="mt-4 rounded-xl border border-gray-200 overflow-hidden text-xs">
-                            <summary class="bg-gray-50 p-3 text-gray-600 font-medium cursor-pointer flex justify-between">
-                                <span>📝 點此查看：收支比計算公式</span>
-                                <i class="fas fa-chevron-down text-gray-300"></i>
-                            </summary>
-                            <div class="p-4 text-gray-600 leading-relaxed bg-white font-medium">
-                                <p class="mb-2"><span class="bg-gray-100 px-2 py-1 rounded text-gray-700">公式</span> (總負債 ÷ 收支比) - 借款人收入 = 保人所需月收</p>
-                                <hr class="my-3 border-gray-100">
-                                <p><strong>✅ 範例：</strong>貸1000萬(月付4萬)，本身信貸2萬。總支出6萬。</p>
-                                <p class="mt-1">若以 60% 計算：6萬 ÷ 0.6 = 需10萬總收。若您月收6萬，則保人需補 <strong>4萬</strong>。</p>
-                            </div>
-                        </details>
-
+            <div class="input-group relative mb-4">
+                <label class="input-label text-red-900">保證人現有負債 (萬元/月)</label>
+                <input v-model.number="guarantorDebt" type="number" step="0.1" class="nexus-input border-red-300 bg-white" placeholder="若無保人或無負債請留白">
+                <span class="absolute right-3 bottom-2.5 text-xs text-gray-400 font-bold">萬 / 月</span>
+            </div>
+            
+            <div v-if="targetLoan > 0" class="bg-white p-4 rounded-xl border border-red-200 shadow-sm transition-all duration-300">
+                <div v-if="needsGuarantor">
+                    <div class="text-sm font-bold text-gray-600 mb-2 text-center flex flex-col items-center">
+                        <span><i class="fas fa-exclamation-triangle text-red-500"></i> 收支比偏高 / 資料不足</span>
+                        <span class="text-xs text-gray-400 font-normal mt-1">請補足收入資料或徵提保人</span>
                     </div>
-                    <div v-else class="text-center text-green-600 py-4 bg-green-50 rounded-xl border border-green-200">
-                        <i class="fas fa-check-circle text-4xl mb-3 block text-green-500"></i> 
-                        <span class="font-bold text-lg">恭喜！您的財務狀況健康</span>
-                        <p class="text-sm opacity-80 mt-1">收支比低於 55%，原則上不需保人。</p>
+                    
+                    <div class="g-split">
+                        <div class="g-card perfect">
+                            <span class="g-title text-green-700">🟢 50% 輕鬆過件</span>
+                            <div class="g-val text-green-700">{{ guarantorIncomeSafe }}<span class="text-sm">萬</span></div>
+                            <div class="text-[10px] text-green-600">保人建議月收</div>
+                        </div>
+                        <div class="g-card extreme">
+                            <span class="g-title text-orange-600">🟠 60% 極限操作</span>
+                            <div class="g-val text-orange-600">{{ guarantorIncomeLimit }}<span class="text-sm">萬</span></div>
+                            <div class="text-[10px] text-orange-500">保人最低門檻</div>
+                        </div>
                     </div>
+
+                    <details class="mt-4 border border-gray-200 rounded text-xs">
+                        <summary class="bg-gray-50 p-2 text-gray-500 cursor-pointer">📝 點此查看：最新收支比精算公式</summary>
+                        <div class="p-3 text-gray-600 leading-relaxed bg-white">
+                            <p><strong>🔢 (精算房貸月付 + 借款人負債 + 保人負債) ÷ 收支比 - 借款人收入 = 保人月收缺口</strong></p>
+                            <hr class="my-2 border-gray-200">
+                            <p>本系統現已導入 <strong>本息平均攤還公式</strong> 計算真實月付金，直接帶入上列公式計算保人缺口，準確度極高。</p>
+                        </div>
+                    </details>
                 </div>
-            </transition>
+                <div v-else class="text-center text-green-600 font-bold py-2">
+                    <i class="fas fa-check-circle text-2xl mb-2 block animate-bounce"></i> 
+                    依據上述利率與年限設定，<br>您的財務收支比健康 (低於55%)，原則上不需保人。
+                </div>
+            </div>
         </div>
 
-        <div class="space-y-3 mt-8 px-2">
-            <h3 class="text-center font-bold text-gray-700 mb-4 flex items-center justify-center">
-                <i class="fas fa-book-open text-nexus-gold mr-2"></i> 購屋貸款常見 QA
-            </h3>
+        <div class="space-y-2 mt-6">
+            <h3 class="text-center font-bold text-gray-500 mb-2">📚 購屋貸款常見 QA</h3>
             <details class="qa-item">
-                <summary>💰 1. 現金收入/攤販 怎麼認定？ <i class="fas fa-plus text-gray-300 text-xs"></i></summary>
+                <summary>💰 1. 現金收入/攤販 怎麼認定？</summary>
                 <div class="qa-content">銀行看重「穩定性」。建議固定時間將收入存入存摺。無報稅者需提供長期存摺或營業場所照片佐證。</div>
             </details>
             <details class="qa-item">
-                <summary>📉 2. 有信貸、車貸會影響嗎？ <i class="fas fa-plus text-gray-300 text-xs"></i></summary>
+                <summary>📉 2. 有信貸、車貸會影響嗎？</summary>
                 <div class="qa-content">會吃掉收支比。若負債比過高，建議房貸送件前「提前一個月」清償完畢並取得證明。</div>
             </details>
             <details class="qa-item">
-                <summary>🏠 3. 夫妻買房，先生當保人？ <i class="fas fa-plus text-gray-300 text-xs"></i></summary>
-                <div class="qa-content">若僅為「一般保證人」不算名下負債；若為「借款人」之一，未來他自己買房會受第二戶管制。</div>
+                <summary>🏠 3. 夫妻買房，先生當保人？</summary>
+                <div class="qa-content">若僅為「一般保證人」不算名下負債；若為「借款人」之一，未來他自己買房會受第二戶(上限6成)管制。</div>
             </details>
         </div>
 
-        <div class="text-center mt-10 text-xs text-gray-400 leading-relaxed pb-4">
-            <img src="https://cdn-icons-png.flaticon.com/512/2344/2344143.png" width="30" class="mx-auto mb-3 opacity-30 grayscale" alt="Logo">
+        <div class="text-center mt-8 text-xs text-gray-400 leading-relaxed">
             服務專線：06-2582589｜台南市北區文賢路1080巷11號<br>
-            試算僅供參考，最終結果以銀行批覆為準。<br>
-            <span class="mt-2 block opacity-70">© 2026 宏國地政 | 易丞地政. All Rights Reserved.</span>
+            試算僅供參考，以銀行批覆為準。<br>
+            © 2026 宏國地政 | 易丞地政
         </div>
     </div>
 
     <div class="sticky-footer">
-        <button onclick="sendToLine()" class="w-full bg-[#06C755] hover:bg-[#05b64d] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-green-500/20 flex items-center justify-center gap-3 active:scale-[0.98] transition-all text-lg">
-            <i class="fab fa-line text-2xl"></i> 
-            <span>評估完成！傳送結果給宏國</span>
+        <button onclick="sendToLine()" class="w-full bg-[#06C755] text-white font-bold py-3 px-6 rounded-full shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
+            <i class="fab fa-line text-xl"></i> 評估完成！傳送結果給宏國
         </button>
     </div>
 
@@ -475,7 +464,6 @@
 
     createApp({
         setup() {
-            const region = ref("臺南市");
             const occupation = ref("");
             const dependents = ref(0);
             const houseCount = ref(0);
@@ -485,82 +473,137 @@
             const assets = ref("");
             const targetLoan = ref(null);
             const guarantorDebt = ref(null);
+            
+            // 新增動態試算欄位
+            const customTerm = ref(30); // 預設 30 年
+            const customRate = ref(2.50); // 預設 2.5%
 
             const monthlyPayPerMillion = 4000;
-            
-            const livingCostMap = {
-                '臺北市': 20744, '新北市': 17750, '桃園市': 17186, '臺中市': 16431,
-                '臺南市': 15515, '高雄市': 16970, '臺灣省': 15515, '福建省': 15173
-            };
+            const basicLivingCost = 15515;
 
-            const basicLivingCost = computed(() => livingCostMap[region.value] || 15515);
-
+            // 1. Safe (55%) - Base 4000
             const safeLoan = computed(() => {
                 if (!monthlyIncome.value) return 0;
                 let val = ((monthlyIncome.value * 0.55) - (monthlyDebt.value || 0));
                 return val > 0 ? Math.floor((val / monthlyPayPerMillion) * 100) : 0;
             });
 
+            // 2. Limit (70%) - Base 4000
             const limitLoan = computed(() => {
                 if (!monthlyIncome.value) return 0;
                 let val = ((monthlyIncome.value * 0.70) - (monthlyDebt.value || 0));
                 return val > 0 ? Math.floor((val / monthlyPayPerMillion) * 100) : 0;
             });
 
+            // --- 新增：Base 4100 估算指標 ---
+            const safeLoan4100 = computed(() => {
+                if (!monthlyIncome.value) return 0;
+                let val = ((monthlyIncome.value * 0.55) - (monthlyDebt.value || 0));
+                return val > 0 ? Math.floor((val / 4100) * 100) : 0;
+            });
+
+            const limitLoan4100 = computed(() => {
+                if (!monthlyIncome.value) return 0;
+                let val = ((monthlyIncome.value * 0.70) - (monthlyDebt.value || 0));
+                return val > 0 ? Math.floor((val / 4100) * 100) : 0;
+            });
+
+            // 3. Public (180%)
             const publicLoan = computed(() => {
                 if (!monthlyIncome.value) return 0;
-                let totalLiving = basicLivingCost.value * (1 + dependents.value);
+                let totalLiving = basicLivingCost * (1 + dependents.value);
                 let val = (monthlyIncome.value / 1.8) - (monthlyDebt.value || 0) - totalLiving;
                 return val > 0 ? Math.floor((val / monthlyPayPerMillion) * 100) : 0;
             });
 
+            // --- 新增：動態本息平均攤還計算 ---
+            const exactMonthlyPay = computed(() => {
+                if (!targetLoan.value || !customTerm.value) return 0;
+                const P = targetLoan.value * 10000; // 本金轉為元
+                const r = (customRate.value || 0) / 100 / 12; // 月利率
+                const n = customTerm.value * 12; // 總期數(月)
+
+                if (r === 0) return Math.round(P / n);
+                
+                // PMT 公式計算
+                const pmt = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+                return Math.round(pmt);
+            });
+
+            // 4. Guarantor Logic (全面改用精算結果)
             const needsGuarantor = computed(() => {
                 if (!targetLoan.value) return false;
-                if (!monthlyIncome.value) return true;
-                const payWan = (targetLoan.value / 100) * (monthlyPayPerMillion / 10000); 
+                if (!monthlyIncome.value) return true; // 未填收入視同需要保人
+                
+                // 改用真實精算出來的月付金來判斷收支比
+                const payWan = exactMonthlyPay.value / 10000; 
                 const debtWan = (monthlyDebt.value || 0) / 10000;
                 const incomeWan = (monthlyIncome.value || 0) / 10000;
-                return (payWan + debtWan) > (incomeWan * 0.55);
+                
+                const totalObligation = payWan + debtWan;
+                
+                return totalObligation > (incomeWan * 0.55);
             });
 
             const calculateGuarantorNeed = (ratio) => {
                 if (!targetLoan.value) return 0;
+                
                 const incomeWan = (monthlyIncome.value || 0) / 10000;
-                const payWan = (targetLoan.value / 100) * (monthlyPayPerMillion / 10000);
+                const payWan = exactMonthlyPay.value / 10000; // 使用真實精算月付金
                 const debtWan = (monthlyDebt.value || 0) / 10000;
                 const gDebtWan = guarantorDebt.value || 0;
-                const incomeNeededWan = ((payWan + debtWan + gDebtWan) / ratio) - incomeWan;
+                
+                const totalDebtWan = payWan + debtWan + gDebtWan;
+                
+                const incomeNeededWan = (totalDebtWan / ratio) - incomeWan;
                 return incomeNeededWan > 0 ? (incomeNeededWan).toFixed(1) : 0;
             };
 
-            const guarantorIncomeSafe = computed(() => calculateGuarantorNeed(0.5)); 
-            const guarantorIncomeLimit = computed(() => calculateGuarantorNeed(0.6)); 
+            const guarantorIncomeSafe = computed(() => calculateGuarantorNeed(0.5)); // 50% DBR
+            const guarantorIncomeLimit = computed(() => calculateGuarantorNeed(0.6)); // 60% DBR
 
             window.sendToLine = () => {
-                let text = `【房貸額度全方位評估】\n(宏國地政/易丞地政)\n\n`;
-                text += `Q1地區：${region.value}\nQ2職業：${occupation.value || '未填'}\nQ3扶養：${dependents.value}人\nQ4房產：${houseCount.value === 0 ? '首購' : houseCount.value + '戶'}\nQ5年齡：${age.value || '未填'}\nQ6月收：${monthlyIncome.value || 0}\nQ7月負債：${monthlyDebt.value || 0}\n資產備註：${assets.value || '無'}\n\n📊【最高額度試算】\n✅宏國建議(55%)：${safeLoan.value}萬\n🔥市場極限(70%)：${limitLoan.value}萬\n🏛️公股台銀(嚴格)：${publicLoan.value}萬\n`;
+                let text = `【房貸額度全方位評估 v5.2】\n(宏國地政/易丞地政)\n\n`;
+                text += `Q1職業：${occupation.value || '未填'}\n`;
+                text += `Q2扶養：${dependents.value}人\n`;
+                text += `Q3房產：${houseCount.value === 0 ? '首購' : houseCount.value + '戶'}\n`;
+                text += `Q4年齡：${age.value || '未填'}\n`;
+                text += `Q5月收：${monthlyIncome.value || 0}元\n`;
+                text += `Q6月負債：${monthlyDebt.value || 0}元\n`;
+                text += `資產備註：${assets.value || '無'}\n\n`;
+                
+                text += `📊【最高額度試算】\n`;
+                text += `✅宏國建議(55%)：${safeLoan.value}萬 (4100基準:${safeLoan4100.value}萬)\n`;
+                text += `🔥市場極限(70%)：${limitLoan.value}萬 (4100基準:${limitLoan4100.value}萬)\n`;
+                text += `🏛️公股台銀(嚴格)：${publicLoan.value}萬\n`;
+                
                 if (targetLoan.value) {
-                    text += `\n🛡️【保人需求試算】\n想貸金額：${targetLoan.value}萬\n保人已有負債：${guarantorDebt.value || 0}萬/月\n`;
+                    text += `\n🛡️【詳細房貸與保人試算】\n`;
+                    text += `想貸金額：${targetLoan.value}萬\n`;
+                    text += `條件設定：${customTerm.value}年 / 利率 ${customRate.value}%\n`;
+                    text += `精算月付：約 ${exactMonthlyPay.value.toLocaleString()} 元\n`;
+                    text += `保人已有負債：${guarantorDebt.value || 0}萬/月\n`;
                     if (needsGuarantor.value) {
-                        text += `👉 建議保人月收(50%水準)：${guarantorIncomeSafe.value}萬\n👉 最低門檻(60%極限)：${guarantorIncomeLimit.value}萬\n`;
+                        text += `👉 建議保人月收(50%水準)：${guarantorIncomeSafe.value}萬\n`;
+                        text += `👉 最低門檻(60%極限)：${guarantorIncomeLimit.value}萬\n`;
                     } else {
                         text += `👉 財務健康，原則上不需保人\n`;
                     }
                 }
-                window.location.href = `https://line.me/R/oaMessage/@604gpqef/?text=${encodeURIComponent(text)}`;
+
+                const lineID = "@604gpqef";
+                window.location.href = `https://line.me/R/oaMessage/${lineID}/?text=${encodeURIComponent(text)}`;
             };
 
             return {
-                region, basicLivingCost, occupation, dependents, houseCount, age,
-                monthlyIncome, monthlyDebt, assets, targetLoan, guarantorDebt,
-                safeLoan, limitLoan, publicLoan, needsGuarantor, guarantorIncomeSafe, guarantorIncomeLimit
+                occupation, dependents, houseCount, age,
+                monthlyIncome, monthlyDebt, assets,
+                targetLoan, guarantorDebt, customTerm, customRate, exactMonthlyPay,
+                safeLoan, limitLoan, safeLoan4100, limitLoan4100, publicLoan,
+                needsGuarantor, guarantorIncomeSafe, guarantorIncomeLimit
             };
         }
     }).mount('#app');
 </script>
-<style>
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
-</style>
 </body>
 </html>
