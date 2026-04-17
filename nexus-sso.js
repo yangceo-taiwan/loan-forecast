@@ -1,32 +1,33 @@
 // ==========================================
-// Nexus SSO - 企業級通用門禁套件 v1.0
-// 運作學理：透過 DOM 注入 (DOM Injection) 與 IIFE 封裝，達成零依賴全域覆蓋
+// Nexus SSO - 企業級通用門禁套件 v1.1 (嚴格查核版)
 // ==========================================
 
 (function() {
-    // 🔴 您的中央授權伺服器 (永久有效)
+    // 🔴 您的中央授權伺服器
     const gasAuthUrl = "https://script.google.com/macros/s/AKfycbwfNkqkJpqI_JHOPmlauEyOQOsB4NixkL8_P0yCfLUzhCLc4cX6FHymFdaSrt4N3XsjvA/exec";
     
-    // 1. 攔截網址參數與狀態檢查
     const urlParams = new URLSearchParams(window.location.search);
     const authStatus = urlParams.get('nexus_auth');
     let isUnlocked = localStorage.getItem('hg_line_auth') === 'true';
     let errorMessage = "";
 
+    // 1. 嚴格狀態檢查與通行證管理
     if (authStatus === 'success') {
         localStorage.setItem('hg_line_auth', 'true');
         isUnlocked = true;
-        // 抹除網址上的參數，保持畫面乾淨
         window.history.replaceState({}, document.title, window.location.pathname);
     } else if (authStatus === 'failed_not_friend') {
-        errorMessage = "授權失敗：系統偵測到您尚未加入好友或已封鎖。請重新登入並勾選加入好友。";
+        // 🛡️ 終極修補：如果被抓到不是好友，直接撕毀他可能擁有的舊通行證！
+        localStorage.removeItem('hg_line_auth');
+        isUnlocked = false; 
+        errorMessage = "授權失敗：系統偵測到您尚未加入好友或已封鎖。請重新登入並務必勾選加入好友。";
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // 2. 如果已解鎖，套件自動休眠，讓底下網頁正常運作
+    // 2. 如果合法解鎖，套件休眠
     if (isUnlocked) return;
 
-    // 3. 如果未解鎖，啟動絕對防禦：注入 CSS 與解鎖畫面
+    // 3. 畫面注入與鎖定 (與之前相同)
     const style = document.createElement('style');
     style.innerHTML = `
         .nexus-sso-lock-body { overflow: hidden !important; height: 100vh !important; }
@@ -42,7 +43,7 @@
         .nexus-sso-err { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: bold; margin-bottom: 1rem; text-align: left; display: flex; align-items: flex-start; gap: 0.5rem; }
     `;
     document.head.appendChild(style);
-    document.body.classList.add('nexus-sso-lock-body'); // 鎖住底下網頁禁止滑動
+    document.body.classList.add('nexus-sso-lock-body'); 
 
     const overlay = document.createElement('div');
     overlay.className = 'nexus-sso-overlay';
@@ -69,7 +70,7 @@
     
     document.body.appendChild(overlay);
 
-    // 4. 綁定按鈕事件，發送驗證請求
+    // 4. 綁定登入事件
     document.getElementById('nexus-login-btn').addEventListener('click', () => {
         const currentBaseUrl = window.location.origin + window.location.pathname;
         window.location.href = `${gasAuthUrl}?state=${encodeURIComponent(currentBaseUrl)}`;
