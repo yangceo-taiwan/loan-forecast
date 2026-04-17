@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v5.4 (SSO Edition)</title>
+    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v5.5 (SSO Edition)</title>
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -197,10 +197,6 @@
                 </div>
             </div>
             <div class="mt-8 text-xs text-blue-200 opacity-60 tracking-widest">© 2026 宏國地政 | 易丞地政</div>
-            
-            <button @click="clearAuthCache" class="mt-4 text-[10px] text-blue-300 opacity-50 hover:opacity-100 underline tracking-widest">
-                🔄 清除登入狀態 (測試專用)
-            </button>
         </div>
     </transition>
 
@@ -497,50 +493,34 @@
             const isUnlocked = ref(false);
             const errorMessage = ref("");
             
-            // 您部署的 Google 伺服器大腦 URL
-            const gasAuthUrl = "https://script.google.com/macros/s/AKfycbwfNkqkJpqI_JHOPmlauEyOQOsB4NixkL8_P0yCfLUzhCLc4cX6FHymFdaSrt4N3XsjvA/exec";
+            // 🔴 已為您掛載上最新的強制查水表大腦網址
+            const gasAuthUrl = "https://script.google.com/macros/s/AKfycbySy7_F61i22jlxLXWSAPX6EwMRQAx7vkhhw2HGQsHoDzM-qzUqkG4O_KcOeBk5VSb2Pw/exec";
 
             onMounted(() => {
-                // 1. 攔截從 Google 伺服器傳回來的網址參數
                 const urlParams = new URLSearchParams(window.location.search);
                 const authStatus = urlParams.get('nexus_auth');
 
                 if (authStatus === 'success') {
-                    // ✅ 授權成功：發放本地通行證並解鎖
                     localStorage.setItem('hg_line_auth', 'true');
                     isUnlocked.value = true;
-                    // 抹除網址上的參數
                     window.history.replaceState({}, document.title, window.location.pathname);
                 } 
                 else if (authStatus === 'failed_not_friend') {
-                    // ❌ 授權失敗：未加好友或已封鎖
-                    // 🛡️ 終極修補：拔除可能殘留的舊通行證
                     localStorage.removeItem('hg_line_auth');
                     isUnlocked.value = false;
-                    
                     errorMessage.value = "授權失敗：系統偵測到您尚未加入好友或已封鎖官方帳號。請重新登入並務必勾選加入好友。";
                     window.history.replaceState({}, document.title, window.location.pathname);
                 } 
                 else {
-                    // 沒有參數時，檢查本機是否已經擁有通行證
                     if (localStorage.getItem('hg_line_auth') === 'true') {
                         isUnlocked.value = true;
                     }
                 }
             });
 
-            // 觸發 LINE 登入
             const loginWithLine = () => {
                 const currentBaseUrl = window.location.origin + window.location.pathname;
                 window.location.href = `${gasAuthUrl}?state=${encodeURIComponent(currentBaseUrl)}`;
-            };
-
-            // 🛠️ 開發者測試專用：清除快取功能
-            const clearAuthCache = () => {
-                localStorage.removeItem('hg_line_auth');
-                isUnlocked.value = false;
-                errorMessage.value = "";
-                alert("✅ 已清除您的登入紀錄！\n現在您可以測試「封鎖官方帳號」並點擊登入，系統應該會成功擋下您。");
             };
             // === 授權邏輯結束 ===
 
@@ -625,7 +605,7 @@
             const guarantorIncomeLimit = computed(() => calculateGuarantorNeed(0.6));
 
             window.sendToLine = () => {
-                let text = `【房貸額度全方位評估 v5.4】\n(宏國地政/易丞地政)\n\n`;
+                let text = `【房貸額度全方位評估 v5.5】\n(宏國地政/易丞地政)\n\n`;
                 text += `Q1職業：${occupation.value || '未填'}\n`;
                 text += `Q2扶養：${dependents.value}人\n`;
                 text += `Q3房產：${houseCount.value === 0 ? '首購' : houseCount.value + '戶'}\n`;
@@ -658,7 +638,7 @@
             };
 
             return {
-                isUnlocked, errorMessage, loginWithLine, clearAuthCache,
+                isUnlocked, errorMessage, loginWithLine,
                 occupation, dependents, houseCount, age,
                 monthlyIncome, monthlyDebt, assets,
                 targetLoan, guarantorDebt, customTerm, customRate, exactMonthlyPay,
