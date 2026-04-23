@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v6.0 (Dynamic Table)</title>
+    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v6.1 (Hybrid SSO)</title>
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -50,6 +50,8 @@
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
 
+        .unit { position: absolute; right: 1rem; top: 2rem; color: #94a3b8; font-size: 0.9rem; pointer-events: none; }
+
         .res-box { text-align: center; padding: 1rem; border-radius: 0.8rem; height: 100%; }
         .res-box.safe { background: #ecfdf5; border: 1px solid #6ee7b7; color: #047857; }
         .res-box.limit { background: #fff1f2; border: 1px solid #fda4af; color: #be123c; }
@@ -80,10 +82,10 @@
 
         .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease; }
         .fade-enter-from, .fade-leave-to { opacity: 0; }
-
-        /* 動態表格專屬樣式 */
-        .sticky-col { position: sticky; left: 0; z-index: 10; border-right: 1px solid #e2e8f0; }
-        .table-shadow { box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1); }
+        
+        /* 隱藏滾動條的橫向滑動區 */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>
@@ -108,6 +110,9 @@
                 <button @click="loginWithLine" class="w-full btn-line-solid rounded-xl py-4 flex items-center justify-center font-bold text-base shadow-lg transform transition active:scale-95 hover:shadow-xl">
                     <i class="fab fa-line text-2xl mr-2"></i> 使用 LINE 登入並解鎖
                 </button>
+                <div class="text-[10px] text-gray-400 mt-4">
+                    <i class="fas fa-lock mr-1"></i> 經由 LINE OAuth 2.0 安全授權
+                </div>
             </div>
             <div class="mt-8 text-xs text-blue-200 opacity-60 tracking-widest">© 2026 宏國地政 | 易丞地政</div>
         </div>
@@ -130,7 +135,7 @@
                 <a href="https://maps.app.goo.gl/qyKhdrKsG5QBo2BW8" target="_blank" class="col-span-2 btn-link btn-map text-xs">
                     <i class="fas fa-map-marker-alt mr-1"></i> 地圖導航
                 </a>
-                <a href="https://line.me/ti/g2/aVklWxyLP1RtfstQsslGQOlP4KViuFI7PPucdQ" target="_blank" class="col-span-4 btn-link btn-vip text-xs py-2">
+                <a href="https://line.me/ti/g2/aVklWxyLP1RtfstQsslGQOlP4KViuFI7PPucdQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="col-span-4 btn-link btn-vip text-xs py-2">
                     <i class="fas fa-crown mr-2"></i> 加入宏國地政研究院 (VIP)
                 </a>
             </div>
@@ -142,7 +147,7 @@
                     <div class="text-2xl">🔥</div>
                     <div>
                         <h3 class="font-bold text-yellow-800 text-sm mb-1">繼承房產必看！這樣做最省稅</h3>
-                        <a href="https://youtube.com/shorts/3tcLcY8YpHA" target="_blank" class="text-red-600 text-xs font-bold underline flex items-center">
+                        <a href="https://youtube.com/shorts/3tcLcY8YpHA?si=1k3DkxfRMNCpXGjG" target="_blank" class="text-red-600 text-xs font-bold underline flex items-center">
                             <i class="fab fa-youtube mr-1"></i> 點擊觀看教學影片
                         </a>
                     </div>
@@ -162,6 +167,12 @@
                             <option value="公教人員">公務人員/國營/百大</option>
                             <option value="自由業">自由工作者/領現族</option>
                         </select>
+                        <div v-if="occupation" class="mt-2 text-xs p-2 bg-gray-50 rounded border border-gray-200 text-gray-600">
+                            <span v-if="occupation==='自營商'">💡 看401/403表或淨利。無報表需備長期存摺。</span>
+                            <span v-if="occupation==='業務性質'">💡 以年度扣繳憑單為主。</span>
+                            <span v-if="occupation==='受薪階級'||occupation==='公教人員'">💡 需提供近 <b class="text-red-500">6個月</b> 薪轉證明。</span>
+                            <span v-if="occupation==='自由業'">💡 建議收到款項後「全額存入」存摺再提領，建立金流。</span>
+                        </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="input-group">
@@ -183,6 +194,10 @@
                             </select>
                         </div>
                     </div>
+                    <div v-if="houseCount >= 1" class="text-xs text-red-600 bg-red-50 p-2 rounded mb-2 font-bold shadow-sm border border-red-100">
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        {{ houseCount === 1 ? '央行管制更新：第2戶上限6成，無寬限期。' : '央行管制更新：第3戶上限3成。' }}
+                    </div>
                     <div class="input-group">
                         <label class="input-label">Q4：客戶年齡</label>
                         <input v-model="age" type="text" class="nexus-input" placeholder="例如：35歲">
@@ -199,7 +214,24 @@
                     </div>
                     <div class="input-group relative">
                         <label class="input-label">Q6：每月負債支出 (元)</label>
-                        <input v-model.number="monthlyDebt" type="number" class="nexus-input border-l-4 border-l-red-500" placeholder="信貸/車貸總和">
+                        <input v-model.number="monthlyDebt" type="number" class="nexus-input border-l-4 border-l-red-500" placeholder="信貸/車貸/學貸總和">
+                    </div>
+
+                    <div class="debt-notes">
+                        <strong>📋 請務必「加總」以下月付金：</strong>
+                        <ul>
+                            <li>信貸、車貸、學貸</li>
+                            <li>企業/創業貸款、名下原有房貸</li>
+                        </ul>
+                        <div class="mt-2 pt-2 border-t border-red-200 text-xs font-bold">
+                            💡 提早清償提醒：<br>
+                            若計畫在本次房貸前「完全清償」某筆貸款，該筆金額可填 0 (不計入)。
+                        </div>
+                    </div>
+
+                    <div class="input-group mt-3">
+                        <label class="input-label">補充備註 (資產/股票)</label>
+                        <textarea v-model="assets" class="nexus-input h-20" placeholder="例如：股票現值約200萬..."></textarea>
                     </div>
                 </div>
             </div>
@@ -213,10 +245,12 @@
                         <div class="res-box safe">
                             <div class="text-xs font-bold mb-1">✅ 宏國建議 (55%)</div>
                             <div class="res-val">{{ safeLoan }}<span class="res-unit">萬</span></div>
+                            <div class="text-[10px] opacity-70 mt-1">穩健繳款</div>
                         </div>
                         <div class="res-box limit">
                             <div class="text-xs font-bold mb-1">🔥 市場極限 (70%)</div>
                             <div class="res-val">{{ limitLoan }}<span class="res-unit">萬</span></div>
+                            <div class="text-[10px] opacity-70 mt-1">需信用極佳</div>
                         </div>
                     </div>
                     
@@ -224,60 +258,73 @@
                         <i class="fas fa-info-circle mt-0.5"></i>
                         <div>
                             <strong>進階指標估算 ($4,100/百萬)</strong><br>
-                            若以較高利率環境估算，宏國建議可貸約 <b>{{safeLoan4100}}</b> 萬，極限約 <b>{{limitLoan4100}}</b> 萬。
+                            若以較高利率環境估算，宏國建議可貸約 <b>{{safeLoan4100}}</b> 萬，市場極限約 <b>{{limitLoan4100}}</b> 萬。
                         </div>
                     </div>
+                    
+                    <div class="text-right text-[10px] text-gray-400 mt-2">
+                        *主計算基準：每百萬元月付約 $4,000 (30年期/2.5%)
+                    </div>
 
-                    <div class="mt-5 border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                        <div class="bg-[#0F2E46] p-3 text-white flex justify-between items-center">
-                            <span class="font-bold text-sm"><i class="fas fa-table mr-1 text-[#C5A065]"></i> 每百萬房貸月付表</span>
-                            <span class="text-[10px] bg-[#C5A065] text-[#0F2E46] px-2 py-0.5 rounded font-bold">宏國動態引擎</span>
+                    <details class="img-toggle">
+                        <summary>📊 查看「房貸利率月付金對照表」</summary>
+                        <img src="貸款.jpg" alt="房貸利率月付金對照表">
+                    </details>
+
+                    <div class="mt-3 bg-gradient-to-r from-gray-50 to-white p-3 rounded-lg border border-gray-200 shadow-sm">
+                        <h4 class="text-xs font-bold text-gray-700 mb-2 flex items-center justify-between">
+                            <span>🎯 表格內找不到您的利率？</span>
+                            <span class="bg-[#C5A065] text-white px-2 py-0.5 rounded shadow-sm text-[10px] font-bold">動態擴充引擎</span>
+                        </h4>
+                        <div class="flex items-center gap-2 mb-3 bg-white p-1.5 rounded border border-gray-300 shadow-inner">
+                            <input v-model.number="userTableRate" type="number" step="0.01" class="w-full bg-transparent outline-none text-center text-lg font-bold text-[#0F2E46]" placeholder="例如: 2.35">
+                            <span class="text-xs text-gray-500 font-bold px-2 border-l border-gray-200 whitespace-nowrap">% (每百萬)</span>
                         </div>
                         
-                        <div class="bg-gray-50 p-3 border-b border-gray-200 flex items-center justify-between">
-                            <label class="text-xs font-bold text-gray-700">🎯 客戶自訂利率測試：</label>
-                            <div class="flex items-center bg-white border border-gray-300 rounded-md overflow-hidden shadow-inner">
-                                <input v-model.number="userTableRate" type="number" step="0.01" class="w-20 text-center text-sm py-1 font-bold text-[#0F2E46] focus:outline-none" placeholder="2.50">
-                                <span class="bg-gray-100 px-2 py-1 text-xs text-gray-500 border-l border-gray-300">%</span>
-                            </div>
-                        </div>
-
-                        <div class="overflow-x-auto bg-white">
-                            <table class="w-full text-center text-xs whitespace-nowrap min-w-max">
+                        <div class="overflow-x-auto hide-scrollbar rounded bg-white border border-yellow-200 shadow-sm">
+                            <table class="w-full text-center text-[11px] whitespace-nowrap">
                                 <thead>
-                                    <tr class="bg-gray-100 text-gray-600 text-[11px]">
-                                        <th class="p-2 font-bold sticky-col bg-gray-100 table-shadow">利率 \ 年限</th>
-                                        <th v-for="y in tableYears" :key="y" class="p-2 font-bold">{{y}}年</th>
+                                    <tr class="bg-[#0F2E46] text-white">
+                                        <th v-for="y in tableYears" :key="y" class="py-1 px-3 font-normal opacity-90">{{y}}年</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="rate in standardRates" :key="rate" class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                        <td class="p-2 font-bold text-[#0F2E46] sticky-col bg-white table-shadow">{{ rate.toFixed(3) }}%</td>
-                                        <td v-for="y in tableYears" :key="y" class="p-2 text-gray-600">
-                                            ${{ calcPmtPerMillion(rate, y).toLocaleString() }}
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-yellow-50 border-b-2 border-yellow-300">
-                                        <td class="p-2 font-bold text-yellow-800 sticky-col bg-yellow-50 table-shadow">
-                                            <i class="fas fa-star text-yellow-500 text-[10px] mr-1"></i>{{ (userTableRate || 0).toFixed(3) }}%
-                                        </td>
-                                        <td v-for="y in tableYears" :key="y" class="p-2 font-bold text-yellow-700">
+                                    <tr class="bg-yellow-50">
+                                        <td v-for="y in tableYears" :key="y" class="py-2 px-3 font-bold text-yellow-800 border-r border-yellow-100 last:border-0">
                                             ${{ calcPmtPerMillion(userTableRate || 0, y).toLocaleString() }}
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="bg-gray-50 p-2 text-center text-[10px] text-gray-400">
-                            * 左右滑動查看不同年限。採用本息平均攤還法計算。
+                        <div class="text-[10px] text-gray-400 mt-1.5 text-center">
+                            * 左右滑動查看不同年限。公式採本息平均攤還法。
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <h4 class="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wider">🏛️ 公股銀行 (嚴格180%)</h4>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200" :class="{'ring-2 ring-yellow-400': dependents > 0}">
+                    <h4 class="text-sm font-bold text-gray-500 mb-3 uppercase tracking-wider flex items-center justify-between">
+                        <span>🏛️ 公股銀行 (嚴格180%)</span>
+                        <span v-if="dependents > 0" class="text-xs text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full animate-pulse">
+                            ⚠️ 扶養扣除中
+                        </span>
+                    </h4>
+                    
+                    <div v-if="dependents > 0" class="mb-4 bg-yellow-50 p-3 rounded border border-yellow-200">
+                        <div class="text-xs text-yellow-800 font-bold mb-1">
+                            <i class="fas fa-users"></i> 扶養親屬生活費扣除：
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-xs text-gray-600">($15,515 × {{ dependents + 1 }} 人)</span>
+                            <span class="text-lg font-bold text-yellow-700">-${{ ((dependents + 1) * 15515).toLocaleString() }}</span>
+                        </div>
+                    </div>
+
                     <div class="flex justify-between items-center mb-2">
-                        <div class="text-xs text-gray-500">月收 ÷ (負債+生活費+房貸) ≧ 180%</div>
+                        <div class="text-xs text-gray-500">
+                            月收 ÷ (負債+生活費+房貸) ≧ 180%
+                        </div>
                         <div class="text-right">
                             <div class="text-xs font-bold text-blue-600">最高可貸</div>
                             <div class="res-val text-blue-700">{{ publicLoan }}<span class="res-unit">萬</span></div>
@@ -334,6 +381,7 @@
                             <span><i class="fas fa-exclamation-triangle text-red-500"></i> 收支比偏高 / 資料不足</span>
                             <span class="text-xs text-gray-400 font-normal mt-1">請補足收入資料或徵提保人</span>
                         </div>
+                        
                         <div class="g-split">
                             <div class="g-card perfect">
                                 <span class="g-title text-green-700">🟢 50% 輕鬆過件</span>
@@ -346,12 +394,37 @@
                                 <div class="text-[10px] text-orange-500">保人最低門檻</div>
                             </div>
                         </div>
+
+                        <details class="mt-4 border border-gray-200 rounded text-xs">
+                            <summary class="bg-gray-50 p-2 text-gray-500 cursor-pointer">📝 點此查看：最新收支比精算公式</summary>
+                            <div class="p-3 text-gray-600 leading-relaxed bg-white">
+                                <p><strong>🔢 (精算房貸月付 + 借款人負債 + 保人負債) ÷ 收支比 - 借款人收入 = 保人月收缺口</strong></p>
+                                <hr class="my-2 border-gray-200">
+                                <p>本系統現已導入 <strong>本息平均攤還公式</strong> 計算真實月付金，直接帶入上列公式計算保人缺口，準確度極高。</p>
+                            </div>
+                        </details>
                     </div>
                     <div v-else class="text-center text-green-600 font-bold py-2">
                         <i class="fas fa-check-circle text-2xl mb-2 block animate-bounce"></i> 
-                        依據上述設定，收支比健康，原則上不需保人。
+                        依據上述利率與年限設定，<br>您的財務收支比健康 (低於55%)，原則上不需保人。
                     </div>
                 </div>
+            </div>
+
+            <div class="space-y-2 mt-6">
+                <h3 class="text-center font-bold text-gray-500 mb-2">📚 購屋貸款常見 QA</h3>
+                <details class="qa-item">
+                    <summary>💰 1. 現金收入/攤販 怎麼認定？</summary>
+                    <div class="qa-content">銀行看重「穩定性」。建議固定時間將收入存入存摺。無報稅者需提供長期存摺或營業場所照片佐證。</div>
+                </details>
+                <details class="qa-item">
+                    <summary>📉 2. 有信貸、車貸會影響嗎？</summary>
+                    <div class="qa-content">會吃掉收支比。若負債比過高，建議房貸送件前「提前一個月」清償完畢並取得證明。</div>
+                </details>
+                <details class="qa-item">
+                    <summary>🏠 3. 夫妻買房，先生當保人？</summary>
+                    <div class="qa-content">若僅為「一般保證人」不算名下負債；若為「借款人」之一，未來他自己買房會受第二戶(上限6成)管制。</div>
+                </details>
             </div>
 
             <div class="text-center mt-8 text-xs text-gray-400 leading-relaxed">
@@ -382,17 +455,22 @@
             onMounted(() => {
                 const urlParams = new URLSearchParams(window.location.search);
                 const authStatus = urlParams.get('nexus_auth');
+
                 if (authStatus === 'success') {
                     localStorage.setItem('hg_line_auth', 'true');
                     isUnlocked.value = true;
                     window.history.replaceState({}, document.title, window.location.pathname);
-                } else if (authStatus === 'failed_not_friend') {
+                } 
+                else if (authStatus === 'failed_not_friend') {
                     localStorage.removeItem('hg_line_auth');
                     isUnlocked.value = false;
-                    errorMessage.value = "授權失敗：請重新登入並務必勾選加入好友。";
+                    errorMessage.value = "授權失敗：系統偵測到您尚未加入好友或已封鎖官方帳號。請重新登入並務必勾選加入好友。";
                     window.history.replaceState({}, document.title, window.location.pathname);
-                } else {
-                    if (localStorage.getItem('hg_line_auth') === 'true') { isUnlocked.value = true; }
+                } 
+                else {
+                    if (localStorage.getItem('hg_line_auth') === 'true') {
+                        isUnlocked.value = true;
+                    }
                 }
             });
 
@@ -401,7 +479,7 @@
                 window.location.href = `${gasAuthUrl}?state=${encodeURIComponent(currentBaseUrl)}`;
             };
 
-            // === 既有變數與邏輯 ===
+            // === 您原本的所有變數綁定 ===
             const occupation = ref("");
             const dependents = ref(0);
             const houseCount = ref(0);
@@ -417,10 +495,9 @@
             const monthlyPayPerMillion = 4000;
             const basicLivingCost = 15515;
 
-            // === 【新增】動態試算表專用變數與方法 ===
+            // === 【防禦性擴充】自訂利率小模組所需變數 ===
             const tableYears = [5, 7, 10, 15, 20, 30, 35, 40];
-            const standardRates = [2.185, 2.300, 2.500, 3.000, 3.500]; // 宏國預設常態利率
-            const userTableRate = ref(2.285); // 客戶預設帶入的自訂利率
+            const userTableRate = ref(2.35); // 預設給個常見數字讓畫面不留白
 
             const calcPmtPerMillion = (rate, years) => {
                 const P = 1000000;
@@ -498,21 +575,32 @@
             const guarantorIncomeLimit = computed(() => calculateGuarantorNeed(0.6));
 
             window.sendToLine = () => {
-                let text = `【房貸額度全方位評估 v6.0】\n(宏國地政/易丞地政)\n\n`;
+                let text = `【房貸額度全方位評估 v6.1】\n(宏國地政/易丞地政)\n\n`;
                 text += `Q1職業：${occupation.value || '未填'}\n`;
                 text += `Q2扶養：${dependents.value}人\n`;
                 text += `Q3房產：${houseCount.value === 0 ? '首購' : houseCount.value + '戶'}\n`;
+                text += `Q4年齡：${age.value || '未填'}\n`;
                 text += `Q5月收：${monthlyIncome.value || 0}元\n`;
-                text += `Q6月負債：${monthlyDebt.value || 0}元\n\n`;
+                text += `Q6月負債：${monthlyDebt.value || 0}元\n`;
+                text += `資產備註：${assets.value || '無'}\n\n`;
+                
                 text += `📊【最高額度試算】\n`;
-                text += `✅宏國建議(55%)：${safeLoan.value}萬\n`;
-                text += `🔥市場極限(70%)：${limitLoan.value}萬\n`;
+                text += `✅宏國建議(55%)：${safeLoan.value}萬 (4100基準:${safeLoan4100.value}萬)\n`;
+                text += `🔥市場極限(70%)：${limitLoan.value}萬 (4100基準:${limitLoan4100.value}萬)\n`;
+                text += `🏛️公股台銀(嚴格)：${publicLoan.value}萬\n`;
                 
                 if (targetLoan.value) {
                     text += `\n🛡️【詳細房貸與保人試算】\n`;
                     text += `想貸金額：${targetLoan.value}萬\n`;
                     text += `條件設定：${customTerm.value}年 / 利率 ${customRate.value}%\n`;
                     text += `精算月付：約 ${exactMonthlyPay.value.toLocaleString()} 元\n`;
+                    text += `保人已有負債：${guarantorDebt.value || 0}萬/月\n`;
+                    if (needsGuarantor.value) {
+                        text += `👉 建議保人月收(50%水準)：${guarantorIncomeSafe.value}萬\n`;
+                        text += `👉 最低門檻(60%極限)：${guarantorIncomeLimit.value}萬\n`;
+                    } else {
+                        text += `👉 財務健康，原則上不需保人\n`;
+                    }
                 }
 
                 const lineID = "@604gpqef";
@@ -526,8 +614,7 @@
                 targetLoan, guarantorDebt, customTerm, customRate, exactMonthlyPay,
                 safeLoan, limitLoan, safeLoan4100, limitLoan4100, publicLoan,
                 needsGuarantor, guarantorIncomeSafe, guarantorIncomeLimit,
-                // 回傳動態表格所需參數
-                tableYears, standardRates, userTableRate, calcPmtPerMillion
+                tableYears, userTableRate, calcPmtPerMillion // 擴充變數匯出
             };
         }
     }).mount('#app');
