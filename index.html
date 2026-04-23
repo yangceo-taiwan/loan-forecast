@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v6.1 (Hybrid SSO)</title>
+    <title>宏國地政 | 易丞地政 - 專業房貸評估系統 v6.2 (Hybrid SSO)</title>
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -45,7 +45,6 @@
         .nexus-input, .nexus-select { width: 100%; padding: 0.7rem; border-radius: 0.6rem; border: 1px solid #cbd5e1; background: #fff; font-size: 1rem; color: #1e293b; transition: all 0.2s; }
         .nexus-input:focus, .nexus-select:focus { outline: none; border-color: var(--nexus-navy); box-shadow: 0 0 0 3px rgba(15, 46, 70, 0.1); }
         
-        /* 隱藏原生數字輸入框的上下箭頭 */
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
@@ -83,7 +82,6 @@
         .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease; }
         .fade-enter-from, .fade-leave-to { opacity: 0; }
         
-        /* 隱藏滾動條的橫向滑動區 */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -331,8 +329,8 @@
                         </div>
                     </div>
                     <details class="img-toggle" style="background: white;">
-                        <summary>💰 查看「114年每月最低生活費」</summary>
-                        <img src="1764426349365.jpg" alt="114年每月最低生活費一覽表">
+                        <summary>💰 查看「115年每月生活所必需數額」</summary>
+                        <img src="messageImage_1771730977979.jpg" alt="115年每月生活所必需數額一覽表">
                     </details>
                 </div>
             </div>
@@ -479,7 +477,6 @@
                 window.location.href = `${gasAuthUrl}?state=${encodeURIComponent(currentBaseUrl)}`;
             };
 
-            // === 您原本的所有變數綁定 ===
             const occupation = ref("");
             const dependents = ref(0);
             const houseCount = ref(0);
@@ -492,12 +489,12 @@
             const customTerm = ref(30); 
             const customRate = ref(2.50);
 
+            // ⚠️ 系統變數防護：根據 115 年圖表，臺南市「最低生活費」基數仍為 15,515。維持不變以確保收支比算法穩定。
             const monthlyPayPerMillion = 4000;
             const basicLivingCost = 15515;
 
-            // === 【防禦性擴充】自訂利率小模組所需變數 ===
             const tableYears = [5, 7, 10, 15, 20, 30, 35, 40];
-            const userTableRate = ref(2.35); // 預設給個常見數字讓畫面不留白
+            const userTableRate = ref(2.35); 
 
             const calcPmtPerMillion = (rate, years) => {
                 const P = 1000000;
@@ -507,7 +504,6 @@
                 const pmt = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
                 return Math.round(pmt);
             };
-            // ===================================
 
             const safeLoan = computed(() => {
                 if (!monthlyIncome.value) return 0;
@@ -575,7 +571,7 @@
             const guarantorIncomeLimit = computed(() => calculateGuarantorNeed(0.6));
 
             window.sendToLine = () => {
-                let text = `【房貸額度全方位評估 v6.1】\n(宏國地政/易丞地政)\n\n`;
+                let text = `【房貸額度全方位評估 v6.2】\n(宏國地政/易丞地政)\n\n`;
                 text += `Q1職業：${occupation.value || '未填'}\n`;
                 text += `Q2扶養：${dependents.value}人\n`;
                 text += `Q3房產：${houseCount.value === 0 ? '首購' : houseCount.value + '戶'}\n`;
@@ -614,7 +610,7 @@
                 targetLoan, guarantorDebt, customTerm, customRate, exactMonthlyPay,
                 safeLoan, limitLoan, safeLoan4100, limitLoan4100, publicLoan,
                 needsGuarantor, guarantorIncomeSafe, guarantorIncomeLimit,
-                tableYears, userTableRate, calcPmtPerMillion // 擴充變數匯出
+                tableYears, userTableRate, calcPmtPerMillion 
             };
         }
     }).mount('#app');
