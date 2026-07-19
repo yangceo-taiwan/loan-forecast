@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#071725">
     <meta name="description" content="宏國地政｜易丞地政 專業房貸與新青安3.0評估系統">
-    <title>宏國地政｜易丞地政－房貸決策評估系統 v5.5</title>
+    <title>宏國地政｜易丞地政－房貸決策評估系統 v5.6</title>
 
     <script>
         // 越早辨識執行環境，越不會在本機開啟時閃出好友門禁
@@ -504,7 +504,7 @@
             font-weight: 900;
         }
 
-        .mobile-tabs {
+        .mobile-nav-stack {
             display: none;
             position: sticky;
             top: 0;
@@ -512,10 +512,45 @@
             margin-bottom: 16px;
             padding: 7px;
             border: 1px solid #dfe5ea;
-            border-radius: 16px;
-            background: rgba(255,255,255,.90);
+            border-radius: 18px;
+            background: rgba(255,255,255,.94);
             box-shadow: 0 12px 30px rgba(7,23,37,.08);
             backdrop-filter: blur(16px);
+        }
+
+        .mobile-tools {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 7px;
+            margin-bottom: 7px;
+        }
+
+        .mobile-tools button {
+            min-height: 38px;
+            border: 0;
+            border-radius: 11px;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .mobile-demo {
+            color: #fff;
+            background: linear-gradient(135deg, #997439, #c9a464);
+        }
+
+        .mobile-clear {
+            padding: 0 13px;
+            color: var(--navy-900);
+            background: #edf1f4;
+        }
+
+        .mobile-tabs {
+            display: flex;
+            padding: 0;
+            border: 0;
+            border-radius: 12px;
+            background: transparent;
+            box-shadow: none;
             overflow-x: auto;
         }
 
@@ -867,39 +902,269 @@
             line-height: 1.75;
         }
 
+
+        .chingan-mobile-overview {
+            display: none;
+        }
+
+        .chingan-mobile-overview > div {
+            min-width: 0;
+            padding: 10px 8px;
+            border-right: 1px solid #e5e9ec;
+        }
+
+        .chingan-mobile-overview > div:last-child {
+            border-right: 0;
+        }
+
+        .chingan-mobile-overview span {
+            display: block;
+            color: #7c8892;
+            font-size: 9px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .chingan-mobile-overview b {
+            display: block;
+            margin-top: 3px;
+            overflow: hidden;
+            color: var(--navy-950);
+            font-size: 14px;
+            font-weight: 900;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .chingan-mobile-overview b.good { color: #12704e; }
+        .chingan-mobile-overview b.wait { color: #966712; }
+        .chingan-mobile-overview b.bad { color: #a63530; }
+
         @media (max-width: 960px) {
             .gate-shell { grid-template-columns: 1fr; max-width: 560px; }
             .gate-brand { display: none; }
             .gate-action { padding: 34px 28px; }
 
-            .hero { grid-template-columns: 1fr; gap: 20px; }
-            .hero-status { justify-self: stretch; width: 100%; }
+            .hero { grid-template-columns: 1fr; gap: 0; }
             .workspace-grid { grid-template-columns: 1fr; }
             .sidebar { display: none; }
-            .mobile-tabs { display: flex; }
+            .mobile-nav-stack { display: block; }
         }
 
         @media (max-width: 720px) {
-            .header-inner, .workspace { width: min(100% - 22px, 1240px); }
-            .header-top { align-items: flex-start; }
+            .header-inner, .workspace { width: calc(100% - 22px); }
+            .header-inner { padding: 18px 0 22px; }
+            .workspace { padding-top: 14px; padding-bottom: calc(220px + env(safe-area-inset-bottom)); }
+            .header-top { align-items: center; }
             .header-actions .header-link:not(.line) { display: none; }
             .brand-title { font-size: 15px; }
-            .hero { padding-top: 32px; }
-            .hero h1 { font-size: 36px; }
+            .brand-subtitle { display: none; }
+            .brand-line .brand-mark { width: 46px; height: 46px; border-radius: 14px; }
+            .hero { padding-top: 18px; }
+            .hero-kicker { display: none; }
+            .hero h1 {
+                max-width: 470px;
+                margin: 0;
+                font-size: 27px;
+                line-height: 1.24;
+                letter-spacing: -.04em;
+            }
+            .hero p { display: none; }
+
             .panel { padding: 18px; border-radius: 20px; }
             .content-grid-2, .content-grid-3, .result-hero { grid-template-columns: 1fr; }
-            .rate-timeline { grid-template-columns: repeat(2, minmax(0,1fr)); }
             .policy-list { grid-template-columns: 1fr; }
             .panel-heading { align-items: flex-start; }
             .panel-badge { display: none; }
+
+            .chingan-mobile-overview {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                margin-bottom: 10px;
+                overflow: hidden;
+                border: 1px solid #dde4e9;
+                border-radius: 16px;
+                background: rgba(255,255,255,.94);
+                box-shadow: 0 9px 24px rgba(7,23,37,.06);
+            }
+
+            .chingan-page .panel {
+                padding: 14px;
+                margin-bottom: 12px;
+                border-radius: 18px;
+            }
+
+            .chingan-page .panel-heading {
+                margin-bottom: 14px;
+            }
+
+            .chingan-page .panel-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 12px;
+            }
+
+            .chingan-page .panel-title {
+                gap: 10px;
+            }
+
+            .chingan-page .panel-title h2 {
+                font-size: 17px;
+            }
+
+            .chingan-page .panel-title p {
+                margin-top: 3px;
+                font-size: 10px;
+                line-height: 1.5;
+            }
+
+            .chingan-page .field {
+                margin-bottom: 10px;
+            }
+
+            .chingan-page .field label {
+                margin-bottom: 5px;
+                font-size: 11px;
+            }
+
+            .chingan-page .control {
+                min-height: 43px;
+                padding: 9px 10px;
+                border-radius: 12px;
+                font-size: 13px;
+            }
+
+            .chingan-main-grid {
+                grid-template-columns: 1fr !important;
+                gap: 4px;
+            }
+
+            .chingan-pair-grid {
+                grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+                gap: 9px;
+            }
+
+            .chingan-check-grid {
+                grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+                gap: 7px;
+            }
+
+            .chingan-check-grid .field label {
+                min-height: 28px;
+                align-items: flex-end;
+                font-size: 10px;
+                line-height: 1.25;
+            }
+
+            .chingan-check-grid .control {
+                padding-right: 4px;
+                padding-left: 6px;
+                font-size: 11px;
+            }
+
+            .chingan-metric-grid {
+                grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+                gap: 7px;
+            }
+
+            .chingan-metric-grid .mini-metric {
+                min-width: 0;
+                padding: 10px 6px;
+                border-radius: 13px;
+                text-align: center;
+            }
+
+            .chingan-metric-grid .top {
+                min-height: 25px;
+                font-size: 8px;
+                line-height: 1.3;
+            }
+
+            .chingan-metric-grid .num {
+                margin-top: 3px;
+                font-size: 17px;
+                white-space: nowrap;
+            }
+
+            .chingan-metric-grid .num span {
+                display: block;
+                margin: 1px 0 0;
+                font-size: 8px;
+            }
+
+            .chingan-page .eligibility {
+                padding: 11px;
+                border-radius: 13px;
+            }
+
+            .chingan-page .eligibility h3 {
+                margin-bottom: 5px;
+                font-size: 12px;
+            }
+
+            .chingan-page .eligibility ul {
+                font-size: 10px;
+                line-height: 1.55;
+            }
+
+            .chingan-page .alert {
+                padding: 10px 11px;
+                margin-top: 10px;
+                border-radius: 12px;
+                font-size: 10px;
+                line-height: 1.55;
+            }
+
+            .chingan-page .formula-note {
+                padding: 10px 11px;
+                margin-top: 10px;
+                border-radius: 12px;
+                font-size: 9px;
+                line-height: 1.55;
+            }
+
+            .chingan-page .rate-timeline {
+                display: flex;
+                gap: 7px;
+                margin: 10px 0 13px;
+                overflow-x: auto;
+                overscroll-behavior-x: contain;
+                scrollbar-width: none;
+                scroll-snap-type: x mandatory;
+            }
+
+            .chingan-page .rate-timeline::-webkit-scrollbar { display: none; }
+
+            .chingan-page .rate-node {
+                min-width: 96px;
+                flex: 0 0 96px;
+                padding: 10px 6px;
+                scroll-snap-align: start;
+            }
+
+            .chingan-page .rate-node b { font-size: 14px; }
+
+            .bottom-actions {
+                bottom: max(8px, env(safe-area-inset-bottom));
+                width: calc(100% - 20px);
+                padding: 7px;
+                border-radius: 17px;
+            }
+
+            .action-btn {
+                min-height: 46px;
+            }
         }
 
         @media (max-width: 480px) {
             .header-actions .header-link { padding: 0 11px; font-size: 0; }
             .header-actions .header-link i { font-size: 16px; }
-            .hero h1 { font-size: 31px; }
-            .hero p { font-size: 12px; }
+            .hero h1 { font-size: 25px; }
             .panel-title h2 { font-size: 18px; }
+            .chingan-page .panel-title h2 { font-size: 16px; }
+            .chingan-pair-grid { gap: 7px; }
+            .chingan-page .control { font-size: 12px; }
+            .chingan-mobile-overview b { font-size: 13px; }
             .guarantor-grid { grid-template-columns: 1fr; }
             .bottom-actions { grid-template-columns: .28fr .72fr; }
             .action-btn { font-size: 12px; }
@@ -996,22 +1261,26 @@
                         </p>
                     </div>
 
-                    <div class="hero-status">
-                        <div class="status-row"><span>系統版本</span><b>v5.5 Premium</b></div>
-                        <div class="status-row"><span>新青安政策</span><b>3.0 已更新</b></div>
-                        <div class="status-row"><span>原有計算公式</span><b>完整保留</b></div>
-                        <div class="status-row"><span>公開網址門禁</span><b>LINE 好友驗證</b></div>
-                    </div>
                 </div>
             </div>
         </header>
 
         <main id="workspace-top" class="workspace">
-            <div class="mobile-tabs">
-                <button :class="{active: activeTab==='quick'}" @click="switchTab('quick')">快速評估</button>
-                <button :class="{active: activeTab==='detail'}" @click="switchTab('detail')">月付／保人</button>
-                <button :class="{active: activeTab==='chingan'}" @click="switchTab('chingan')">新青安3.0</button>
-                <button :class="{active: activeTab==='knowledge'}" @click="switchTab('knowledge')">政策資料</button>
+            <div class="mobile-nav-stack">
+                <div class="mobile-tools">
+                    <button type="button" class="mobile-demo" @click="fillDemo">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 帶入示範資料
+                    </button>
+                    <button type="button" class="mobile-clear" @click="resetAll">
+                        <i class="fa-solid fa-rotate-left"></i> 清除
+                    </button>
+                </div>
+                <div class="mobile-tabs">
+                    <button :class="{active: activeTab==='quick'}" @click="switchTab('quick')">快速評估</button>
+                    <button :class="{active: activeTab==='detail'}" @click="switchTab('detail')">月付／保人</button>
+                    <button :class="{active: activeTab==='chingan'}" @click="switchTab('chingan')">新青安3.0</button>
+                    <button :class="{active: activeTab==='knowledge'}" @click="switchTab('knowledge')">政策資料</button>
+                </div>
             </div>
 
             <div class="workspace-grid">
@@ -1291,7 +1560,24 @@
                     </div>
 
                     <!-- 青安3.0 -->
-                    <div v-show="activeTab==='chingan'">
+                    <div v-show="activeTab==='chingan'" class="chingan-page">
+                        <div class="chingan-mobile-overview">
+                            <div>
+                                <span>資格狀態</span>
+                                <b :class="chinganHardFails.length ? 'bad' : (chinganPending.length ? 'wait' : 'good')">
+                                    {{ chinganHardFails.length ? '有不符合' : (chinganPending.length ? '待補資料' : '初步符合') }}
+                                </b>
+                            </div>
+                            <div>
+                                <span>政策額度初估</span>
+                                <b>{{ chinganConservativeLoanCap.toLocaleString() }}萬</b>
+                            </div>
+                            <div>
+                                <span>目前試算月付</span>
+                                <b>{{ chinganSchedule.length ? '$' + chinganSchedule[0].payment.toLocaleString() : '$0' }}</b>
+                            </div>
+                        </div>
+
                         <div class="panel">
                             <div class="panel-heading">
                                 <div class="panel-title">
@@ -1304,9 +1590,9 @@
                                 <span class="panel-badge">115.08.01 起</span>
                             </div>
 
-                            <div class="content-grid-2">
+                            <div class="content-grid-2 chingan-main-grid">
                                 <div>
-                                    <div class="content-grid-2">
+                                    <div class="content-grid-2 chingan-pair-grid">
                                         <div class="field">
                                             <label>借款人年齡</label>
                                             <input v-model.number="chinganAge" type="number" min="18" max="99" class="control" placeholder="例如：35">
@@ -1335,7 +1621,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="content-grid-2">
+                                    <div class="content-grid-2 chingan-pair-grid">
                                         <div class="field">
                                             <label>買賣總價（萬元）</label>
                                             <input v-model.number="chinganHousePrice" type="number" min="0" class="control" placeholder="例如：1,600">
@@ -1348,7 +1634,7 @@
                                 </div>
 
                                 <div>
-                                    <div class="content-grid-3">
+                                    <div class="content-grid-3 chingan-check-grid">
                                         <div class="field">
                                             <label>無自有住宅</label>
                                             <select v-model="chinganNoHouse" class="control">
@@ -1391,7 +1677,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="content-grid-3" style="margin-top:12px;">
+                                    <div class="content-grid-3 chingan-metric-grid" style="margin-top:12px;">
                                         <div class="mini-metric">
                                             <div class="top">家庭身分額度</div>
                                             <div class="num">{{ chinganFamilyLoanLimit.toLocaleString() }}<span>萬元</span></div>
@@ -1434,7 +1720,7 @@
                                 </span>
                             </div>
 
-                            <div class="content-grid-2">
+                            <div class="content-grid-2 chingan-pair-grid">
                                 <div class="field">
                                     <label>預計貸款金額（萬元）</label>
                                     <input v-model.number="chinganLoanAmount" type="number" min="0" step="10" class="control">
@@ -1445,7 +1731,7 @@
                                 </div>
                             </div>
 
-                            <div class="content-grid-2">
+                            <div class="content-grid-2 chingan-pair-grid">
                                 <div class="field">
                                     <label>貸款年限</label>
                                     <select v-model.number="chinganTerm" class="control">
@@ -2122,7 +2408,7 @@
             };
 
             window.sendToLine = () => {
-                let text = `【房貸額度全方位評估 v5.4】\n(宏國地政/易丞地政)\n\n`;
+                let text = `【房貸額度全方位評估 v5.6】\n(宏國地政/易丞地政)\n\n`;
                 text += `Q1職業：${occupation.value || '未填'}\n`;
                 text += `Q2扶養：${dependents.value}人\n`;
                 text += `Q3房產：${houseCount.value === 0 ? '首購' : houseCount.value + '戶'}\n`;
