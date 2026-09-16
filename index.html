@@ -2,10 +2,10 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#071725">
     <meta name="description" content="宏國地政｜易丞地政 專業房貸與新青安3.0評估系統">
-    <title>宏國地政｜易丞地政－房貸決策評估系統 v5.6</title>
+    <title>宏國地政｜易丞地政－房貸決策評估系統｜品牌評估分享候選 2026.09.16</title>
 
     <script>
         // 越早辨識執行環境，越不會在本機開啟時閃出好友門禁
@@ -1169,7 +1169,126 @@
             .bottom-actions { grid-template-columns: .28fr .72fr; }
             .action-btn { font-size: 12px; }
         }
-    </style>
+
+/* Candidate: contain intrinsic table and select widths on phones. */
+main, main > *, section, .chingan-page, .chingan-page .panel, .chingan-main-grid > *, .chingan-page .field { min-width:0; }
+.chingan-page .control { max-width:100%; width:100%; box-sizing:border-box; }
+.chingan-page .eligibility { overflow-wrap:anywhere; }
+#chingan-result{scroll-margin-top:160px;}
+@media(max-width:720px){ .chingan-main-grid{grid-template-columns:minmax(0,1fr)!important;} }
+.chingan-money-answer{margin:12px 0;padding:16px;border-radius:15px;background:linear-gradient(135deg,#0e3f50,#176b59);color:white}.chingan-answer-main span,.chingan-answer-grid span{display:block;font-size:11px;opacity:.8}.chingan-answer-main strong{display:block;font-size:32px;line-height:1.2;margin:4px 0}.chingan-answer-main small,.chingan-answer-grid small{display:block;font-size:10px;opacity:.75}.chingan-answer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}.chingan-answer-grid>div{padding:10px;border-radius:10px;background:#ffffff16}.chingan-answer-grid b{display:block;font-size:18px;margin:3px 0}.chingan-apply-cap{width:100%;margin-top:12px;padding:10px;border:1px solid #ffffff66;border-radius:9px;background:white;color:#15584d;font-weight:800;cursor:pointer}@media(max-width:560px){.chingan-answer-grid{grid-template-columns:1fr}.chingan-answer-main strong{font-size:27px}}
+
+/* 2026-09-16: readable controls, contained intrinsic widths and explicit input feedback. */
+.local-preview-ribbon { position: relative; }
+.hero { grid-template-columns: minmax(0, 1fr); }
+@media (max-height: 500px) and (max-width: 960px) { .mobile-nav-stack { position: relative; } .bottom-actions { position: relative; left: auto; bottom: auto; transform: none; margin: 16px auto; } .workspace { padding-bottom: 24px; } }
+.metric-card, .mini-metric, .guarantor-card { min-width: 0; overflow-wrap: anywhere; }
+html { scroll-padding-top: 150px; scroll-padding-bottom: 110px; }
+.workspace-grid > *, .content-grid-2 > *, .content-grid-3 > *, .result-hero > *,
+.panel-title, .panel-title > *, .field, .policy-card, .loan-result-card { min-width: 0; }
+.control { min-width: 0; max-width: 100%; width: 100%; }
+select.control { text-overflow: ellipsis; }
+.panel-title h2, .panel-title p, .field label, .alert, .formula-note, .footer,
+.age-rule, .income-note, .selection-detail { overflow-wrap: anywhere; }
+.panel-icon, .alert > i { flex-shrink: 0; }
+.field label { flex-wrap: wrap; gap: 4px; }
+.income-details-body { padding: 16px; }
+.income-details-body .field:last-child { margin-bottom: 0; }
+.income-note { margin: 0 0 16px; color: #536577; font-size: 12px; line-height: 1.8; }
+.age-rule { margin: 0 0 16px; padding: 12px 14px; border: 1px solid #b8dbed; border-radius: 12px; background: #eef7fc; color: #164f6d; font-size: 12px; line-height: 1.75; }
+.field > .age-rule { margin: 8px 0 0; }
+.age-rule strong { display: block; font-size: 13px; }
+.age-rule p { margin: 4px 0; }
+.age-rule.success { color: #116848; background: #edf8f3; border-color: #bcdfce; }
+.age-rule.warning { color: #795315; background: #fff8e9; border-color: #e8cf99; }
+.age-rule.danger { color: #962c27; background: #fff0ef; border-color: #efc2bf; }
+.age-rule a { display: inline-block; text-decoration: underline; margin-top: 4px; }
+.inline-action { display: block; min-height: 44px; margin: 8px 0; padding: 8px 12px; border: 1px solid currentColor; border-radius: 9px; background: #fff; color: #155c54; font-size: 12px; font-weight: 700; max-width: 100%; white-space: normal; }
+.input-warning { display: block; color: #a4372e; font-weight: 600; }
+.field-tip { font-size: 12px; line-height: 1.7; }
+.selection-detail { display: none; color: #5b6b78; font-size: 12px; line-height: 1.6; margin-top: 6px; }
+.table-wrap { max-width: 100%; overscroll-behavior-x: contain; }
+.table-hint { font-size: 12px; color: #63717f; margin: 10px 0; }
+:is(button, a, summary, .table-wrap):focus-visible { outline: 3px solid #b08a43; outline-offset: 3px; }
+input, select, textarea { scroll-margin: 160px 0 120px; }
+.mobile-tools button, .mobile-tabs button { min-height: 44px; }
+@media (min-width: 961px) and (max-width: 1220px) {
+  .chingan-main-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 960px) {
+  .control, .chingan-page .control, .chingan-check-grid .control { font-size: 16px; min-height: 48px; }
+  .chingan-main-grid { grid-template-columns: minmax(0, 1fr); }
+  .selection-detail { display: block; }
+  .mobile-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .mobile-tabs button { min-width: 0; padding: 10px 3px; font-size: 12px; white-space: normal; }
+  .mobile-tabs button i { display: none; }
+}
+@media (max-width: 720px) {
+  .chingan-check-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px; }
+  .chingan-check-grid .field:last-child { grid-column: 1 / -1; }
+  .chingan-page .field label, .chingan-check-grid .field label { min-height: 0; font-size: 12px; line-height: 1.6; }
+  .chingan-page .panel-title p, .chingan-page .eligibility ul, .chingan-page .alert, .chingan-page .formula-note { font-size: 12px; line-height: 1.7; }
+  .chingan-page .rate-timeline { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); overflow: visible; }
+  .chingan-page .rate-node { min-width: 0; }
+  .rate-node span { font-size: 11px; }
+  .chingan-mobile-overview span, .chingan-mobile-overview b { white-space: normal; overflow: visible; overflow-wrap: anywhere; }
+  .chingan-mobile-overview span { font-size: 10px; }
+  .bottom-actions { grid-template-columns: minmax(0, .3fr) minmax(0, .7fr); }
+  .action-btn { min-width: 0; white-space: normal; padding: 8px; }
+}
+@media (max-width: 380px) {
+  .chingan-pair-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .panel-heading { gap: 8px; }
+  .brand-title { font-size: 13px; }
+  .chingan-mobile-overview { grid-template-columns: minmax(0,1fr); }
+  .chingan-mobile-overview > div { display: flex; justify-content: space-between; gap: 12px; border-right: 0; border-bottom: 1px solid #e5e9ec; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body.report-open { overflow: hidden; }
+.assessment-dialog { padding: 0; width: min(860px, calc(100vw - 24px)); max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px); border: 1px solid #d4dfe5; border-radius: 22px; color: #173041; background: #fff; box-shadow: 0 30px 100px #07172555; }
+.assessment-dialog::backdrop { background: #061827b8; backdrop-filter: blur(3px); }
+.assessment-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; background: #0b2839; color: white; }
+.assessment-header > div { min-width: 0; }
+.assessment-brand { display: block; color: #e8d4ad; font-size: 12px; letter-spacing: .06em; }
+.assessment-header h2 { margin: 7px 0 0; font-size: 22px; font-weight: 700; line-height: 1.5; }
+.assessment-close { flex-shrink: 0; width: 44px; height: 44px; border: 1px solid #ffffff55; border-radius: 12px; color: white; background: #ffffff12; }
+.assessment-body { padding: 20px 24px 24px; }
+.assessment-intro { color: #546978; font-size: 14px; line-height: 1.85; margin: 0 0 14px; }
+.assessment-notice { background: #fff5df; color: #76521b; border: 1px solid #ead3a8; border-radius: 12px; padding: 12px 14px; margin: 12px 0; font-size: 13px; line-height: 1.8; }
+.assessment-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; background: #edf1f3; border-radius: 13px; padding: 5px; margin: 16px 0; }
+.assessment-tabs button { min-width: 0; min-height: 46px; border: 0; padding: 8px; border-radius: 10px; font-size: 14px; font-weight: 700; color: #526879; background: transparent; }
+.assessment-tabs button[aria-selected="true"] { color: #fff; background: #103449; }
+.assessment-caption { display: block; margin: 10px 0; color: #647480; font-size: 12px; line-height: 1.8; overflow-wrap: anywhere; }
+.assessment-text { display: block; width: 100%; min-width: 0; min-height: 300px; height: min(46dvh,500px); resize: vertical; border: 1px solid #cfdae1; border-radius: 12px; padding: 16px; font-size: 15px; line-height: 1.9; color: #203b4c; background: #f9fbfc; white-space: pre-wrap; overflow-wrap: anywhere; }
+.assessment-image-box { background: #edf1f3; border-radius: 12px; padding: 12px; min-height: 100px; text-align: center; }
+.assessment-image { display: block; width: 100%; height: auto; max-height: 65dvh; object-fit: contain; margin: 0 auto; }
+.assessment-feedback { min-height: 24px; color: #166650; margin: 12px 0; font-size: 13px; line-height: 1.8; }
+.assessment-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.assessment-btn { display: flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; min-width: 0; min-height: 48px; border: 1px solid #cad8df; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; }
+.assessment-btn.secondary { color: #244b5d; background: #f1f5f7; }
+.assessment-btn.primary { color: white; background: #123c50; border-color: #123c50; }
+.assessment-btn.line { color: white; background: #087e42; border-color: #087e42; }
+.assessment-btn:disabled, .assessment-btn[aria-disabled="true"] { opacity: .45; cursor: default; pointer-events: none; }
+.bottom-actions { grid-template-columns: minmax(0,.18fr) minmax(0,.34fr) minmax(0,.48fr); }
+.bottom-actions .report-save { color: #103d50; background: #e9eff2; }
+@media(max-width:720px) {
+  .bottom-actions { grid-template-columns: minmax(0,.18fr) minmax(0,.34fr) minmax(0,.48fr); gap: 6px; }
+  .bottom-actions .action-btn { padding: 8px 4px; font-size: 12px; }
+  .bottom-actions .action-btn i { display: none; }
+  .assessment-dialog { border-radius: 16px; }
+  .assessment-header { padding: 16px; gap: 8px; }
+  .assessment-header h2 { font-size: 18px; }
+  .assessment-body { padding: 16px; }
+  .assessment-text { font-size: 16px; }
+  .assessment-actions { grid-template-columns: minmax(0,1fr); }
+  .assessment-tabs button { font-size: 13px; }
+}
+
+</style>
 </head>
 
 <body class="auth-locked">
@@ -1336,8 +1455,8 @@
                             <div class="content-grid-2">
                                 <div>
                                     <div class="field">
-                                        <label>客戶職業別 <small>影響銀行認列收入方式</small></label>
-                                        <select v-model="occupation" class="control">
+                                        <label for="loan-field-1">客戶職業別 <small>影響銀行認列收入方式</small></label>
+                                        <select id="loan-field-1" v-model="occupation" class="control">
                                             <option value="">請選擇職業別</option>
                                             <option value="自營商">自營商／企業主（含攤販）</option>
                                             <option value="業務性質">高獎金／業務（房仲、保險）</option>
@@ -1355,8 +1474,8 @@
 
                                     <div class="content-grid-2">
                                         <div class="field">
-                                            <label>扶養人數</label>
-                                            <select v-model.number="dependents" class="control">
+                                            <label for="loan-field-2">扶養人數</label>
+                                            <select id="loan-field-2" v-model.number="dependents" class="control">
                                                 <option value="0">0人</option>
                                                 <option value="1">1人</option>
                                                 <option value="2">2人</option>
@@ -1365,8 +1484,8 @@
                                             </select>
                                         </div>
                                         <div class="field">
-                                            <label>目前名下房產</label>
-                                            <select v-model.number="houseCount" class="control">
+                                            <label for="loan-field-3">目前名下房產</label>
+                                            <select id="loan-field-3" v-model.number="houseCount" class="control">
                                                 <option value="0">0戶／首購</option>
                                                 <option value="1">1戶／購買第2戶</option>
                                                 <option value="2">2戶以上</option>
@@ -1380,20 +1499,21 @@
                                     </div>
 
                                     <div class="field">
-                                        <label>客戶年齡 <small>例：35歲</small></label>
-                                        <input v-model="age" type="text" class="control" placeholder="請輸入年齡">
+                                        <label for="loan-field-4">客戶年齡 <small>例：35歲</small></label>
+                                        <input id="loan-field-4" v-model="age" type="text" inputmode="numeric" class="control" placeholder="請輸入年齡" aria-describedby="general-age-hint">
+                                        <div id="general-age-hint" v-if="generalAgeHint" class="age-rule" :class="generalAgeHint.kind" role="status">{{ generalAgeHint.text }}</div>
                                     </div>
                                 </div>
 
                                 <div>
                                     <div class="field">
-                                        <label>每月可認列收入（元） <small>薪資、租金等穩定收入</small></label>
-                                        <input v-model.number="monthlyIncome" type="number" class="control" placeholder="例如：85,000">
+                                        <label for="loan-field-5">每月可認列收入（元） <small>薪資、租金等穩定收入</small></label>
+                                        <input id="loan-field-5" v-model.number="monthlyIncome" @input="markIncomeManual" type="number" min="0" class="control" placeholder="例如：85,000"><div class="field-tip">{{ incomeSourceText }}</div>
                                     </div>
 
                                     <div class="field">
-                                        <label>每月既有負債支出（元） <small>請填月付金，不是貸款餘額</small></label>
-                                        <input v-model.number="monthlyDebt" type="number" class="control" placeholder="信貸、車貸、學貸、原房貸合計">
+                                        <label for="loan-field-6">每月既有負債支出（元） <small>請填月付金，不是貸款餘額</small></label>
+                                        <input id="loan-field-6" v-model.number="monthlyDebt" type="number" class="control" placeholder="信貸、車貸、學貸、原房貸合計">
                                     </div>
 
                                     <div class="alert warning">
@@ -1405,8 +1525,8 @@
                                     </div>
 
                                     <div class="field" style="margin-top:16px;">
-                                        <label>資產與補充說明 <small>可填存款、股票、保單或特殊收入</small></label>
-                                        <textarea v-model="assets" class="control" placeholder="例如：存款200萬元、股票市值150萬元"></textarea>
+                                        <label for="loan-field-7">資產與補充說明 <small>可填存款、股票、保單或特殊收入</small></label>
+                                        <textarea id="loan-field-7" v-model="assets" class="control" placeholder="例如：存款200萬元、股票市值150萬元"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1484,28 +1604,27 @@
                             <div class="content-grid-2">
                                 <div>
                                     <div class="field">
-                                        <label>預計貸款金額（萬元）</label>
-                                        <input v-model.number="targetLoan" type="number" class="control" placeholder="例如：1,000">
+                                        <label for="loan-field-8">預計貸款金額（萬元）</label>
+                                        <input id="loan-field-8" v-model.number="targetLoan" type="number" class="control" placeholder="例如：1,000">
                                     </div>
 
                                     <div class="content-grid-2">
                                         <div class="field">
-                                            <label>貸款年限</label>
-                                            <select v-model.number="customTerm" class="control">
-                                                <option value="20">20年</option>
-                                                <option value="30">30年</option>
-                                                <option value="40">40年</option>
+                                            <label for="loan-field-9">貸款年限</label>
+                                            <select id="loan-field-9" v-model.number="customTerm" class="control" aria-label="一般房貸貸款年限">
+                                                <option v-for="year in 40" :key="year" :value="year">{{ year }}年</option>
                                             </select>
                                         </div>
                                         <div class="field">
-                                            <label>房貸利率（%）</label>
-                                            <input v-model.number="customRate" type="number" step="0.01" class="control" placeholder="2.50">
+                                            <label for="loan-field-10">房貸利率（%）</label>
+                                            <input id="loan-field-10" v-model.number="customRate" type="number" step="0.01" class="control" placeholder="2.50">
                                         </div>
                                     </div>
 
+                                    <div v-if="generalAgeHint" class="age-rule" :class="generalAgeHint.kind" role="status">{{ generalAgeHint.text }}</div>
                                     <div class="field">
-                                        <label>保證人現有負債（萬元／月） <small>沒有可填0或留白</small></label>
-                                        <input v-model.number="guarantorDebt" type="number" step="0.1" class="control" placeholder="例如：1.2">
+                                        <label for="loan-field-11">保證人現有負債（萬元／月） <small>沒有可填0或留白</small></label>
+                                        <input id="loan-field-11" v-model.number="guarantorDebt" type="number" step="0.1" class="control" placeholder="例如：1.2">
                                     </div>
 
                                     <div class="alert info">
@@ -1570,11 +1689,11 @@
                             </div>
                             <div>
                                 <span>政策額度初估</span>
-                                <b>{{ chinganConservativeLoanCap.toLocaleString() }}萬</b>
+                                <b>{{ Number(chinganHousePrice)>0 && Number(chinganAppraisalPrice)>0 ? chinganConservativeLoanCap.toLocaleString()+"萬" : "待補資料" }}</b>
                             </div>
                             <div>
                                 <span>目前試算月付</span>
-                                <b>{{ chinganSchedule.length ? '$' + chinganSchedule[0].payment.toLocaleString() : '$0' }}</b>
+                                <b>{{ chinganSchedule.length ? '$' + chinganSchedule[0].payment.toLocaleString() : '待確認' }}</b>
                             </div>
                         </div>
 
@@ -1594,41 +1713,54 @@
                                 <div>
                                     <div class="content-grid-2 chingan-pair-grid">
                                         <div class="field">
-                                            <label>借款人年齡</label>
-                                            <input v-model.number="chinganAge" type="number" min="18" max="99" class="control" placeholder="例如：35">
+                                            <label for="chingan-age">借款人年齡</label>
+                                            <input id="chingan-age" v-model.number="chinganAge" type="number" min="18" max="120" step="1" inputmode="numeric" class="control" placeholder="例如：35" aria-describedby="age-rule-hint" :aria-invalid="chinganAgeHint?.kind === 'danger'">
                                         </div>
                                         <div class="field">
-                                            <label>本人年所得（萬元）</label>
-                                            <input v-model.number="chinganAnnualIncome" type="number" min="0" class="control" placeholder="不得逾200">
+                                            <label for="annual-income">本人年所得（萬元）</label>
+                                            <input id="annual-income" v-model.number="chinganAnnualIncome" type="number" min="0" step="0.01" inputmode="decimal" class="control" placeholder="例如：150" aria-describedby="annual-income-hint">
+                                            <div id="annual-income-hint" class="field-tip" aria-live="polite">
+                                                <template v-if="annualMonthlyIncome !== null">約 <strong>{{ annualMonthlyIncome.toLocaleString() }} 元／月</strong>（年所得 × 10,000 ÷ 12）。</template>
+                                                <template v-else>填入年所得，自動換算每月收入。</template>
+                                                <span v-if="Number(chinganAnnualIncome) > 200" class="input-warning">本人年所得已超過本方案200萬元上限。</span>
+                                                <span v-if="Number(chinganAnnualIncome) < 0" class="input-warning">年所得不得為負數。</span>
+                                            </div>
                                         </div>
                                     </div>
 
+                                    <div id="age-rule-hint" v-if="chinganAgeHint" class="age-rule" :class="chinganAgeHint.kind" role="status" aria-live="polite">
+                                        <strong>{{ chinganAgeHint.title }}</strong>
+                                        <p>{{ chinganAgeHint.text }}</p>
+                                        <button v-if="chinganAgeHint.canApply" type="button" class="inline-action" @click="applyAgeTerm">套用 {{ chinganSuggestedMaxTerm }} 年貸款</button>
+                                        <a href="https://www.nta.gov.tw/singlehtml/109" target="_blank" rel="noopener noreferrer">查看官方條件</a>
+                                    </div>
+
                                     <div class="field">
-                                        <label>購屋地區</label>
-                                        <select v-model="chinganRegion" class="control">
+                                        <label for="loan-field-14">購屋地區</label>
+                                        <select id="loan-field-14" v-model="chinganRegion" class="control">
                                             <option value="taipei">臺北市｜總價及鑑價上限3,500萬</option>
                                             <option value="north">新北市／新竹縣市｜上限2,500萬</option>
                                             <option value="other">其他縣市｜上限2,000萬</option>
-                                        </select>
+                                        </select><div class="selection-detail"><span v-if="chinganRegion === 'taipei'">臺北市｜總價及鑑價上限3,500萬</span><span v-if="chinganRegion === 'north'">新北市／新竹縣市｜上限2,500萬</span><span v-if="chinganRegion === 'other'">其他縣市｜上限2,000萬</span></div>
                                     </div>
 
                                     <div class="field">
-                                        <label>婚育家庭身分</label>
-                                        <select v-model="chinganFamilyType" class="control">
+                                        <label for="loan-field-15">婚育家庭身分</label>
+                                        <select id="loan-field-15" v-model="chinganFamilyType" class="control">
                                             <option value="general">一般資格｜最高1,000萬</option>
                                             <option value="newlywed">申請日前2年內新婚｜最高1,200萬</option>
                                             <option value="child">育有未成年子女／孕期文件｜最高1,500萬</option>
-                                        </select>
+                                        </select><div class="selection-detail"><span v-if="chinganFamilyType === 'general'">一般資格｜最高1,000萬</span><span v-if="chinganFamilyType === 'newlywed'">申請日前2年內新婚｜最高1,200萬</span><span v-if="chinganFamilyType === 'child'">育有未成年子女／孕期文件｜最高1,500萬</span></div>
                                     </div>
 
                                     <div class="content-grid-2 chingan-pair-grid">
                                         <div class="field">
-                                            <label>買賣總價（萬元）</label>
-                                            <input v-model.number="chinganHousePrice" type="number" min="0" class="control" placeholder="例如：1,600">
+                                            <label for="loan-field-16">買賣總價（萬元）</label>
+                                            <input id="loan-field-16" v-model.number="chinganHousePrice" type="number" min="0" class="control" placeholder="例如：1,600">
                                         </div>
                                         <div class="field">
-                                            <label>銀行鑑價（萬元）</label>
-                                            <input v-model.number="chinganAppraisalPrice" type="number" min="0" class="control" placeholder="未取得可先留白">
+                                            <label for="loan-field-17">銀行鑑價（萬元）</label>
+                                            <input id="loan-field-17" v-model.number="chinganAppraisalPrice" type="number" min="0" class="control" placeholder="未取得可先留白">
                                         </div>
                                     </div>
                                 </div>
@@ -1636,24 +1768,24 @@
                                 <div>
                                     <div class="content-grid-3 chingan-check-grid">
                                         <div class="field">
-                                            <label>無自有住宅</label>
-                                            <select v-model="chinganNoHouse" class="control">
+                                            <label for="loan-field-18">無自有住宅</label>
+                                            <select id="loan-field-18" v-model="chinganNoHouse" class="control">
                                                 <option value="unknown">待確認</option>
                                                 <option value="yes">符合</option>
                                                 <option value="no">不符合</option>
                                             </select>
                                         </div>
                                         <div class="field">
-                                            <label>購屋自住</label>
-                                            <select v-model="chinganSelfUse" class="control">
+                                            <label for="loan-field-19">購屋自住</label>
+                                            <select id="loan-field-19" v-model="chinganSelfUse" class="control">
                                                 <option value="unknown">待確認</option>
                                                 <option value="yes">符合</option>
                                                 <option value="no">不符合</option>
                                             </select>
                                         </div>
                                         <div class="field">
-                                            <label>未曾使用青安</label>
-                                            <select v-model="chinganNeverUsed" class="control">
+                                            <label for="loan-field-20">112/8/1 後未核貸青安／青年安居</label>
+                                            <select id="loan-field-20" v-model="chinganNeverUsed" class="control">
                                                 <option value="unknown">待確認</option>
                                                 <option value="yes">符合</option>
                                                 <option value="no">不符合</option>
@@ -1661,6 +1793,44 @@
                                         </div>
                                     </div>
 
+                                    <div class="field" v-if="chinganFamilyType !== 'general'">
+                                        <label for="loan-field-21">家庭增額證明是否確認</label>
+                                        <select id="loan-field-21" class="control" v-model="chinganFamilyEvidence"><option value="unknown">尚待確認</option><option value="yes">已確認適用身分與證明</option></select>
+                                    </div>
+                                    <div class="field"><label for="loan-field-22">本國國民購買國內住宅</label><select id="loan-field-22" class="control" v-model="chinganCitizen"><option value="unknown">待確認</option><option value="yes">符合</option><option value="no">不符合</option></select></div>
+                                    <div class="alert info" style="margin:8px 0 12px"><i class="fa-solid fa-building-columns"></i><span>取得住宅與申貸期間由承辦銀行依買賣契約及申請日查核，客戶不需自行勾選。</span></div>
+                                    <div class="field"><label for="loan-field-23">申請日在115/8/1～118/7/31</label><select id="loan-field-23" class="control" v-model="chinganApplicationWindow"><option value="unknown">待確認</option><option value="yes">符合</option><option value="no">不符合</option></select></div>
+                                    <details open class="income-details" style="margin:12px 0"><summary>每月還款負擔｜收入自動換算，可調整</summary><div class="income-details-body">
+                                      <div class="field"><label for="chingan-monthly-income">每月可認列收入（元）</label><input id="chingan-monthly-income" class="control" type="number" min="0" step="1" inputmode="numeric" v-model.number="monthlyIncome" @input="markIncomeManual" placeholder="例如85000" aria-describedby="monthly-income-hint"></div>
+                                      <div id="monthly-income-hint" class="income-note" aria-live="polite">{{ incomeSourceText }}<br>換算月收僅供試算；銀行可認列收入仍依收入證明審核。此月收也同步用於快速額度與月付評估。
+                                        <button v-if="incomeSource === 'manual' && annualMonthlyIncome !== null" type="button" class="inline-action" @click="syncAnnualIncome">重新套用年收換算</button>
+                                      </div>
+                                      <div class="field"><label for="loan-field-25">既有債務每月還款（元）</label><input id="loan-field-25" class="control" type="number" min="0" v-model.number="monthlyDebt" placeholder="沒有請填0"></div>
+                                    </div></details>
+                                    <button type="button" @click="calculateChingan" style="width:100%;padding:14px;border:0;border-radius:12px;background:#176b59;color:#fff;font-weight:700;font-size:16px;cursor:pointer">計算可貸金額、自備款與月付</button>
+                                    <div id="chingan-result" class="eligibility" v-if="chinganReport" aria-live="polite" :class="chinganReportStale ? 'pending' : (chinganReport.invalid.length || chinganReport.fails.length ? 'fail' : chinganReport.pending.length ? 'pending' : 'pass')">
+                                      <h3>{{ chinganReportStale ? '條件已變更，請重新計算' : chinganReport.status }}</h3>
+                                      <template v-if="!chinganReportStale">
+                                        <ul v-if="chinganReport.invalid.length || chinganReport.fails.length || chinganReport.pending.length"><li v-for="item in [...chinganReport.invalid,...chinganReport.fails,...chinganReport.pending]" :key="item">{{ item }}</li></ul>
+                                        <template v-if="!chinganReport.invalid.length && !chinganReport.fails.length">
+                                          <div v-if="chinganReport.cap !== null" class="chingan-money-answer">
+                                            <div class="chingan-answer-main"><span>本案最高政策試算額</span><strong>{{ chinganReport.cap.toLocaleString() }} 萬元</strong><small>家庭額度、總價八成、鑑價八成取低；不是銀行保證核貸額。</small></div>
+                                            <div class="chingan-answer-grid">
+                                              <div><span>房價最低自備款</span><b>{{ chinganReport.downPayment.toLocaleString() }} 萬元</b><small>尚未加稅費、裝修及其他支出</small></div>
+                                              <div><span>最高額度月付壓力</span><b>{{ Math.round(chinganReport.capPayment).toLocaleString() }} 元</b><small>以無補貼利率、寬限期後估算</small></div>
+                                              <div><span>本案估算成數</span><b>{{ chinganReport.ltv.toFixed(1) }}%</b><small>實際成數仍由銀行授信</small></div>
+                                            </div>
+                                            <button type="button" @click="applyChinganCap" class="chingan-apply-cap">把 {{ chinganReport.cap.toLocaleString() }} 萬帶入下方月付試算</button>
+                                          </div>
+                                          <p v-if="chinganReport.cap === null">尚缺成交總價或鑑價，無法算出可貸金額。</p>
+                                          <p v-if="chinganReport.gap > 0">您輸入的預計貸款比政策試算額多 {{ chinganReport.gap.toLocaleString() }} 萬元，這一段需增加自備款或另行評估。</p>
+                                          <p v-if="chinganReport.payment !== null">您目前輸入貸款金額的無補貼、寬限期後月付壓力：約 {{ Math.round(chinganReport.payment).toLocaleString() }} 元／月。</p>
+                                          <p>{{ chinganReport.affordability }}<span v-if="chinganReport.ratio !== null">（{{ chinganReport.ratio.toFixed(1) }}%）</span></p>
+                                        </template>
+                                        <p>資格初篩不代表核貸。55%是本工具沿用的負擔參考線，非青安法定核貸門檻；另須考量信用、生活費及銀行認列收入。</p>
+                                      </template>
+                                    </div>
+                                    <p style="font-size:12px;line-height:1.7">政策核對：2026/09/09；115/08/01起方案。<a href="https://www.nta.gov.tw/singlehtml/108" target="_blank" rel="noopener noreferrer">財政部說明</a>。實際承作仍以銀行最新公告及審核為準。</p>
                                     <div class="eligibility"
                                          :class="chinganHardFails.length ? 'fail' : (chinganPending.length ? 'pending' : 'pass')">
                                         <h3>
@@ -1688,14 +1858,14 @@
                                         </div>
                                         <div class="mini-metric">
                                             <div class="top">政策額度初估</div>
-                                            <div class="num">{{ chinganConservativeLoanCap.toLocaleString() }}<span>萬元</span></div>
+                                            <div class="num">{{ Number(chinganHousePrice)>0 && Number(chinganAppraisalPrice)>0 ? chinganConservativeLoanCap.toLocaleString() : "待補資料" }}<span v-if="Number(chinganHousePrice)>0 && Number(chinganAppraisalPrice)>0">萬元</span></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="formula-note">
-                                政策額度採保守規則：家庭身分額度、買賣總價×80%、銀行鑑價×80%三者取低；
+                                額度為工具保守估算（非銀行保證核貸公式）：家庭身分額度、買賣總價×80%、銀行鑑價×80%三者取低；
                                 未填鑑價時先以買賣總價估算。此為政策上限，不代表銀行保證核准。
                             </div>
                         </div>
@@ -1722,27 +1892,27 @@
 
                             <div class="content-grid-2 chingan-pair-grid">
                                 <div class="field">
-                                    <label>預計貸款金額（萬元）</label>
-                                    <input v-model.number="chinganLoanAmount" type="number" min="0" step="10" class="control">
+                                    <label for="loan-field-26">預計貸款金額（萬元）</label>
+                                    <input id="loan-field-26" v-model.number="chinganLoanAmount" type="number" min="0" step="10" class="control">
                                 </div>
                                 <div class="field">
-                                    <label>原貸款利率（%） <small>目前試算2.275%</small></label>
-                                    <input v-model.number="chinganOriginalRate" type="number" min="0" step="0.001" class="control">
+                                    <label for="loan-field-27">原貸款利率（%） <small>目前試算2.275%</small></label>
+                                    <input id="loan-field-27" v-model.number="chinganOriginalRate" type="number" min="0" step="0.001" class="control">
                                 </div>
                             </div>
 
                             <div class="content-grid-2 chingan-pair-grid">
                                 <div class="field">
-                                    <label>貸款年限</label>
-                                    <select v-model.number="chinganTerm" class="control">
-                                        <option value="20">20年</option>
-                                        <option value="30">30年</option>
-                                        <option value="40">40年</option>
+                                    <label for="chingan-term">貸款年限</label>
+                                    <select id="chingan-term" v-model.number="chinganTerm" class="control" aria-describedby="term-rule-hint">
+                                        <option v-for="year in 40" :key="year" :value="year">{{ year }}年{{ chinganAgeHint && chinganAgeHint.kind !== 'danger' && year > chinganSuggestedMaxTerm ? '（超過80條款）' : '' }}</option>
                                     </select>
+                                    <div id="term-rule-hint" v-if="chinganAgeHint" class="field-tip" :class="{'input-warning': chinganAgeHint.kind !== 'success'}">{{ chinganAgeHint.title }}。{{ chinganAgeHint.text }}</div>
+                                    <button v-if="chinganAgeHint?.canApply" type="button" class="inline-action" @click="applyAgeTerm">套用 {{ chinganSuggestedMaxTerm }} 年</button>
                                 </div>
                                 <div class="field">
-                                    <label>寬限期</label>
-                                    <select v-model.number="chinganGraceYears" class="control">
+                                    <label for="loan-field-29">寬限期</label>
+                                    <select id="loan-field-29" v-model.number="chinganGraceYears" class="control">
                                         <option value="0">不使用寬限期</option>
                                         <option value="1">1年</option>
                                         <option value="2">2年</option>
@@ -1761,7 +1931,7 @@
                                 <div class="rate-node"><b>{{ Number(chinganOriginalRate || 0).toFixed(3) }}%</b><span>第7年起</span></div>
                             </div>
 
-                            <div class="table-wrap">
+                            <p class="table-hint">完整年度現金流：窄螢幕可在表格內左右滑動查看。</p><div class="table-wrap" tabindex="0" role="region" aria-label="年度還款明細，可左右捲動">
                                 <table>
                                     <thead>
                                         <tr>
@@ -1795,17 +1965,17 @@
                                 </span>
                             </div>
 
-                            <div v-if="Number(chinganLoanAmount) > chinganConservativeLoanCap" class="alert danger">
+                            <div v-if="Number(chinganHousePrice)>0 && Number(chinganAppraisalPrice)>0 && Number(chinganLoanAmount) > chinganConservativeLoanCap" class="alert danger">
                                 <i class="fa-solid fa-circle-xmark"></i>
                                 <span>
                                     預計貸款 {{ Number(chinganLoanAmount).toLocaleString() }}萬元，
-                                    已超過目前政策額度初估 {{ chinganConservativeLoanCap.toLocaleString() }}萬元。
+                                    已超過目前保守額度初估 {{ chinganConservativeLoanCap.toLocaleString() }}萬元。
                                 </span>
                             </div>
 
                             <div class="formula-note">
                                 試算規則維持原新增版本：寬限期只繳利息；結束後採本息平均攤還；
-                                利率階段變動時，以當時剩餘本金及剩餘期數重新估算月付。
+                                尚缺總價／鑑價、輸入錯誤、初步不符合或預計貸款超過保守額度時，不產生優惠還款表；超出青安部分須另以一般房貸估算，不可全部套用補貼。利率階段變動時，以當時剩餘本金及剩餘期數重新估算月付。
                             </div>
                         </div>
                     </div>
@@ -1927,18 +2097,51 @@
             <button type="button" class="action-btn ghost" @click="resetAll">
                 <i class="fa-solid fa-rotate-left"></i> 重設
             </button>
-            <button type="button" class="action-btn line" onclick="sendToLine()">
-                <i class="fa-brands fa-line"></i> 傳送完整評估給宏國
-            </button>
+            <button type="button" class="action-btn report-save" @click="openShareReport('image')"><i class="fa-solid fa-image"></i> 儲存評估圖片</button>
+            <button type="button" class="action-btn line" @click="openShareReport('text')"><i class="fa-brands fa-line"></i> 預覽並傳給宏國</button>
         </div>
+        <dialog ref="shareDialog" class="assessment-dialog" @close="shareClosed" @click.self="closeShareReport" aria-labelledby="assessment-title">
+            <div class="assessment-header">
+                <div><span class="assessment-brand">宏國地政｜易丞地政</span><h2 id="assessment-title">保留評估，讓下一步更清楚</h2></div>
+                <button type="button" class="assessment-close" @click="closeShareReport" aria-label="關閉評估預覽">✕</button>
+            </div>
+            <div class="assessment-body">
+                <p class="assessment-intro">先確認內容，再儲存圖片或傳給我們。圖片在此裝置產生；開啟 LINE 後，仍需由您按下送出。</p>
+                <p v-if="shareSnapshot?.demo" class="assessment-notice">目前為示範資料，圖片與文字都會標示「非真實客戶」。正式評估請先重設，再輸入實際資料。</p>
+                <div v-if="shareIsStale" class="assessment-notice" role="alert">條件已變更，請更新評估後再儲存或分享。<button type="button" class="inline-action" @click="refreshShareReport">更新評估</button></div>
+                <div class="assessment-tabs" role="tablist" aria-label="評估預覽方式">
+                    <button id="assessment-text-tab" type="button" role="tab" :aria-selected="shareView === 'text'" aria-controls="assessment-text-panel" @click="shareView='text'">給宏國的完整文字</button>
+                    <button id="assessment-image-tab" type="button" role="tab" :aria-selected="shareView === 'image'" aria-controls="assessment-image-panel" @click="shareView='image'">我的品牌評估圖片</button>
+                </div>
+                <section id="assessment-text-panel" role="tabpanel" aria-labelledby="assessment-text-tab" v-show="shareView === 'text'">
+                    <label for="assessment-text-preview" class="assessment-caption">以下就是本次準備交給宏國的內容（{{ shareText.length.toLocaleString() }}字）</label>
+                    <textarea id="assessment-text-preview" class="assessment-text" :value="shareText" readonly spellcheck="false"></textarea>
+                </section>
+                <section id="assessment-image-panel" role="tabpanel" aria-labelledby="assessment-image-tab" v-show="shareView === 'image'">
+                    <p class="assessment-caption">公司識別・品牌浮水印・條件摘要・下一步建議・LINE QR碼</p>
+                    <div class="assessment-image-box" :aria-busy="shareBusy">
+                        <p v-if="shareBusy" role="status">正在製作您的評估圖片…</p>
+                        <img v-if="shareImageUrl" :src="shareImageUrl" class="assessment-image" alt="宏國地政與易丞地政品牌房貸評估報告，含本次填寫條件與試算結果">
+                        <p v-if="!shareBusy && !shareImageUrl">圖片尚未備妥，您仍可複製完整文字。</p>
+                    </div>
+                    <p class="assessment-caption">手機若未直接存入相簿，可點「開啟大圖」後長按儲存；下載檔也可從「檔案／下載項目」找到。</p>
+                </section>
+                <p class="assessment-feedback" role="status" aria-live="polite">{{ shareFeedback }}</p>
+                <div class="assessment-actions">
+                    <button type="button" class="assessment-btn secondary" :disabled="shareIsStale || !shareSnapshot" @click="copyShareText">複製完整文字</button>
+                    <a class="assessment-btn primary" :href="shareIsStale || !shareImageUrl ? undefined : shareImageUrl" :aria-disabled="shareIsStale || !shareImageUrl" :download="shareDownloadName">下載品牌評估圖片</a>
+                    <a class="assessment-btn secondary" :href="shareIsStale || !shareImageUrl ? undefined : shareImageUrl" :aria-disabled="shareIsStale || !shareImageUrl" target="_blank" rel="noopener">開啟大圖／長按儲存</a>
+                    <button v-if="shareNativeAvailable" type="button" class="assessment-btn secondary" :disabled="shareIsStale || shareBusy" @click="nativeShareImage">分享圖片到其他應用程式</button>
+                    <a class="assessment-btn line" :href="shareIsStale || !shareSnapshot ? undefined : shareLineUrl" :aria-disabled="shareIsStale || !shareSnapshot" target="_blank" rel="noopener noreferrer">開啟宏國 LINE，繼續諮詢</a>
+                </div>
+                <p class="assessment-caption">手機可帶入文字至 LINE；若使用電腦，或帶入內容不完整，請先「複製完整文字」，再貼入宏國對話。圖片需另外儲存或分享，不會自動附在文字訊息內。請下載保留，重新開啟工具不會自動取回這份評估。</p>
+            </div>
+        </dialog>
     </div>
 
     <script>
 
-        // 禁止右鍵
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
+        // 保留瀏覽器右鍵與長按功能，讓客戶可以儲存品牌評估圖片。
 
         // 禁止常見開發者快捷鍵
         document.onkeydown = function(e) {
@@ -2079,12 +2282,165 @@
 
     <script>
 
-    const { createApp, ref, computed } = Vue;
+function evaluateChingan(x) {
+  const invalid=[], pending=[], fails=[];
+  const missing=v=>v===null||v===undefined||v==='';
+  const check=(key,label,min,max,integer=false)=>{
+    if(missing(x[key])) { pending.push('請補上'+label+'。'); return false; }
+    const n=Number(x[key]);
+    if(!Number.isFinite(n)||n<min||n>max||(integer&&!Number.isInteger(n))) { invalid.push(label+'數值不正確。'); return false; }
+    return true;
+  };
+  const ageOK=check('age','年齡',18,120,true);
+  const incomeOK=check('income','本人年所得',0,1e8);
+  const priceOK=check('price','買賣總價',0.01,1e8);
+  const appraisalOK=check('appraisal','銀行鑑價',0.01,1e8);
+  const termOK=check('term','貸款年限',1,40,true);
+  const graceOK=check('grace','寬限期',0,5,true);
+  const amountOK=check('amount','預計貸款金額',0.01,1e8);
+  const rateOK=check('rate','原始年利率',0,100);
+  if(termOK&&graceOK&&Number(x.grace)>=Number(x.term)) invalid.push('寬限期必須短於貸款年限，保留本金攤還期間。');
+  const regionCap={taipei:3500,north:2500,other:2000}[x.region];
+  const familyCap={general:1000,newlywed:1200,child:1500}[x.family];
+  if(!regionCap) invalid.push('請選擇有效購屋地區。');
+  if(!familyCap) invalid.push('請選擇有效家庭身分。');
+  for(const [key,label] of [['noHouse','本人、配偶及未成年子女無自有住宅'],['selfUse','購屋自住'],['neverUsed','未於112年8月1日後核貸青安或青年安居貸款'],['citizen','本國國民購買國內住宅'],['applicationWindow','申請日在115/8/1至118/7/31方案期間']]) {
+    if(x[key]==='no') fails.push('不符合：'+label+'。');
+    else if(x[key]!=='yes') pending.push('待確認：'+label+'。');
+  }
+  if(ageOK&&Number(x.age)>=50) fails.push('申貸時須未滿50歲。');
+  if(ageOK&&termOK&&Number(x.age)+Number(x.term)>80) fails.push('年齡加貸款年限不得超過80年。');
+  if(incomeOK&&Number(x.income)>200) fails.push('本人年所得超過200萬元。');
+  if(priceOK&&regionCap&&Number(x.price)>regionCap) fails.push('買賣總價超過地區上限。');
+  if(appraisalOK&&regionCap&&Number(x.appraisal)>regionCap) fails.push('銀行鑑價超過地區上限。');
+  if(x.family!=='general'&&x.familyEvidence!=='yes') pending.push('增額家庭身分須確認結婚2年內，或未成年子女／孕期適用證明。');
+  const cap=priceOK&&appraisalOK&&familyCap ? Math.floor(Math.min(familyCap,Number(x.price)*.8,Number(x.appraisal)*.8)*100)/100 : null;
+  const gap=cap!==null&&amountOK ? Math.max(0,Number(x.amount)-cap) : null;
+  const downPayment=cap!==null&&priceOK ? Math.max(0,Number(x.price)-cap) : null;
+  const ltv=cap!==null&&priceOK ? cap/Number(x.price)*100 : null;
+  let payment=null, capPayment=null, ratio=null;
+  if(amountOK&&termOK&&graceOK&&rateOK&&Number(x.grace)<Number(x.term)) {
+    // Use unsubsidized rate after the grace period as a conservative affordability scenario.
+    const p=Number(x.amount)*10000, r=Number(x.rate)/1200, n=(Number(x.term)-Number(x.grace))*12;
+    payment=r===0?p/n:p*r/(1-Math.pow(1+r,-n));
+  }
+  if(cap!==null&&termOK&&graceOK&&rateOK&&Number(x.grace)<Number(x.term)){ const p=cap*10000,r=Number(x.rate)/1200,n=(Number(x.term)-Number(x.grace))*12; capPayment=r===0?p/n:p*r/(1-Math.pow(1+r,-n)); }
+  let affordability='請補上每月可認列收入及既有月付債務，再評估還款負擔。';
+  if(!missing(x.monthlyIncome)&&!missing(x.monthlyDebt)) {
+    const inc=Number(x.monthlyIncome), debt=Number(x.monthlyDebt);
+    if(!Number.isFinite(inc)||!Number.isFinite(debt)||inc<=0||debt<0) affordability='月收入須大於0，既有月付債務須為0或正數。';
+    else if(payment!==null) { ratio=(payment+debt)/inc*100; affordability=ratio<=55?'估算收支比在本工具55%參考線內。':'估算收支比超過本工具55%參考線，需調整金額或由銀行確認。'; }
+  }
+  return {invalid,pending,fails,cap,gap,downPayment,ltv,capPayment,payment,ratio,affordability,status:invalid.length?'輸入需修正':fails.length?'初步不符合':pending.length?'資料待確認':'初步符合基本條件'};
+}
+const REPORT_CONTACT_QR = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyAQAAAADAX2ykAAAC5klEQVR4nO2bUY6jMAyGbYPUR7jBHAVuNpoj7Q2ao8wBKsFjJZBXtgPtsFJItVoWir8HSptfIwvj2HEyyPAKgV6SA7g+Da2ML3F9GloZX+L6NLQyvsT1aWhlfInrz/B8MFICYj0NBfna9tNYu6E9+dAL2hPrGxY6AL724lXxeVvdEQAKHeJ9258NnVTfzxEKI0KoRwToL8xXi+5ya3tyoWylcXY9fmq0fpcS04NF8v+0Zw1aVfzk9Pog+TfUBQP0JWj8+vM57vtTxs9KEmwvmfgXAsskzQB3uYB83cwecv2/eD5BS2QrnQvGz65gbPsLYwujlc9/9/ezoXyp4vqc+OXHD+FDq2YADjVgDOwH/jzT0M70YIsfWR9B08n83BVWNfMVJAkrVZTwdW/2k+vT8Ly4ffa0rXlZfD452f173PeN2RLuVDBbOkaZvKvh6RXYq/350Fn1o+RaTb16J3NxNQB/2XJJftvWnkwoV3hSPUzBGbNunIbVvyBTs9wxxyD2/HtM/7J6UAJWJ+RFT9rw/Htc/4L0Ig0ros3dbI7X6Hb/Hrm++pJayryqs3If+1ooTQ5oOK6J92p/PnQyfalXbHgsAfoaILSAHOpikD0l4PAxWPeD92k/uT5J+bhlgOHhboRGXNp8S+RWN8BGyy9/nmlop/VVp/WzpFnd5J/WxKDtLLvz+vnA+mqw/Bvr52oAROtEjzid5NjSnlwoW3lmPdoJK62qrLTSIuvCz9vBG9qTD72gPa+erXkxLX31VJ1VzY+Nhy3tyYde0J5RD8/N5R8Nqzhn2/6C5993Oj8JT5N0pYn5jvGkzk7tz4ZO2r/q4tbv1J+cE65iMe395+Pr+aqnYqVgbuZdBQlsP9/+Fv6FuZbiL5zrZz9/9TbnJ5Wmk25WdUNuurFkqG7lTu0n1ycp7SNY/6KQE3V2kSxc8NTW8P7zQd839P/vPpS/yPVJKD38B65PQyvjS1yfhlbGl7g+zdGfz2+uDJx1uBpdKgAAAABJRU5ErkJggg==';
+// The preview text and PNG use the same immutable assessment snapshot.
+function assessmentText(report) {
+    const lines = [report.demo ? '【示範資料・非真實客戶】' : '【房貸初步評估】', '宏國地政｜易丞地政',
+        '評估編號：' + report.id, '產生時間：' + report.date, ''];
+    for (const section of report.sections) {
+        lines.push('【' + section.title + '】');
+        section.rows.forEach(([label, value]) => lines.push(label ? label + '：' + value : value));
+        lines.push('');
+    }
+    lines.push('我想請宏國地政｜易丞地政協助核對上述條件，說明適合我的貸款與自備款規劃。',
+        '本報告為依填寫資料產生的工具初估，非銀行核貸、鑑價或保證人徵提承諾。',
+        '服務專線：06-2582589｜LINE：@604gpqef');
+    return lines.join('\n');
+}
+
+async function renderAssessmentPng(report) {
+    if (document.fonts?.ready) await Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 2500))]);
+    const W = 1080, pad = 62, inner = W - pad * 2;
+    const canvas = document.createElement('canvas'); canvas.width = W; canvas.height = 1;
+    const c = canvas.getContext('2d');
+    if (!c) throw new Error('此瀏覽器無法產生圖片，請先複製文字評估。');
+    const font = '"Noto Sans TC", "Microsoft JhengHei", sans-serif';
+    const setFont = (size, weight=400) => { c.font = `${weight} ${size}px ${font}`; };
+    const wrap = (value, width, size=25, weight=400) => {
+        setFont(size, weight);
+        const out=[];
+        for (const paragraph of String(value).split('\n')) {
+            let line='';
+            for(const ch of Array.from(paragraph)) {
+                if(line && c.measureText(line+ch).width>width) { out.push(line); line=ch; } else line+=ch;
+            }
+            out.push(line);
+        }
+        return out;
+    };
+    // Premeasure every row. Long customer notes increase canvas height rather than clipping.
+    const sections=report.sections.map(section=>({title:section.title, rows:section.rows.map(([label,value])=>({label,lines:wrap(value,inner-310),height:Math.max(50,wrap(value,inner-310).length*37+24,wrap(label,260,23,500).length*34+20)}))}));
+    const headerHeight=610;
+    const total=headerHeight+sections.reduce((sum,s)=>sum+92+s.rows.reduce((n,r)=>n+r.height,0)+30,0)+420;
+    if(total>16000)throw new Error('內容較長，請縮短資產備註後再產生圖片；完整文字仍可複製。');
+    canvas.height=total;
+    c.fillStyle='#f4f2ed'; c.fillRect(0,0,W,total);
+    c.fillStyle='#fff'; c.fillRect(30,headerHeight-30,W-60,total-headerHeight-340);
+    // Subtle ownership watermark is repeated across the report, behind readable text.
+    c.save(); c.fillStyle='rgba(15,48,65,0.042)'; setFont(41,700);
+    for(let y=690;y<total-360;y+=420){c.save();c.translate(100,y);c.rotate(-0.17);c.fillText('宏國地政｜易丞地政',0,0);c.fillText('宏國地政｜易丞地政',530,210);c.restore();}c.restore();
+    const gradient=c.createLinearGradient(0,0,W,500); gradient.addColorStop(0,'#071725');gradient.addColorStop(1,'#154557');
+    c.fillStyle=gradient;c.fillRect(0,0,W,414);
+    c.fillStyle='#c9a464';c.fillRect(pad,56,8,66);
+    setFont(35,700);c.fillStyle='#f6e4c4';c.fillText('宏國地政｜易丞地政',pad+28,102);
+    setFont(22,500);c.fillStyle='#c2d0d8';c.fillText('房貸決策評估・讓購屋規劃更清楚',pad+28,145);
+    setFont(58,800);c.fillStyle='#fff';c.fillText(report.demo?'房貸評估｜示範報告':'您的房貸評估摘要',pad,247);
+    setFont(23);c.fillStyle='#d2dce2';c.fillText(report.date+'  ·  '+report.id,pad,301);
+    setFont(24,500);c.fillStyle='#e8d4ad';c.fillText('先看懂額度與負擔，再一起找出適合的方案。',pad,354);
+    const boxW=(inner-36)/3;
+    report.highlights.forEach((item,i)=>{
+        const x=pad+i*(boxW+18);c.fillStyle=i===0?'#e8d4ad':'#eaf0f2';c.fillRect(x,446,boxW,130);
+        setFont(20,500);c.fillStyle='#53616c';c.fillText(item.label,x+20,481);
+        setFont(30,800);c.fillStyle='#0b2a3b';
+        const valueLines=wrap(item.value,boxW-40,30,800);valueLines.slice(0,2).forEach((line,j)=>c.fillText(line,x+20,526+j*34));
+    });
+    let y=headerHeight;
+    for(const section of sections){
+        c.fillStyle='#f1f4f5';c.fillRect(pad,y,inner,68);c.fillStyle='#ad884b';c.fillRect(pad,y,5,68);
+        setFont(29,700);c.fillStyle='#103449';c.fillText(section.title,pad+22,y+45);y+=92;
+        for(const row of section.rows){
+            const labels=wrap(row.label,260,23,500);setFont(23,500);c.fillStyle='#647480';
+            labels.forEach((line,j)=>c.fillText(line,pad+8,y+29+j*34));
+            setFont(25,500);c.fillStyle='#223b4a';row.lines.forEach((line,j)=>c.fillText(line,pad+294,y+29+j*37));
+            y+=Math.max(row.height,labels.length*34+20);
+            c.strokeStyle='#e5ebee';c.lineWidth=1;c.beginPath();c.moveTo(pad,y-8);c.lineTo(W-pad,y-8);c.stroke();
+        }
+        y+=30;
+    }
+    // QR holds only the existing company LINE URL, never assessment or customer data.
+    const bottom=total-385;c.fillStyle='#0b2839';c.fillRect(0,bottom,W,385);
+    setFont(33,700);c.fillStyle='#e8d4ad';c.fillText('下一步，讓我們陪您把條件看清楚。',pad,bottom+62);
+    setFont(24,500);c.fillStyle='#fff';c.fillText('把這份評估傳給宏國，討論額度、月付與資金安排。',pad,bottom+111);
+    setFont(25,700);c.fillText('06-2582589  ｜  LINE @604gpqef',pad,bottom+171);
+    setFont(21);c.fillStyle='#b6c8d2';c.fillText('台南市北區文賢路1080巷11號',pad,bottom+215);
+    const qr = new Image(); qr.src=REPORT_CONTACT_QR;
+    try { await qr.decode(); c.fillStyle='#fff';c.fillRect(W-pad-168,bottom+140,168,168);c.drawImage(qr,W-pad-160,bottom+148,152,152); }
+    catch { setFont(20);c.fillText('LINE @604gpqef',W-pad-180,bottom+285); }
+    setFont(18);c.fillStyle='#b6c8d2';
+    c.fillText('工具初估，非銀行核貸承諾。實際條件依銀行及有效規定審核。',pad,bottom+284);
+    c.fillText(report.demo?'示範資料・非真實客戶｜© 2026 宏國地政｜易丞地政':'© 2026 宏國地政｜易丞地政 · 專業製作',pad,bottom+332);
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+    if(!blob)throw new Error('圖片產生失敗，請複製文字或稍後重試。');
+    return {blob,width:W,height:total};
+}
+
+    const { createApp, ref, computed, watch } = Vue;
 
     createApp({
         setup() {
             // ===== v5.5 介面控制：不參與任何貸款計算 =====
             const activeTab = ref("quick");
+            const chinganFamilyEvidence = ref('unknown');
+            const chinganCitizen=ref('unknown'), chinganApplicationWindow=ref('unknown');
+            const chinganReport = ref(null);
+            const chinganInput = computed(() => ({age:chinganAge.value,income:chinganAnnualIncome.value,price:chinganHousePrice.value,appraisal:chinganAppraisalPrice.value,term:chinganTerm.value,grace:chinganGraceYears.value,amount:chinganLoanAmount.value,rate:chinganOriginalRate.value,region:chinganRegion.value,family:chinganFamilyType.value,noHouse:chinganNoHouse.value,selfUse:chinganSelfUse.value,neverUsed:chinganNeverUsed.value,familyEvidence:chinganFamilyEvidence.value,citizen:chinganCitizen.value,applicationWindow:chinganApplicationWindow.value,monthlyIncome:monthlyIncome.value,monthlyDebt:monthlyDebt.value}));
+            const chinganReportStale = computed(() => chinganReport.value && chinganReport.value.fingerprint !== JSON.stringify(chinganInput.value));
+            function calculateChingan() {
+                chinganReport.value={...evaluateChingan(chinganInput.value),fingerprint:JSON.stringify(chinganInput.value)};
+                setTimeout(()=>document.getElementById('chingan-result')?.scrollIntoView({behavior:'smooth',block:'center'}),0);
+            }
+            function applyChinganCap(){ const check=evaluateChingan(chinganInput.value); if(check.cap===null||check.invalid.length||check.fails.length)return; chinganLoanAmount.value=check.cap; calculateChingan(); setTimeout(()=>document.querySelector('.rate-timeline')?.scrollIntoView({behavior:'smooth',block:'center'}),0); }
             const isLocalPreview = ref(Boolean(window.__NEXUS_RUNTIME__ && window.__NEXUS_RUNTIME__.isLocal));
             const occupation = ref("");
             const dependents = ref(0);
@@ -2114,6 +2470,45 @@
             const chinganOriginalRate = ref(2.275); // 目前一段式原貸款利率
             const chinganTerm = ref(40);
             const chinganGraceYears = ref(5);
+
+            // 年所得以萬元輸入，換算為每月元；手動調整不回寫年度所得。
+            const incomeSource = ref('manual');
+            const annualMonthlyIncome = computed(() => {
+                const raw = chinganAnnualIncome.value;
+                if (raw === null || raw === '' || raw === undefined) return null;
+                const n = Number(raw);
+                return Number.isFinite(n) && n >= 0 && n <= 1e8 ? Math.round(n * 10000 / 12) : null;
+            });
+            const syncAnnualIncome = () => {
+                monthlyIncome.value = annualMonthlyIncome.value;
+                incomeSource.value = 'annual';
+            };
+            const markIncomeManual = () => { incomeSource.value = 'manual'; };
+            watch(chinganAnnualIncome, syncAnnualIncome, { flush: 'sync' });
+            const incomeSourceText = computed(() => incomeSource.value === 'annual'
+                ? (annualMonthlyIncome.value === null ? '請輸入有效年所得，系統會自動換算月收入。' : '已依年所得換算為每月 ' + annualMonthlyIncome.value.toLocaleString() + ' 元（四捨五入至元）。')
+                : '目前使用手動填寫的月收入；修改年所得會重新換算。');
+            const chinganAgeHint = computed(() => {
+                const raw = chinganAge.value;
+                if (raw === null || raw === '') return null;
+                const n = Number(raw);
+                if (!Number.isInteger(n) || n < 18 || n > 120) return { kind: 'danger', title: '請輸入有效年齡', text: '請填寫18～120歲的整數年齡。', canApply: false };
+                const term = Number(chinganTerm.value), max = Math.max(0, Math.min(40, 80 - n));
+                if (n >= 50) return { kind: 'danger', title: '新青安3.0須於申貸時未滿50歲', text: '目前填寫 ' + n + ' 歲，不符合此方案年齡條件；一般房貸請另依承辦銀行條件評估。', canApply: false };
+                const over = n + term > 80;
+                return { kind: over ? 'warning' : 'success', title: '80條款｜' + n + '歲 ＋ ' + term + '年 ＝ ' + (n + term) + (over ? '，超過80' : '，未超過80'), text: '依目前年齡，貸款年限最長 ' + max + ' 年（含寬限期）；實際仍依銀行核定。', canApply: over };
+            });
+            const applyAgeTerm = () => {
+                if (chinganAgeHint.value?.canApply) chinganTerm.value = chinganSuggestedMaxTerm.value;
+            };
+            const generalAgeHint = computed(() => {
+                const raw = String(age.value ?? '').trim();
+                if (!raw) return null;
+                const n = /^\d{1,3}\s*歲?$/.test(raw) ? Number(raw.replace(/\s*歲$/, '')) : NaN;
+                if (!Number.isInteger(n) || n < 18 || n > 120) return { kind: 'warning', text: '請輸入有效成年年齡，例如35或35歲。' };
+                const total = n + Number(customTerm.value);
+                return { kind: total > 80 ? 'warning' : 'info', text: '80年試算提醒：' + n + '歲 ＋ ' + customTerm.value + '年 ＝ ' + total + (total > 80 ? '，超過80；依此基準年限上限為 ' + Math.max(0, Math.min(40, 80 - n)) + ' 年。' : '，未超過80。') + '一般房貸實際年齡與年限限制依承辦銀行規定。' };
+            });
 
             const monthlyPayPerMillion = 4000;
             const basicLivingCost = 15515; // 115年每月最低生活費：臺南市／臺灣省 15,515 元
@@ -2222,48 +2617,10 @@
                 return Math.max(0, Math.min(40, Math.floor(80 - a)));
             });
 
-            const chinganConservativeLoanCap = computed(() => {
-                const caps = [chinganFamilyLoanLimit.value];
-                const price = Number(chinganHousePrice.value);
-                const appraisal = Number(chinganAppraisalPrice.value);
-                if (price > 0) caps.push(price * 0.8);
-                if (appraisal > 0) caps.push(appraisal * 0.8);
-                return Math.max(0, Math.floor(Math.min(...caps)));
-            });
+            const chinganConservativeLoanCap = computed(() => evaluateChingan(chinganInput.value).cap ?? 0);
 
-            const chinganHardFails = computed(() => {
-                const fails = [];
-                const a = Number(chinganAge.value);
-                const income = Number(chinganAnnualIncome.value);
-                const price = Number(chinganHousePrice.value);
-                const appraisal = Number(chinganAppraisalPrice.value);
-                const term = Number(chinganTerm.value);
-                const grace = Number(chinganGraceYears.value);
-
-                if (chinganNoHouse.value === "no") fails.push("本人、配偶或未成年子女持有自有住宅。");
-                if (chinganSelfUse.value === "no") fails.push("購屋用途不是自住。");
-                if (chinganNeverUsed.value === "no") fails.push("借款人曾使用青安貸款，原則上不符限貸1次。");
-                if (a && a >= 50) fails.push("申貸時須未滿50歲。");
-                if (a && term && (a + term > 80)) fails.push(`年齡＋貸款年限為${a + term}，超過80；依目前年齡建議年限不逾${chinganSuggestedMaxTerm.value}年。`);
-                if (income > 200) fails.push("借款人本人年所得超過200萬元。");
-                if (price > chinganRegionLimit.value) fails.push(`買賣總價超過本地區${chinganRegionLimit.value.toLocaleString()}萬元上限。`);
-                if (appraisal > chinganRegionLimit.value) fails.push(`銀行鑑價超過本地區${chinganRegionLimit.value.toLocaleString()}萬元上限。`);
-                if (term > 40) fails.push("貸款年限不得超過40年。");
-                if (grace > 5) fails.push("寬限期不得超過5年。");
-                return fails;
-            });
-
-            const chinganPending = computed(() => {
-                const pending = [];
-                if (!Number(chinganAge.value)) pending.push("尚未輸入借款人年齡。");
-                if (chinganAnnualIncome.value === null || chinganAnnualIncome.value === "" || !Number.isFinite(Number(chinganAnnualIncome.value))) pending.push("尚未輸入借款人本人年所得。");
-                if (!Number(chinganHousePrice.value)) pending.push("尚未輸入買賣總價。");
-                if (!Number(chinganAppraisalPrice.value)) pending.push("尚未輸入銀行鑑價；目前額度先以買賣總價估算。");
-                if (chinganNoHouse.value === "unknown") pending.push("尚未確認本人、配偶及未成年子女是否無自有住宅。");
-                if (chinganSelfUse.value === "unknown") pending.push("尚未確認是否購屋自住。");
-                if (chinganNeverUsed.value === "unknown") pending.push("尚未確認借款人是否曾使用青安貸款。");
-                return pending;
-            });
+            const chinganHardFails = computed(() => [...evaluateChingan(chinganInput.value).invalid,...evaluateChingan(chinganInput.value).fails]);
+            const chinganPending = computed(() => evaluateChingan(chinganInput.value).pending);
 
             const chinganDiscountByYear = (year) => {
                 if (year <= 3) return 0.500;
@@ -2286,8 +2643,10 @@
                 const termYears = Number(chinganTerm.value);
                 const graceYears = Number(chinganGraceYears.value);
                 const originalRate = Number(chinganOriginalRate.value);
-                if (!(amount > 0) || !(termYears > 0) || !(originalRate >= 0)) return [];
+                if (!(amount > 0) || !Number.isFinite(amount) || !Number.isInteger(termYears) || termYears < 1 || termYears > 40 || !Number.isInteger(graceYears) || graceYears < 0 || graceYears > 5 || graceYears >= termYears || !Number.isFinite(originalRate) || originalRate < 0 || originalRate > 100) return [];
 
+                const eligibility=evaluateChingan(chinganInput.value);
+                if(eligibility.invalid.length || eligibility.fails.length || eligibility.cap===null || amount>eligibility.cap) return [];
                 const totalMonths = termYears * 12;
                 let balance = amount * 10000;
                 const rows = [];
@@ -2351,6 +2710,9 @@
             };
 
             const fillDemo = () => {
+                isDemoData.value = true;
+                chinganReport.value = null;
+                chinganFamilyEvidence.value = chinganCitizen.value = chinganApplicationWindow.value = 'unknown';
                 occupation.value = "受薪階級";
                 dependents.value = 1;
                 houseCount.value = 0;
@@ -2379,6 +2741,11 @@
             };
 
             const resetAll = () => {
+                isDemoData.value = false;
+                chinganReport.value = null;
+                incomeSource.value = 'manual';
+                chinganCitizen.value = chinganApplicationWindow.value = 'unknown';
+                chinganFamilyEvidence.value = 'unknown';
                 occupation.value = "";
                 dependents.value = 0;
                 houseCount.value = 0;
@@ -2404,62 +2771,111 @@
                 chinganOriginalRate.value = 2.275;
                 chinganTerm.value = 40;
                 chinganGraceYears.value = 5;
+                incomeSource.value = 'manual';
                 activeTab.value = "quick";
             };
 
-            window.sendToLine = () => {
-                let text = `【房貸額度全方位評估 v5.6】\n(宏國地政/易丞地政)\n\n`;
-                text += `Q1職業：${occupation.value || '未填'}\n`;
-                text += `Q2扶養：${dependents.value}人\n`;
-                text += `Q3房產：${houseCount.value === 0 ? '首購' : houseCount.value + '戶'}\n`;
-                text += `Q4年齡：${age.value || '未填'}\n`;
-                text += `Q5月收：${monthlyIncome.value || 0}元\n`;
-                text += `Q6月負債：${monthlyDebt.value || 0}元\n`;
-                text += `資產備註：${assets.value || '無'}\n\n`;
-                
-                text += `📊【最高額度試算】\n`;
-                text += `✅宏國建議(55%)：${safeLoan.value}萬 (4100基準:${safeLoan4100.value}萬)\n`;
-                text += `🔥市場極限(70%)：${limitLoan.value}萬 (4100基準:${limitLoan4100.value}萬)\n`;
-                text += `🏛️公股台銀(嚴格)：${publicLoan.value}萬\n`;
-                
-                if (targetLoan.value) {
-                    text += `\n🛡️【詳細房貸與保人試算】\n`;
-                    text += `想貸金額：${targetLoan.value}萬\n`;
-                    text += `條件設定：${customTerm.value}年 / 利率 ${customRate.value}%\n`;
-                    text += `精算月付：約 ${exactMonthlyPay.value.toLocaleString()} 元\n`;
-                    text += `保人已有負債：${guarantorDebt.value || 0}萬/月\n`;
-                    if (needsGuarantor.value) {
-                        text += `👉 建議保人月收(50%水準)：${guarantorIncomeSafe.value}萬\n`;
-                        text += `👉 最低門檻(60%極限)：${guarantorIncomeLimit.value}萬\n`;
-                    } else {
-                        text += `👉 財務健康，原則上不需保人\n`;
-                    }
-                }
-
-                if (chinganLoanAmount.value) {
-                    const firstRow = chinganSchedule.value[0];
-                    const year4 = chinganSchedule.value.find(r => r.year === 4);
-                    const year6 = chinganSchedule.value.find(r => r.year === 6);
-                    const year7 = chinganSchedule.value.find(r => r.year === 7);
-                    text += `\n🏠【青安3.0獨立試算】\n`;
-                    text += `政策額度初估：${chinganConservativeLoanCap.value}萬\n`;
-                    text += `試算本金：${chinganLoanAmount.value}萬／${chinganTerm.value}年／寬限${chinganGraceYears.value}年\n`;
-                    text += `原貸款利率假設：${chinganOriginalRate.value}%\n`;
-                    if (firstRow) text += `第1～3年：${firstRow.rate.toFixed(3)}%（首年月付約${firstRow.payment.toLocaleString()}元）\n`;
-                    if (year4) text += `第4年：${year4.rate.toFixed(3)}%（約${year4.payment.toLocaleString()}元／月）\n`;
-                    if (year6) text += `第6年：${year6.rate.toFixed(3)}%（約${year6.payment.toLocaleString()}元／月）\n`;
-                    if (year7) text += `第7年起：${year7.rate.toFixed(3)}%（約${year7.payment.toLocaleString()}元／月）\n`;
-                    if (chinganGraceJump.value) {
-                        text += `寬限期結束跳升：約+${chinganGraceJump.value.diff.toLocaleString()}元／月\n`;
-                    }
-                    text += `資格檢查：${chinganHardFails.value.length ? '有不符合項目' : (chinganPending.value.length ? '尚待補資料' : '初步符合')}\n`;
-                }
-
-                const lineID = "@604gpqef";
-                window.location.href = `https://line.me/R/oaMessage/${lineID}/?text=${encodeURIComponent(text)}`;
+            const isDemoData = ref(false);
+            const shareDialog = ref(null), shareSnapshot = ref(null), shareImageUrl = ref('');
+            const shareBusy = ref(false), shareFeedback = ref(''), shareView = ref('text');
+            let shareImageBlob = null, shareRenderToken = 0, previousShareFocus = null;
+            const shareFingerprint = computed(() => JSON.stringify({ occupation:occupation.value, dependents:dependents.value, houseCount:houseCount.value, age:age.value, monthlyIncome:monthlyIncome.value, monthlyDebt:monthlyDebt.value, assets:assets.value, targetLoan:targetLoan.value, guarantorDebt:guarantorDebt.value, customTerm:customTerm.value, customRate:customRate.value, incomeSource:incomeSource.value, chingan:chinganInput.value, demo:isDemoData.value }));
+            const shareIsStale = computed(() => Boolean(shareSnapshot.value && shareSnapshot.value.fingerprint !== shareFingerprint.value));
+            const shareText = computed(() => shareSnapshot.value ? assessmentText(shareSnapshot.value) : '');
+            // LINE official URL scheme accepts the encoded message directly after '?', not '?text='.
+            const shareLineUrl = computed(() => 'https://line.me/R/oaMessage/%40604gpqef/?' + encodeURIComponent(shareText.value));
+            const shareDownloadName = computed(() => (shareSnapshot.value?.demo ? '示範_' : '') + '宏國易丞_房貸評估_' + (shareSnapshot.value?.id || '') + '.png');
+            const shareNativeAvailable = ref(false);
+            const makeShareSnapshot = () => {
+                const missing = v => v === null || v === undefined || v === '';
+                const valid = (v,min=0,max=1e8) => !missing(v) && Number.isFinite(Number(v)) && Number(v)>=min && Number(v)<=max;
+                const fmt = (v,unit='') => missing(v) ? '待補資料' : valid(v) ? Number(v).toLocaleString('zh-TW',{maximumFractionDigits:3})+unit : '輸入需修正';
+                const yesNo = v => ({yes:'符合（依填寫）',no:'不符合（依填寫）',unknown:'待確認'}[v]||'待確認');
+                const ready = valid(monthlyIncome.value,1)&&valid(monthlyDebt.value);
+                const pmtReady = valid(targetLoan.value,.01)&&valid(customTerm.value,1,40)&&Number.isInteger(Number(customTerm.value))&&valid(customRate.value,0,100);
+                const check = evaluateChingan(chinganInput.value);
+                const hasPolicy = [chinganAge.value,chinganAnnualIncome.value,chinganHousePrice.value,chinganAppraisalPrice.value].some(v=>!missing(v)) || chinganNoHouse.value!=='unknown' || chinganFamilyType.value!=='general';
+                const policyResultOK = hasPolicy&&!check.invalid.length&&!check.fails.length;
+                const now=new Date(), date=now.toLocaleString('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})+'（臺灣時間）';
+                const id='HG-'+now.toLocaleDateString('en-CA',{timeZone:'Asia/Taipei'}).replace(/-/g,'')+'-'+Math.random().toString(36).slice(2,8).toUpperCase();
+                const sections=[{title:'01｜您提供的基本條件',rows:[
+                    ['職業',occupation.value||'待補資料'],['一般房貸年齡',age.value||'待補資料'],['扶養人數',dependents.value+'人'],['名下房產',houseCount.value===0?'0戶（不等同已確認青安資格）':houseCount.value===1?'1戶':'2戶以上'],
+                    ['每月可認列收入',fmt(monthlyIncome.value,'元')],['月收入來源',incomeSource.value==='annual'?'年所得（萬元）×10,000÷12換算，仍需銀行認列':'自行填寫，仍需銀行認列'],['既有債務月付',fmt(monthlyDebt.value,'元')],['資產備註',String(assets.value||'未提供')]
+                ]}];
+                sections.push({title:'02｜一般房貸額度參考',rows:ready?[
+                    ['55%參考線',fmt(safeLoan.value,'萬元')+'（每百萬元月付4,000元概估）'],['55%較高月付情境',fmt(safeLoan4100.value,'萬元')+'（每百萬元月付4,100元）'],
+                    ['70%高負擔參考線',fmt(limitLoan.value,'萬元')+'；4,100元基準為'+fmt(limitLoan4100.value,'萬元')],['公股180%收支比情境',fmt(publicLoan.value,'萬元')],['判讀', '以上只按收入與支出概估，未合併擔保品成數、信用及銀行審核，不代表可核貸額度。']
+                ]:[['狀態','請補上有效月收入與既有債務月付；缺漏不當作0，不輸出額度結論。']]});
+                const detailRows=[['預計貸款',fmt(targetLoan.value,'萬元')],['試算年限／利率',fmt(customTerm.value,'年')+'／'+fmt(customRate.value,'%')],['本息平均月付',pmtReady?fmt(exactMonthlyPay.value,'元'):'待補有效本金、年限與利率']];
+                if(generalAgeHint.value)detailRows.push(['年齡與年限提醒',generalAgeHint.value.text]);
+                if(pmtReady&&ready){
+                    detailRows.push(['還款負擔判讀',needsGuarantor.value?'超過工具55%參考線，可討論調整本金或補強收入；是否需保證人仍依銀行審核。':'未超過工具55%參考線；是否需保證人仍依銀行審核。']);
+                    detailRows.push(['保證人既有月付',fmt(guarantorDebt.value,'萬元／月')]);
+                    if(needsGuarantor.value&&valid(guarantorDebt.value))detailRows.push(['收入補強試算','50%參考：'+guarantorIncomeSafe.value+'萬元／月；60%參考：'+guarantorIncomeLimit.value+'萬元／月。']);
+                }else detailRows.push(['還款負擔判讀','資料未齊，不判定財務健康或是否需要保人。']);
+                sections.push({title:'03｜月付與收入補強',rows:detailRows});
+                if(hasPolicy){
+                    const rows=[['資格初篩',check.status],['申貸年齡／年所得',fmt(chinganAge.value,'歲')+'／'+fmt(chinganAnnualIncome.value,'萬元')],['購屋地區',({taipei:'臺北市',north:'新北市／新竹縣市',other:'其他縣市'})[chinganRegion.value]||'待確認'],['家庭身分',({general:'一般資格',newlywed:'申請日前2年內新婚',child:'育有未成年子女／孕期文件'})[chinganFamilyType.value]||'待確認'],['家庭增額證明',chinganFamilyType.value==='general'?'一般資格不適用':yesNo(chinganFamilyEvidence.value)],['買賣總價／銀行鑑價',fmt(chinganHousePrice.value,'萬元')+'／'+fmt(chinganAppraisalPrice.value,'萬元')],['無自有住宅／自住',yesNo(chinganNoHouse.value)+'／'+yesNo(chinganSelfUse.value)],['未重複使用青安等方案',yesNo(chinganNeverUsed.value)],['本國國民購買國內住宅',yesNo(chinganCitizen.value)],['申請日在方案期間',yesNo(chinganApplicationWindow.value)],['試算本金／年限／寬限',fmt(chinganLoanAmount.value,'萬元')+'／'+fmt(chinganTerm.value,'年')+'／'+fmt(chinganGraceYears.value,'年')],['原貸款年利率假設',fmt(chinganOriginalRate.value,'%')]];
+                    if(chinganAgeHint.value)rows.push(['80條款',chinganAgeHint.value.title+'。'+chinganAgeHint.value.text]);
+                    if(policyResultOK&&check.cap!==null){
+                        rows.push([check.pending.length?'待確認條件下的額度上限':'政策試算額度上限',fmt(check.cap,'萬元')+'（家庭額度、總價八成、鑑價八成取低；非核貸額）']);
+                        rows.push(['以試算上限估算自備款',fmt(check.downPayment,'萬元')+'（未含稅費及其他成本）']);
+                        if(check.gap>0)rows.push(['預計本金超出試算上限',fmt(check.gap,'萬元')+'，超出部分需另估。']);
+                        if(check.ratio!==null)rows.push(['含既有債務收支比',check.ratio.toFixed(1)+'%（以寬限後、原利率估算）。'+check.affordability]);
+                        for(const year of [1,4,5,6,7]){const row=chinganSchedule.value.find(r=>r.year===year);if(row)rows.push(['第'+year+'年情境月付',fmt(row.payment,'元')+'／利率'+row.rate.toFixed(3)+'%／'+row.mode]);}
+                        if(chinganGraceJump.value)rows.push(['寬限期結束月付變化',fmt(chinganGraceJump.value.from,'元')+' → '+fmt(chinganGraceJump.value.to,'元')+'（增加'+fmt(chinganGraceJump.value.diff,'元／月')+'）']);
+                    }else rows.push(['額度與月付結果','資料需修正或資格不符，本報告暫不列政策額度及月付結論。']);
+                    [...check.invalid,...check.fails,...check.pending].forEach(item=>rows.push(['待核對事項',item]));
+                    sections.push({title:'04｜新青安3.0條件與情境',rows});
+                }else sections.push({title:'04｜新青安3.0',rows:[['狀態','尚未填寫，本次未納入新青安資格與月付評估。']]});
+                const next=[];
+                if(!ready)next.push(['先補齊資料','準備薪轉、所得資料與現有貸款月付，才能進一步評估負擔。']);
+                if(hasPolicy&&(check.pending.length||check.fails.length||check.invalid.length))next.push(['釐清適用方案','請宏國協助核對上述待確認或不符合項目，再討論可行方案。']);
+                if(hasPolicy&&policyResultOK&&chinganGraceJump.value)next.push(['確認長期月付','除了初期月付，也一起確認寬限期結束後的資金安排。']);
+                next.push(['諮詢方向','保留這份評估，與宏國一起核對貸款額度、自備款及交易流程。']);
+                sections.push({title:'05｜建議下一步',rows:next});
+                return {id,date,demo:isDemoData.value,fingerprint:shareFingerprint.value,sections,highlights:[{label:'一般額度・55%參考',value:ready?fmt(safeLoan.value,'萬'):'待補資料'},{label:'一般房貸・試算月付',value:pmtReady?fmt(exactMonthlyPay.value,'元'):'待補資料'},{label:'新青安・資格初篩',value:hasPolicy?check.status:'尚未評估'}]};
             };
+            const releaseShareImage = () => { if(shareImageUrl.value)URL.revokeObjectURL(shareImageUrl.value);shareImageUrl.value='';shareImageBlob=null;shareNativeAvailable.value=false; };
+            const refreshShareReport = async () => {
+                const token=++shareRenderToken;releaseShareImage();shareSnapshot.value=makeShareSnapshot();shareBusy.value=true;shareFeedback.value='正在製作品牌評估圖片…';
+                try {
+                    const result=await renderAssessmentPng(shareSnapshot.value);
+                    if(token!==shareRenderToken)return;
+                    shareImageBlob=result.blob;shareImageUrl.value=URL.createObjectURL(result.blob);
+                    const file=new File([shareImageBlob],shareDownloadName.value,{type:'image/png'});
+                    shareNativeAvailable.value=Boolean(navigator.canShare?.({files:[file]}));
+                    shareFeedback.value='圖片已備妥，可下載或開啟大圖儲存。';
+                }catch(e){if(token===shareRenderToken)shareFeedback.value=e.message||'圖片產生失敗，仍可複製完整文字。';}
+                finally{if(token===shareRenderToken)shareBusy.value=false;}
+            };
+            const openShareReport = async (view='text') => {
+                previousShareFocus=document.activeElement;shareView.value=view;shareDialog.value?.showModal();document.body.classList.add('report-open');
+                await refreshShareReport();
+            };
+            const closeShareReport = () => { shareDialog.value?.close(); };
+            const shareClosed = () => { ++shareRenderToken;shareBusy.value=false;document.body.classList.remove('report-open');previousShareFocus?.focus?.(); };
+            const copyShareText = async () => {
+                if(shareIsStale.value)return;
+                try{
+                    if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(shareText.value);
+                    else {const el=document.getElementById('assessment-text-preview');el.focus();el.select();if(!document.execCommand('copy'))throw new Error('copy');}
+                    shareFeedback.value='已複製完整評估。可貼到宏國的LINE對話後再送出。';
+                }catch{shareFeedback.value='瀏覽器未允許自動複製，請選取上方完整文字後複製。';}
+            };
+            const nativeShareImage = async () => {
+                if(!shareImageBlob||shareIsStale.value)return;
+                try{await navigator.share({title:'宏國地政｜易丞地政 房貸評估',files:[new File([shareImageBlob],shareDownloadName.value,{type:'image/png'})]});shareFeedback.value='已交由裝置分享功能處理；是否送出請查看您選擇的應用程式。';}
+                catch(e){shareFeedback.value=e.name==='AbortError'?'已取消分享，圖片仍可下載。':'此裝置無法直接分享圖片，請改用下載或開啟大圖。';}
+            };
+            // Existing entry point now opens a reviewable preview; it never sends a message.
+            window.sendToLine = () => openShareReport('text');
+
 
             return {
+                chinganCitizen, chinganApplicationWindow, chinganFamilyEvidence, chinganReport, chinganReportStale, calculateChingan, applyChinganCap,
+                incomeSource, annualMonthlyIncome, incomeSourceText, syncAnnualIncome, markIncomeManual, chinganAgeHint, applyAgeTerm, generalAgeHint,
+                shareDialog, shareSnapshot, shareImageUrl, shareBusy, shareFeedback, shareView, shareIsStale, shareText, shareLineUrl, shareDownloadName, shareNativeAvailable, openShareReport, closeShareReport, shareClosed, refreshShareReport, copyShareText, nativeShareImage,
                 activeTab, isLocalPreview, switchTab, fillDemo, resetAll,
                 occupation, dependents, houseCount, age,
                 monthlyIncome, monthlyDebt, assets,
