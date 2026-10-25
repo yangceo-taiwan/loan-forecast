@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#071725">
+    <meta name="theme-color" content="#082f49">
     <meta name="description" content="宏國地政｜易丞地政 專業房貸與新青安3.0評估系統">
-    <title>宏國地政｜易丞地政－房貸決策評估系統｜品牌評估分享候選 2026.09.16</title>
+    <title>房貸規劃｜宏國地政・易丞地政</title>
 
     <script>
         // 越早辨識執行環境，越不會在本機開啟時閃出好友門禁
@@ -1289,6 +1289,8 @@ body.report-open { overflow: hidden; }
 }
 
 </style>
+    <link rel="stylesheet" href="./brand-shell.css">
+    <link rel="stylesheet" href="./tool-ui.css">
 </head>
 
 <body class="auth-locked">
@@ -1336,11 +1338,33 @@ body.report-open { overflow: hidden; }
                     若使用 LINE 內建瀏覽器無法返回，請改以 Chrome 或 Safari 開啟本頁。
                     本機下載檔案與 localhost 預覽不啟用此門禁。
                 </div>
+                <nav class="hg-gate-links" aria-label="其他服務入口">
+                    <a href="https://homegoestate.github.io/anxin-city/" target="_blank" rel="noopener noreferrer">回安心城</a>
+                    <a href="https://homegoestate.github.io/" target="_blank" rel="noopener noreferrer">公司官網</a>
+                </nav>
             </section>
         </div>
     </div>
 
     <div id="app" v-cloak>
+        <div class="hg-global">
+            <div class="hg-global-top">
+                <a class="hg-global-brand" href="https://homegoestate.github.io/" target="_blank" rel="noopener noreferrer">
+                    <span class="hg-global-mark" aria-hidden="true">HG</span>
+                    <span><strong>宏國・易丞</strong><small>不動產安心服務</small></span>
+                </a>
+                <nav class="hg-global-actions" aria-label="宏國服務入口">
+                    <a href="https://homegoestate.github.io/anxin-city/" target="_blank" rel="noopener noreferrer">回安心城</a>
+                    <a href="https://homegoestate.github.io/" target="_blank" rel="noopener noreferrer">公司官網</a>
+                    <a href="https://line.me/R/ti/p/%40604gpqef" target="_blank" rel="noopener noreferrer">官方 LINE</a>
+                </nav>
+            </div>
+            <nav class="hg-tool-nav" aria-label="不動產試算工具">
+                <a href="https://yangceo-taiwan.github.io/loan-forecast/" target="_blank" rel="noopener noreferrer" aria-current="page">房貸規劃</a>
+                <a href="https://homegoestate.github.io/test-Property-tax/" target="_blank" rel="noopener noreferrer">賣屋實拿</a>
+                <a href="https://yangceo-taiwan.github.io/inheritance-tax-issues/" target="_blank" rel="noopener noreferrer">傳承稅務</a>
+            </nav>
+        </div>
         <div class="local-preview-ribbon">
             <i class="fa-solid fa-laptop-code"></i>
             本機預覽模式：已自動略過 LINE 好友驗證。上傳到 GitHub Pages 後會自動啟用門禁。
@@ -1349,13 +1373,7 @@ body.report-open { overflow: hidden; }
         <header class="app-header">
             <div class="header-inner">
                 <div class="header-top">
-                    <div class="brand-line">
-                        <div class="brand-mark">HG</div>
-                        <div>
-                            <div class="brand-title">宏國地政｜易丞地政</div>
-                            <div class="brand-subtitle">REAL ESTATE DECISION SYSTEM</div>
-                        </div>
-                    </div>
+                    <div class="header-section-label">房貸規劃</div>
 
                     <div class="header-actions">
                         <a class="header-link" href="https://www.facebook.com/062582589a/" target="_blank" rel="noopener">
@@ -1372,12 +1390,20 @@ body.report-open { overflow: hidden; }
 
                 <div class="hero">
                     <div>
-                        <div class="hero-kicker">PURCHASE FINANCE COMMAND CENTER</div>
-                        <h1>購屋資金不是只看「貸得到多少」，更要看能不能長期安全持有。</h1>
+                        <div class="hero-kicker">購屋前，先把資金算清楚</div>
+                        <h1>能貸多少，月付多少？</h1>
                         <p>
-                            一次整合一般銀行額度、公股銀行180%收支比、精算月付、保人缺口，
-                            以及新青安3.0資格、政策額度與3＋3利率現金流。
+                            從收入與負債開始，查看額度、每月還款和保人收入缺口。
+                            也可切換新青安3.0，逐步確認資格條件與利率現金流。
                         </p>
+                        <nav class="tool-route" aria-label="從安心城到實際試算的使用路徑">
+                            <ol>
+                                <li><span aria-hidden="true">1</span><a href="https://homegoestate.github.io/anxin-city/" target="_blank" rel="noopener noreferrer">安心城練習</a></li>
+                                <li><span aria-hidden="true">2</span><a href="#workspace-top">用自己的條件試算</a></li>
+                                <li><span aria-hidden="true">3</span><a href="https://line.me/R/ti/p/%40604gpqef" target="_blank" rel="noopener noreferrer">帶著問題回 LINE</a></li>
+                            </ol>
+                            <p>安心城的遊戲數字不會自動套入本工具；請依自己的實際條件填寫。</p>
+                        </nav>
                     </div>
 
                 </div>
@@ -1395,44 +1421,44 @@ body.report-open { overflow: hidden; }
                     </button>
                 </div>
                 <div class="mobile-tabs">
-                    <button :class="{active: activeTab==='quick'}" @click="switchTab('quick')">快速評估</button>
-                    <button :class="{active: activeTab==='detail'}" @click="switchTab('detail')">月付／保人</button>
+                    <button :class="{active: activeTab==='quick'}" @click="switchTab('quick')">能貸多少</button>
+                    <button :class="{active: activeTab==='detail'}" @click="switchTab('detail')">月付多少</button>
                     <button :class="{active: activeTab==='chingan'}" @click="switchTab('chingan')">新青安3.0</button>
-                    <button :class="{active: activeTab==='knowledge'}" @click="switchTab('knowledge')">政策資料</button>
+                    <button :class="{active: activeTab==='knowledge'}" @click="switchTab('knowledge')">政策說明</button>
                 </div>
             </div>
 
             <div class="workspace-grid">
                 <aside class="sidebar">
-                    <div class="nav-label">評估流程</div>
+                    <div class="nav-label">先選想釐清的問題</div>
 
                     <button class="tab-btn" :class="{active: activeTab==='quick'}" @click="switchTab('quick')">
                         <span class="tab-icon"><i class="fa-solid fa-gauge-high"></i></span>
-                        <span class="tab-copy"><b>快速額度評估</b><span>收入、負債與最高額度</span></span>
+                        <span class="tab-copy"><b>我大約能貸多少？</b><span>收入、扶養與既有負債</span></span>
                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
                     </button>
 
                     <button class="tab-btn" :class="{active: activeTab==='detail'}" @click="switchTab('detail')">
                         <span class="tab-icon"><i class="fa-solid fa-calculator"></i></span>
-                        <span class="tab-copy"><b>月付與保人</b><span>本息精算與收入缺口</span></span>
+                        <span class="tab-copy"><b>每月付得起嗎？</b><span>月付金與保人收入缺口</span></span>
                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
                     </button>
 
                     <button class="tab-btn" :class="{active: activeTab==='chingan'}" @click="switchTab('chingan')">
                         <span class="tab-icon"><i class="fa-solid fa-house-circle-check"></i></span>
-                        <span class="tab-copy"><b>新青安3.0</b><span>資格、額度與3＋3利率</span></span>
+                        <span class="tab-copy"><b>新青安3.0怎麼估？</b><span>資格、額度與3＋3利率</span></span>
                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
                     </button>
 
                     <button class="tab-btn" :class="{active: activeTab==='knowledge'}" @click="switchTab('knowledge')">
                         <span class="tab-icon"><i class="fa-solid fa-book-open"></i></span>
-                        <span class="tab-copy"><b>政策與說明</b><span>規則、圖卡與常見問題</span></span>
+                        <span class="tab-copy"><b>政策依據怎麼看？</b><span>規則、圖卡與常見問題</span></span>
                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
                     </button>
 
                     <div class="sidebar-cta">
                         <b>第一次操作？</b>
-                        <span>可先載入一組示範資料，立即查看整套試算結果與新版畫面。</span>
+                        <span>先用示範資料熟悉操作。正式評估請重設後，改填自己的條件。</span>
                         <button type="button" @click="fillDemo"><i class="fa-solid fa-wand-magic-sparkles"></i> 帶入示範資料</button>
                     </div>
                 </aside>
@@ -1445,8 +1471,8 @@ body.report-open { overflow: hidden; }
                                 <div class="panel-title">
                                     <div class="panel-icon"><i class="fa-solid fa-user-check"></i></div>
                                     <div>
-                                        <h2>客戶與購屋背景</h2>
-                                        <p>先完成基本資料，系統才有足夠資訊判斷銀行承作空間。</p>
+                                        <h2>先算：我大約能貸多少？</h2>
+                                        <p>填入收入、既有負債與購屋背景，比較不同假設下的額度估算。</p>
                                     </div>
                                 </div>
                                 <span class="panel-badge">STEP 01</span>
@@ -1537,8 +1563,8 @@ body.report-open { overflow: hidden; }
                                 <div class="panel-title">
                                     <div class="panel-icon"><i class="fa-solid fa-chart-column"></i></div>
                                     <div>
-                                        <h2>最高貸款額度儀表板</h2>
-                                        <p>同時看穩健值、市場極限與公股銀行嚴格收支比。</p>
+                                        <h2>比較不同條件下的額度</h2>
+                                        <p>把穩健值、市場極限與公股銀行收支比放在一起看。</p>
                                     </div>
                                 </div>
                                 <span class="panel-badge">STEP 02</span>
@@ -1581,7 +1607,7 @@ body.report-open { overflow: hidden; }
                             </div>
 
                             <div class="formula-note">
-                                原有公式維持不動：55%／70%額度以每百萬元月付4,000元為主；
+                                試算假設：55%／70%額度以每百萬元月付4,000元為主；
                                 4,100元為較高利率環境的進階估算；公股銀行依月收÷（負債＋生活費＋房貸）≧180%估算。
                             </div>
                         </div>
@@ -1594,8 +1620,8 @@ body.report-open { overflow: hidden; }
                                 <div class="panel-title">
                                     <div class="panel-icon"><i class="fa-solid fa-calculator"></i></div>
                                     <div>
-                                        <h2>精算月付與保人收入缺口</h2>
-                                        <p>使用本息平均攤還公式，直接判斷借款人是否需要補強收入或徵提保人。</p>
+                                        <h2>每月要付多少，收入夠不夠？</h2>
+                                        <p>輸入貸款金額、年限與利率，比較月付金和保人收入缺口。</p>
                                     </div>
                                 </div>
                                 <span class="panel-badge">PMT 精算</span>
@@ -1672,7 +1698,7 @@ body.report-open { overflow: hidden; }
                                 <summary>查看保人收入缺口公式</summary>
                                 <div class="details-body">
                                     （精算房貸月付＋借款人負債＋保人負債）÷收支比－借款人收入＝保人月收缺口。
-                                    系統原有50%穩健值與60%極限值計算均完整保留。
+                                    本頁分別以50%穩健值與60%極限值估算。
                                 </div>
                             </details>
                         </div>
@@ -1680,6 +1706,11 @@ body.report-open { overflow: hidden; }
 
                     <!-- 青安3.0 -->
                     <div v-show="activeTab==='chingan'" class="chingan-page">
+                        <div class="tool-question">
+                            <span>新青安評估</span>
+                            <h2>資格、額度、月付，分開確認</h2>
+                            <p>先填資格與房價條件，再看額度及還款試算；需要討論個案時，可從下方預覽本次評估。</p>
+                        </div>
                         <div class="chingan-mobile-overview">
                             <div>
                                 <span>資格狀態</span>
@@ -1931,7 +1962,7 @@ body.report-open { overflow: hidden; }
                                 <div class="rate-node"><b>{{ Number(chinganOriginalRate || 0).toFixed(3) }}%</b><span>第7年起</span></div>
                             </div>
 
-                            <p class="table-hint">完整年度現金流：窄螢幕可在表格內左右滑動查看。</p><div class="table-wrap" tabindex="0" role="region" aria-label="年度還款明細，可左右捲動">
+                            <p class="table-hint">年度現金流明細：窄螢幕可在表格內左右滑動查看。</p><div class="table-wrap" tabindex="0" role="region" aria-label="年度還款明細，可左右捲動">
                                 <table>
                                     <thead>
                                         <tr>
@@ -1982,6 +2013,11 @@ body.report-open { overflow: hidden; }
 
                     <!-- 政策資料與圖卡 -->
                     <div v-show="activeTab==='knowledge'">
+                        <div class="tool-question">
+                            <span>政策閱讀</span>
+                            <h2>先看規則，再核對自己的條件</h2>
+                            <p>以下保留政策重點、圖卡與常見問題。申貸時仍須核對最新公告及承貸銀行的個案審核條件。</p>
+                        </div>
                         <div class="panel">
                             <div class="panel-heading">
                                 <div class="panel-title">
